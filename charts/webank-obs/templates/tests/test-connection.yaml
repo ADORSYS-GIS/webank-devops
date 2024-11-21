@@ -1,15 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "webank-obs.fullname" . }}-test-connection"
-  labels:
-    {{- include "webank-obs.labels" . | nindent 4 }}
-  annotations:
-    "helm.sh/hook": test
+  name: test-connection
 spec:
   containers:
-    - name: wget
-      image: busybox
-      command: ['wget']
-      args: ['{{ include "webank-obs.fullname" . }}:{{ .Values.service.port }}']
-  restartPolicy: Never
+  - name: curl
+    image: curlimages/curl
+    command:
+      - "curl"
+      - "http://{{ .Release.Name }}:80"
