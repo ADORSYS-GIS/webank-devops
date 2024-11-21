@@ -1,0 +1,15 @@
+app:
+  name: webank-obs
+
+replicaCount: 2
+
+image:
+  repository: ghcr.io/adorsys-gis/webank-online-banking
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 80
+
+imagePullSecrets:
+  - name: ghcr-secret

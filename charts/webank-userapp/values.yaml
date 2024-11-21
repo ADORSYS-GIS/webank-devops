@@ -1,0 +1,15 @@
+app:
+  name: webank-userapp
+
+replicaCount: 2
+
+image:
+  repository: ghcr.io/adorsys-gis/webank-userapp
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 80
+
+imagePullSecrets:
+  - name: ghcr-secret
