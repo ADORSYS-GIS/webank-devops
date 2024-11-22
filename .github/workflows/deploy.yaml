@@ -8,7 +8,7 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    working-directory: ./terraform
+    run tasks: cd terraform
 
     steps:
       - name: Checkout Code
