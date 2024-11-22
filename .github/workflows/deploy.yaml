@@ -8,6 +8,7 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    working-directory: ./terraform
 
     steps:
       - name: Checkout Code
@@ -35,6 +36,5 @@ jobs:
         run: cd terraform && terraform plan -out=plan.tfplan
 
       - name: Terraform Apply
-        if: github.ref_name == 'setup-workflow'
         run: cd terraform && terraform apply -auto-approve plan.tfplan
 
