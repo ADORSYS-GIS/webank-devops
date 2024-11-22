@@ -25,19 +25,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
-      - name: Set Terraform Variables
+      - name: Set DB Password and Username as Environment Variables
         run: |
-          echo "TF_VAR_db_password=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "TF_VAR_db_password=${{ secrets.db_password }}" >> $GITHUB_ENV
           echo "TF_VAR_db_username=${{ secrets.DB_USERNAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init
+        run: cd terraform && terraform init
 
       - name: Terraform Validate
-        run: terraform validate
+        run: cd terraform && terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -out=plan.tfplan
+        run: cd terraform && terraform plan -out=plan.tfplan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve plan.tfplan
+        run: cd terraform && terraform apply -auto-approve plan.tfplan
