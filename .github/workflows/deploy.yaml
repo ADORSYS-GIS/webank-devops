@@ -32,9 +32,9 @@ jobs:
         run: cd terraform && terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -out=plan.tfplan
+        run: cd terraform && terraform plan -out=plan.tfplan
 
       - name: Terraform Apply
         if: github.ref_name == 'setup-workflow'
-        run: terraform apply -auto-approve plan.tfplan
+        run: cd terraform && terraform apply -auto-approve plan.tfplan
 
