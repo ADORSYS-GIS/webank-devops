@@ -3,7 +3,7 @@ name: Terraform Deployment
 on:
   push:
     branches:
-      - main # Trigger on pushes to the main branch
+      - setup-workflow
 
 jobs:
   terraform:
@@ -18,12 +18,15 @@ jobs:
         with:
           terraform_version: 1.9.8
 
-      - name: Configure Cloud Credentials
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID && \
-          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Terraform Validate
+        run: terraform validate
 
       - name: Terraform Init
         run: terraform init
@@ -32,5 +35,6 @@ jobs:
         run: terraform plan -out=plan.tfplan
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
+        if: github.ref_name == 'setup-workflow'
         run: terraform apply -auto-approve plan.tfplan
+
