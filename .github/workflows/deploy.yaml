@@ -25,11 +25,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
-      - name: Terraform Validate
-        run: cd terraform && terraform validate
-
       - name: Terraform Init
         run: cd terraform && terraform init
+
+      - name: Terraform Validate
+        run: cd terraform && terraform validate
 
       - name: Terraform Plan
         run: terraform plan -out=plan.tfplan
