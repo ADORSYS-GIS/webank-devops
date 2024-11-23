@@ -4,7 +4,7 @@ provider "aws" {
 
 # Local variables for cluster, region, and network configurations
 locals {
-  name   = "ariel-cluster"
+  name   = "webank-cluster"
   region = "eu-central-1"
   vpc_cidr = "10.123.0.0/16"
   azs      = ["eu-central-1a", "eu-central-1b"]
@@ -42,7 +42,7 @@ module "eks" {
 
   # Managed Node Group configuration
   eks_managed_node_groups = {
-    ariel-cluster-wg = {
+    webank-cluster-wg = {
       min_size     = 1
       max_size     = 2
       desired_size = 1
@@ -62,7 +62,7 @@ resource "aws_security_group" "rds_sg" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = local.private_subnets
+    cidr_blocks = module.vpc.private_subnets
   }
 
   # Egress rule allows all outbound traffic
@@ -92,7 +92,7 @@ module "rds" {
   # DB parameter group
   family = "postgres17"
 
-vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
   subnet_ids = module.vpc.private_subnets
   storage_encrypted = true
   backup_retention_period = 7
