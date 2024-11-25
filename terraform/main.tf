@@ -44,9 +44,9 @@ module "eks" {
   eks_managed_node_groups = {
     webank-cluster-wg = {
       min_size     = 1
-      max_size     = 2
-      desired_size = 1
-      instance_types = ["t3.large"]
+      max_size     = 3
+      desired_size = 2
+      instance_types = ["t3.large"] // we will chang this later to medium or small
       capacity_type  = "SPOT"  
     }
   }
