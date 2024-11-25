@@ -2,7 +2,7 @@ module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name        = "${var.name}-sg"
+  name        = "${local.name}-sg"
   description = "Complete PostgreSQL example security group"
   vpc_id = module.vpc.vpc_id
 
@@ -27,12 +27,12 @@ module "rds" {
   source  = "terraform-aws-modules/rds/aws"
   version = "~> 5.0"
 
-  identifier          = "${var.name}-db"
+  identifier          = "${local.name}-db"
   engine              = "postgres"
   engine_version      = "17.2"
-  instance_class      = "db.t3.medium"
+  instance_class      = var.db_instance
   allocated_storage   = 10
-  db_name             = var.name
+  db_name             = replace(local.name, "-", "_")
   username            = var.db_username
   password            = var.db_password
   publicly_accessible = false
@@ -42,5 +42,18 @@ module "rds" {
   vpc_security_group_ids = [module.security_group.security_group_id]
   db_subnet_group_name    = module.vpc.database_subnet_group
   storage_encrypted       = true
-  backup_retention_period = 7
+  backup_retention_period = var.db_backup_retention_period
+
+  skip_final_snapshot = var.db_skip_final_snapshot
+  deletion_protection = !var.db_skip_final_snapshot
+
+  create_db_subnet_group = false
+  create_random_password = false
+
+  create_cloudwatch_log_group = false
+
+  tags = merge(
+    local.tags,
+    {}
+  )
 }

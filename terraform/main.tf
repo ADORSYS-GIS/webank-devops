@@ -3,10 +3,11 @@ provider "aws" {
 }
 
 locals {
+  name     = "webank-${var.name}"
   azs_count = length(var.azs)
-  azs      = var.azs
+  azs = var.azs
   tags = {
-    Owner       = var.name,
+    Owner       = local.name,
     Environment = var.environment
   }
 }
