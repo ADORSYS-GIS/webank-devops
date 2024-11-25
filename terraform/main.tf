@@ -52,6 +52,16 @@ module "eks" {
   }
 }
 
+# DB Subnet Group: Creates a subnet group for RDS with at least two subnets
+resource "aws_db_subnet_group" "postgresql_subnet_group" {
+  name       = "postgresql-subnet-group"
+  subnet_ids = module.vpc.private_subnets  # Private subnets in the VPC
+
+  tags = {
+    Name = "PostgreSQL subnet group"
+  }
+}
+
 # Security Group for RDS: Allows access to the RDS instance from private subnets
 resource "aws_security_group" "rds_sg" {
   name_prefix = "rds-sg-"
@@ -62,7 +72,7 @@ resource "aws_security_group" "rds_sg" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = module.vpc.private_subnets
+    cidr_blocks = local.private_subnets  # Correctly reference private subnets CIDR blocks
   }
 
   # Egress rule allows all outbound traffic
@@ -93,7 +103,7 @@ module "rds" {
   family = "postgres17"
 
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
-  subnet_ids = module.vpc.private_subnets
+  db_subnet_group_name   = aws_db_subnet_group.postgresql_subnet_group.name  # Use DB subnet group here
   storage_encrypted = true
   backup_retention_period = 7
 }

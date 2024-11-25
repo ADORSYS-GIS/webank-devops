@@ -1,9 +1,8 @@
 name: Terraform Deployment
 
 on:
-  push:
-    branches:
-      - setup-workflow
+  # Enable manual trigger only
+  workflow_dispatch:
 
 jobs:
   terraform:
