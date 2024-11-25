@@ -3,11 +3,22 @@ kind: Ingress
 metadata:
   name: webank-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/listen-ports: |
+      [
+        { "HTTP": 80 },
+        { "HTTPS": 443 }
+      ]
+    alb.ingress.kubernetes.io/load-balancer-name: webank-lb
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-central-1:571075516563:certificate/f839eb2b-d11f-4272-bcf2-1b37b1013dd7
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/target-type: 'ip'
+
 spec:
   ingressClassName: nginx
   rules:
-    - http:
+    - host: dev.webank.gis.ssegning.com
+      http:
         paths:
           - path: /
             pathType: Prefix
