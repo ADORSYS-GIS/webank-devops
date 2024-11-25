@@ -1,6 +1,5 @@
 app:
   name: webank-obs
-
 replicaCount: 2
 
 image:
@@ -8,8 +7,18 @@ image:
   tag: latest
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
+  targetPort: 8080
 
-imagePullSecrets:
-  - name: ghcr-secret
+
+
+serviceAccount:
+  create: false
+  name: ""
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
