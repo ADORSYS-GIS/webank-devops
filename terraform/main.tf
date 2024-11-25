@@ -3,9 +3,10 @@ provider "aws" {
 }
 
 locals {
-  vpc_cidr = var.vpc_cidr
+  azs_count = length(var.azs)
   azs      = var.azs
-  public_subnets  = var.public_subnets
-  private_subnets = var.private_subnets
-  intra_subnets   = var.intra_subnets
+  tags = {
+    Owner       = var.name,
+    Environment = var.environment
+  }
 }

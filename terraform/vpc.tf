@@ -2,12 +2,13 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 4.0"
 
-  name           = var.name
+  name           = "${var.name}-vpc"
   cidr           = var.vpc_cidr
   azs            = var.azs
-  private_subnets = var.private_subnets
-  public_subnets  = var.public_subnets
-  intra_subnets   = var.intra_subnets
+
+  public_subnets   = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k)]
+  private_subnets  = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + local.azs_count)]
+  database_subnets = [for k, v in local.azs : cidrsubnet(var.vpc_cidr, 8, k + 2 * local.azs_count)]
 
   enable_nat_gateway = true
 }
