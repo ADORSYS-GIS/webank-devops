@@ -3,7 +3,8 @@ provider "aws" {
 }
 
 locals {
-  name   = "ariel-cluster"
+  name   = "webank-cluster"
+  vpc = "webank-vpc"
   region = "eu-central-1"
 
   vpc_cidr = "10.123.0.0/16"
@@ -19,7 +20,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 4.0"
 
-  name = local.name
+  name = local.vpc
   cidr = local.vpc_cidr
 
   azs             = local.azs

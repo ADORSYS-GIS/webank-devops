@@ -29,3 +29,4 @@ terraform.rc
 charts/*/charts
 
 .idea
+webank-userapp-0.1.0.tgz
