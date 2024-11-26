@@ -10,7 +10,8 @@ This Terraform configuration creates a basic AWS EKS cluster with the following 
 
 0. Create args for your tf command:
    ```shell
-   export TF_VAR_db_password="db_username"
+   export TF_VAR_db_username="db_username"
+   export TF_VAR_db_password="db_username_password123"
    export TF_VAR_name="selast-test-me"
    export TF_VAR_region="eu-central-1"
    export TF_VAR_azs='["eu-central-1a", "eu-central-1b"]'
