@@ -1,7 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
 locals {
   name     = "webank-${var.name}"
   azs_count = length(var.azs)

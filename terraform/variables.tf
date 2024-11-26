@@ -80,3 +80,29 @@ variable "db_skip_final_snapshot" {
   type        = bool
   default     = true
 }
+
+variable "zone_name" {
+  description = "The name of the Route 53 zone"
+  type        = string
+  default     = "apple.banana.miaou"
+}
+
+variable "cert_arn" {
+  description = "The ARN of the SSL certificate"
+  type        = string
+}
+
+variable "oidc_kc_client_id" {
+  description = "The client ID for the OIDC provider"
+  type        = string
+}
+
+variable "oidc_kc_client_secret" {
+  description = "The client secret for the OIDC provider"
+  type        = string
+}
+
+variable "oidc_kc_issuer_url" {
+  description = "The issuer URL for the OIDC provider"
+  type        = string
+}
