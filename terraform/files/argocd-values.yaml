@@ -38,6 +38,8 @@ configs:
   rbac:
     policy.csv: |
       g, ArgoCDAdmins, role:admin
+      g, ArgoCDViewer, role:readonly
+    #
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
     # Role definitions and bindings are in the form:

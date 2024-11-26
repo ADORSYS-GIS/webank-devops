@@ -4,12 +4,11 @@ module "eks" {
 
   cluster_name                   = "${local.name}-eks"
   cluster_endpoint_public_access = true
-
-  vpc_id                   = module.vpc.vpc_id
-  subnet_ids               = module.vpc.private_subnets
-  control_plane_subnet_ids = module.vpc.intra_subnets
-
-  create_cloudwatch_log_group = false
+  enable_efa_support             = true
+  vpc_id                         = module.vpc.vpc_id
+  subnet_ids                     = module.vpc.private_subnets
+  control_plane_subnet_ids       = module.vpc.intra_subnets
+  create_cloudwatch_log_group    = false
 
   eks_managed_node_groups = {
     webank-cluster-wg = {
@@ -27,7 +26,8 @@ module "eks" {
   tags = merge(
     local.tags,
     {
-      "kubernetes.io/cluster/${local.name}-eks" = "shared"
+      "kubernetes.io/cluster/${local.name}-eks" = "shared",
+      "kubernetes.io/cluster-service"           = "true"
     }
   )
 }

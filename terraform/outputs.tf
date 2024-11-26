@@ -7,3 +7,7 @@ output "eks_cluster_endpoint" {
   description = "The endpoint URL of the EKS cluster"
   value       = module.eks.cluster_endpoint
 }
+
+output "argocd_server_url" {
+  value = "https://${local.name}-argocd.${var.zone_name}"
+}

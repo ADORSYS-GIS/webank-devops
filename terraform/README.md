@@ -10,11 +10,11 @@ This Terraform configuration creates a basic AWS EKS cluster with the following 
 
 0. Create args for your tf command:
    ```shell
-   export TF_VAR_cert_arn="arn:aws:acm:eu-central-1:571075516563:certificate/f839eb2b-d11f-4272-bcf2-1b37b1013dd7"
+   export TF_VAR_cert_arn="arn:aws:acm:eu-central-1:571075516563:certificate/38142a7c-8878-457a-94ac-6994193e8e05"
    export TF_VAR_oidc_kc_client_id="webank-argocd-dev"
    export TF_VAR_oidc_kc_client_secret="6nKSCC73JxOhkxlAy6eLQvQleWZeaTIW"
-   export TF_VAR_oidc_kc_issuer_url="https://accounts.ssegning.com/auth/realms/konk"
-   export TF_VAR_zone_name="gis.ssegning.com"
+   export TF_VAR_oidc_kc_issuer_url="https://accounts.ssegning.com/realms/konk"
+   export TF_VAR_zone_name="dev.webank.gis.ssegning.com"
    export TF_VAR_db_username="db_username"
    export TF_VAR_db_password="db_username_password123"
    export TF_VAR_name="selast-test-me"
