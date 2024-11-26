@@ -7,13 +7,28 @@ This Terraform configuration creates a basic AWS EKS cluster with the following 
 
 ## Steps to Run
 
+
+0. Create args for your tf command:
+   ```shell
+   export TF_VAR_db_password="db_username"
+   export TF_VAR_name="selast-test-me"
+   export TF_VAR_region="eu-central-1"
+   export TF_VAR_azs='["eu-central-1a", "eu-central-1b"]'
+   ```
+
 1. Initialize Terraform:  
-   `terraform init`
+   ```shell
+   terraform init
+   ```
 
-2. Plan the Terraform configuration:  
-   `terraform plan`
+2. Plan the Terraform configuration:
+   ```shell
+   terraform plan
+   ```
 
-3. Apply the configuration:  
-   `terraform apply`
+3. Apply the configuration:
+   ```shell
+   terraform apply
+   ```
 
-5. Use `kubectl` to interact with the cluster.
+4. Use `kubectl` to interact with the cluster.
