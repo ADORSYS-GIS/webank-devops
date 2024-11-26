@@ -8,4 +8,4 @@ spec:
     image: curlimages/curl
     command:
       - "curl"
-      - "http://{{ .Release.Name }}:80"
+      - "http://{{ .Release.Name }}:8080/actuator/health"
