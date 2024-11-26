@@ -9,6 +9,8 @@ module "eks" {
   subnet_ids               = module.vpc.private_subnets
   control_plane_subnet_ids = module.vpc.intra_subnets
 
+  create_cloudwatch_log_group = false
+
   eks_managed_node_groups = {
     webank-cluster-wg = {
 
@@ -32,7 +34,7 @@ module "eks" {
 }
 
 module "eks_blueprints_addons" {
-  source = "aws-ia/eks-blueprints-addons/aws"
+  source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.0"
 
   depends_on = [module.eks]
