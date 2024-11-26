@@ -108,7 +108,7 @@ module "eks_blueprints_addons" {
     namespace     = "argocd"
     values = [
       templatefile("${path.module}/files/argocd-values.yaml", {
-        domain                = "${local.argocdDomain}",
+        domain                = local.argocdDomain,
         name                  = local.name,
         certArn               = var.cert_arn,
         oidc_kc_client_id     = var.oidc_kc_client_id,

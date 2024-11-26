@@ -38,3 +38,21 @@ This Terraform configuration creates a basic AWS EKS cluster with the following 
    ```
 
 4. Use `kubectl` to interact with the cluster.
+
+## Check the terraform using tfsec and tflint
+```shell
+tfsec .
+tflint
+```
+
+To use those, you should install them first. You can install them using the following commands:
+```shell
+brew install tfsec
+brew install tflint
+```
+on macos or
+```shell
+curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+```
+on linux.
