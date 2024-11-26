@@ -1,0 +1,11 @@
+region                     = "eu-central-1"
+vpc_cidr                   = "15.15.0.0/16"
+db_username                = "admin-prod"
+environment                = "prod"
+eks_min_instance           = 1
+eks_max_instance           = 8
+eks_desired_instance       = 2
+db_backup_retention_period = 10
+db_skip_final_snapshot     = false
+azs = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
+eks_ec2_instance_types = ["t2.medium", "t2.large"]
