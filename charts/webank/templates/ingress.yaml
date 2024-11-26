@@ -15,7 +15,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: 'ip'
 
 spec:
-  ingressClassName: nginx
+  ingressClassName: alb
   rules:
     - host: dev.webank.gis.ssegning.com
       http:
@@ -24,13 +24,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: userapp
+                name: webank-userapp
                 port:
                   number: 80
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: obs
+                name: webank-obs
                 port:
                   number: 8080
