@@ -13,7 +13,6 @@ module "eks" {
 
   eks_managed_node_groups = {
     webank-cluster-wg = {
-
       name           = local.name
       min_size       = var.eks_min_instance
       max_size       = var.eks_max_instance
