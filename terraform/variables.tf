@@ -80,3 +80,9 @@ variable "db_skip_final_snapshot" {
     type        = bool
     default     = true
 }
+
+variable "access_entries_config" {
+    description = "The access entries configuration"
+    type        = map(string)
+    default     = {}
+}

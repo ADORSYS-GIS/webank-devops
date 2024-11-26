@@ -11,6 +11,8 @@ module "eks" {
 
   eks_managed_node_groups = {
     webank-cluster-wg = {
+
+      name           = local.name
       min_size       = var.eks_min_instance
       max_size       = var.eks_max_instance
       desired_size   = var.eks_desired_instance
@@ -18,6 +20,8 @@ module "eks" {
       capacity_type  = "SPOT"
     }
   }
+
+  enable_cluster_creator_admin_permissions = true
 
   tags = merge(
     local.tags,
@@ -28,8 +32,10 @@ module "eks" {
 }
 
 module "eks_blueprints_addons" {
-  source  = "aws-ia/eks-blueprints-addons/aws"
+  source = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.0"
+
+  depends_on = [module.eks]
 
   cluster_name      = module.eks.cluster_name
   cluster_endpoint  = module.eks.cluster_endpoint
@@ -49,6 +55,30 @@ module "eks_blueprints_addons" {
   }
 
   enable_aws_load_balancer_controller = true
+  aws_load_balancer_controller = {
+    set = [
+      {
+        name  = "vpcId"
+        value = module.vpc.vpc_id
+      },
+      {
+        name  = "enableServiceMutatorWebhook"
+        value = "false"
+      },
+      {
+        name  = "podDisruptionBudget.maxUnavailable"
+        value = 1
+      },
+      {
+        name  = "resources.requests.cpu"
+        value = "100m"
+      },
+      {
+        name  = "resources.requests.memory"
+        value = "128Mi"
+      },
+    ]
+  }
 
   tags = merge(
     local.tags,
