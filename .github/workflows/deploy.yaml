@@ -12,18 +12,49 @@ defaults:
     working-directory: ./terraform
 
 jobs:
-  build-and-deploy:
+  checks:
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ matrix.env }}
     strategy:
       matrix:
-        env: [dev, prod]
+        checks: [tfsec, tflint]
+        include:
+          - checks: tfsec
+            commands: |
+              curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+              tfsec .
+          - checks: tflint
+            commands: |
+              curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+              tflint --init
+              tflint
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.9.8
+
+      - name: Do checks
+        run: ${{ matrix.commands }}
+
+  deploy:
+    needs:
+      - checks
+    description: "Deploy to AWS"
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ matrix.name }}
+      url: https://${{ env.DOMAIN_NAME }}
+    strategy:
+      matrix:
+        env:
+          - dev
         include:
           - env: dev
-            DB_USERNAME: ${{ secrets.DB_USERNAME_DEV }}
-          - env: prod
-            DB_USERNAME: ${{ secrets.DB_USERNAME_PROD }}
+            name: development
+            description: "Deploy to Dev Environment"
 
     steps:
       - name: Checkout Code
@@ -34,34 +65,25 @@ jobs:
         with:
           terraform_version: 1.9.8
 
-      - name: Install tfsec
-        run: |
-          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/main/scripts/install.sh | bash
-
-      - name: Run tfsec
-        run: |
-          tfsec .
-
-      - name: Install tflint
-        run: |
-          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install.sh | bash
-
-      - name: Run tflint
-        run: |
-          tflint --init
-          tflint
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Set DB Password and Username as Environment Variables
         run: |
-          echo "TF_VAR_db_password=${{ secrets.db_password }}" >> $GITHUB_ENV
-          echo "TF_VAR_db_username=${{ matrix.DB_USERNAME }}" >> $GITHUB_ENV
+          echo "TF_VAR_name=${{ matrix.env }}-cluster" >> $GITHUB_ENV
+          echo "TF_VAR_db_username=${{ env.DB_USERNAME }}" >> $GITHUB_ENV
+          echo "TF_VAR_db_password=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+          echo "TF_VAR_oidc_kc_client_id=${{ env.OIDC_KC_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "TF_VAR_oidc_kc_client_secret=${{ secrets.OIDC_KC_CLIENT_SECRET }}" >> $GITHUB_ENV
+          echo "TF_VAR_oidc_kc_issuer_url=${{ env.OIDC_KC_ISSUER_URL }}" >> $GITHUB_ENV
+          echo "TF_VAR_cert_arn=${{ env.CERT_ARN }}" >> $GITHUB_ENV
+          echo "TF_VAR_region=${{ env.AWS_REGION }}" >> $GITHUB_ENV
+          echo "TF_VAR_azs=${{ env.AWS_AVAILABLE_ZONES }}" >> $GITHUB_ENV
+          echo "TF_VAR_zone_name=${{ env.DOMAIN_NAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
         run: terraform init -var-file=${{ matrix.env }}.tfvars

@@ -1,5 +1,5 @@
-region                     = "eu-west-1"
 vpc_cidr                   = "12.34.0.0/16"
+name                       = "dev-cluster"
 db_username                = "admin"
 environment                = "dev"
 eks_min_instance           = 1
@@ -7,5 +7,5 @@ eks_max_instance           = 3
 eks_desired_instance       = 2
 db_backup_retention_period = null
 db_skip_final_snapshot     = true
-azs = ["eu-west-1a", "eu-west-1b"]
-eks_ec2_instance_types = ["t2.medium"]
+zone_name                  = "dev.webank.gis.ssegning.com"
+eks_ec2_instance_types = ["t2.nano", "t2.medium", "t2.large"]
