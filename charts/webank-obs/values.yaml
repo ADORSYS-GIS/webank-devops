@@ -9,7 +9,4 @@ image:
 
 service:
   type: ClusterIP
-  port: 80
-
-imagePullSecrets:
-  - name: ghcr-secret
+  port: 8080

@@ -1,0 +1,11 @@
+obs:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+
+userapp:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
