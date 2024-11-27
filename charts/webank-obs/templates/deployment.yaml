@@ -20,5 +20,4 @@ spec:
           #     value: /api 
           ports:
             - containerPort: 8080
-      imagePullSecrets:
-        - name: {{ .Values.imagePullSecrets.name }}
+     
