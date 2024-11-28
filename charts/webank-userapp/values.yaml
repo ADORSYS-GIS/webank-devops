@@ -12,4 +12,6 @@ service:
   type: ClusterIP
   port: 80
 
+viteBackendUrl: /api
+
 

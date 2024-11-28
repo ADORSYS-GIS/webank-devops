@@ -15,6 +15,9 @@ spec:
       containers:
         - name: {{ .Values.app.name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          env:
+            - name: VITE_BACKEND_URL
+              value: {{ .Values.viteBackendUrl }}
           ports:
             - containerPort: 80
       
