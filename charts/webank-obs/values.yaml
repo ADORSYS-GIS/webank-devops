@@ -10,3 +10,14 @@ image:
 service:
   type: ClusterIP
   port: 8080
+
+# H2 Database Configuration
+h2:
+  enabled: true
+  consolePath: "/h2-console"
+  datasource:
+    url: "jdbc:h2:mem:testdb"
+    driverClassName: "org.h2.Driver"
+    username: "sa"
+    password: ""
+  ddlAuto: "update"

@@ -17,7 +17,22 @@ spec:
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           # env:
           #   - name: SERVER_SERVLET_CONTEXTPATH
-          #     value: /api 
+          #     value: /api
+          env:
+            - name: SPRING_H2_CONSOLE_ENABLED
+              value: "{{ .Values.h2.enabled | quote }}"
+            - name: SPRING_H2_CONSOLE_PATH
+              value: "{{ .Values.h2.consolePath }}"
+            - name: SPRING_DATASOURCE_URL
+              value: "{{ .Values.h2.datasource.url }}"
+            - name: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+              value: "{{ .Values.h2.datasource.driverClassName }}"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "{{ .Values.h2.datasource.username }}"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "{{ .Values.h2.datasource.password }}"
+            - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+              value: "{{ .Values.h2.ddlAuto }}"
           ports:
             - containerPort: 8080
      
