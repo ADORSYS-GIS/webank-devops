@@ -1,11 +1,15 @@
 obs:
   service:
-    type: ClusterIP
+    name: webank-obs
+    port: 8080
   ingress:
-    enabled: false
+    enabled: true
 
 userapp:
   service:
-    type: ClusterIP
+    name: webank-userapp
+    port: 80
   ingress:
-    enabled: false
+    enabled: true
+
+hostName: dev.webank.local
