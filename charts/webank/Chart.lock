@@ -1,9 +1,0 @@
-dependencies:
-- name: webank-obs
-  repository: file://../webank-obs
-  version: 0.1.0
-- name: webank-userapp
-  repository: file://../webank-userapp
-  version: 0.1.0
-digest: sha256:d9001513b9ea17e6fb43e5b270357903203e9c34eebf86068098c54600cda06b
-generated: "2024-11-23T15:40:41.262477+01:00"

@@ -33,3 +33,7 @@ dependencies:
     repository: "file://../webank-userapp"
     version: 0.1.0
     alias: userapp
+  - name: postgresql
+    repository: "https://charts.bitnami.com/bitnami"
+    version: 12.1.0
+    alias: db
