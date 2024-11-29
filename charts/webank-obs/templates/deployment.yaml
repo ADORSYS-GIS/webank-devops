@@ -15,9 +15,15 @@ spec:
       containers:
         - name: {{ .Values.app.name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          # env:
-          #   - name: SERVER_SERVLET_CONTEXTPATH
-          #     value: /api 
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "{{ .Values.database.user }}"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "{{ .Values.database.password }}"
+            - name: SPRING_PROFILES_ACTIVE
+              value: "{{ .Values.springBoot.profiles }}"
           ports:
             - containerPort: 8080
      

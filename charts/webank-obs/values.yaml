@@ -10,3 +10,13 @@ image:
 service:
   type: ClusterIP
   port: 8080
+
+database:
+  name: webank-db
+  host: webank-db
+  port: 5432
+  user: webank-user
+  password: user-password
+
+springBoot:
+  profiles: prod
