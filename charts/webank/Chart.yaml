@@ -27,7 +27,7 @@ appVersion: "1.16.0"
 dependencies:
   - name: webank-obs
     repository: "file://../webank-obs"
-    version: 0.1.0
+    version: 0.1.1
     alias: obs
   - name: webank-userapp
     repository: "file://../webank-userapp"
@@ -35,5 +35,6 @@ dependencies:
     alias: userapp
   - name: postgresql
     repository: "https://charts.bitnami.com/bitnami"
-    version: 12.1.0
+    version: 16.2.3
     alias: db
+    condition: db.enabled

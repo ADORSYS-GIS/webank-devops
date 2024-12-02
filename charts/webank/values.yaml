@@ -1,3 +1,5 @@
+hostname: webank.local
+
 obs:
   service:
     type: ClusterIP
@@ -9,3 +11,6 @@ userapp:
     type: ClusterIP
   ingress:
     enabled: false
+
+db:
+  enabled: false

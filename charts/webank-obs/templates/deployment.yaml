@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.app.name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -17,16 +18,15 @@ spec:
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           env:
             - name: SPRING_DATASOURCE_URL
-              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+              value: "{{ include "constant.db.url" $ }}"
             - name: SPRING_DATASOURCE_USERNAME
-              value: "{{ .Values.database.user }}"
+              value: "{{ include "common.tplvalues.render" (dict "value" .Values.database.user "context" $) }}"
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
-                  secretKeyRef:
-                    name: {{ .Values.database.secretName }}
-                    key: password
+                secretKeyRef:
+                  name: '{{ include "db.secret.name" $ }}'
+                  key: {{ .Values.database.secretKey }}
             - name: SPRING_PROFILES_ACTIVE
-              value: "{{ .Values.springBoot.profiles }}"
+              value: {{ include "common.tplvalues.render" (dict "value" .Values.springBoot.profiles "context" $) }}
           ports:
             - containerPort: 8080
-     

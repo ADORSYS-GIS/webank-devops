@@ -1,22 +1,24 @@
 app:
   name: webank-obs
 
-replicaCount: 2
+replicaCount: 1
 
 image:
   repository: ghcr.io/adorsys-gis/webank-online-banking
-  tag: latest
+  tag: 1.2.3
 
 service:
   type: ClusterIP
   port: 8080
 
 database:
-  name: webank-db
+  name: "{{ .Values.app.name }}-db"
   host: webank-db
   port: 5432
   user: webank-user
-  secretName: webank-db-secret
+  password: webank-password
+  secretName: ~
+  secretKey: password
 
 springBoot:
   profiles: prod
