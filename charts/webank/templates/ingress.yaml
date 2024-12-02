@@ -8,20 +8,20 @@ metadata:
 spec:
   ingressClassName: nginx 
   rules:
-    - host: {{ .Values.hostName | default "dev.webank.local" }}  
+    - host: {{ .Values.hostName }}  
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.userapp.service.name | default "webank-userapp" }} 
+                name: {{ .Values.userapp.service.name }} 
                 port:
-                  number: {{ .Values.userapp.service.port | default 80 }} 
+                  number: {{ .Values.userapp.service.port }} 
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.obs.service.name | default "webank-obs" }} 
+                name: {{ .Values.obs.service.name }} 
                 port:
-                  number: {{ .Values.obs.service.port | default 8080 }} 
+                  number: {{ .Values.obs.service.port }} 

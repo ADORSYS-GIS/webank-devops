@@ -8,7 +8,8 @@ This project uses ArgoCD for managing Kubernetes applications with a secure auth
 
     Before deploying ArgoCD, ensure the following:
 
-    1. AWS Account for resources like ACM certificates and also to deploy cluster
+    1. An AWS account, which you will need to deploy you cluster on AWS and with which resources like ACM certificates may be generated.
+
 
     2. Please read and understand  project before proceeding <ins> ***[README](https://github.com/ADORSYS-GIS/webank-devops/blob/main/terraform/README.md)***</ins>, you can also read this too, try to understand it.. it will open your mind as we proceed <ins> ***[PROJECT ENV](https://github.com/ADORSYS-GIS/webank-devops/blob/main/Docs/deploy_workflow.md)***</ins>
     
