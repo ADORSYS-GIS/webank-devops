@@ -2,6 +2,6 @@
 {{- if $.Values.database.secretName -}}
 {{- .Values.database.secretName -}}
 {{- else -}}
-{{- include "webank-obs.name" $ -}}-db
+{{- include "common.names.fullname" $ -}}-db
 {{- end -}}
 {{- end -}}
