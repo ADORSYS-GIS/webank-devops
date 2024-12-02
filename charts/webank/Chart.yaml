@@ -38,3 +38,6 @@ dependencies:
     version: 16.2.3
     alias: db
     condition: db.enabled
+  - name: common
+    version: 2.27.0
+    repository: https://charts.bitnami.com/bitnami

@@ -1,10 +1,10 @@
 global:
   postgresql:
     auth:
-      postgresPassword: "admin-password"
-      username: "selast-user"
-      password: "selast-password"
-      database: "selast-db"
+      postgresPassword: "never-show-me-hide-me-only"
+      username: "change-and-hide-me"
+      password: "change-and-hide-me-more"
+      database: "webank-db"
 
 obs:
   database:
@@ -15,10 +15,8 @@ obs:
 
 db:
   enabled: true
+  architecture: "standalone"
   primary:
-    service:
-      type: ClusterIP
-      port: 5432
-    replicaCount: 2
-  metrics:
-    enabled: true
+    persistence:
+      enabled: true
+      size: "10Gi"
