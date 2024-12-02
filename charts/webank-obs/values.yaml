@@ -1,6 +1,9 @@
 app:
   name: webank-obs
 
+commonLabels: ~
+commonAnnotations: ~
+
 replicaCount: 1
 
 image:
