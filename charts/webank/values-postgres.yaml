@@ -1,0 +1,13 @@
+db:
+  primary:
+    service:
+      type: ClusterIP
+      port: 5432
+    replicaCount: 2   
+  auth:
+    postgresPassword: "admin-password"
+    username: "webank-user"
+    password: "webank-password"
+    database: "webank-db"  
+  metrics:
+    enabled: true

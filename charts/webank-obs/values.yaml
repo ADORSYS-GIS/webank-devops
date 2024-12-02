@@ -16,7 +16,7 @@ database:
   host: webank-db
   port: 5432
   user: webank-user
-  password: user-password
+  secretName: webank-db-secret
 
 springBoot:
   profiles: prod
