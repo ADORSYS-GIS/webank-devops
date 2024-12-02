@@ -21,10 +21,10 @@ spec:
             - name: SPRING_DATASOURCE_USERNAME
               value: "{{ .Values.database.user }}"
             - name: SPRING_DATASOURCE_PASSWORD
-             valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.database.secretName }}
-                  key: password
+              valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.database.secretName }}
+                    key: password
             - name: SPRING_PROFILES_ACTIVE
               value: "{{ .Values.springBoot.profiles }}"
           ports:
