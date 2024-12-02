@@ -42,8 +42,17 @@ spec:
         - name: online-banking-service
           {{ $imageTpl := include "common.images.image" (dict "imageRoot" .Values.image "global" $.Values.global) }}
           image: {{ include "common.tplvalues.render" (dict "value" $imageTpl "context" $) | quote }}
+
+          {{ with .Values.livenessProbe -}}
+          livenessProbe: {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          {{- end }}
+
+          {{ with .Values.readinessProbe -}}
+          readinessProbe: {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          {{- end }}
+
           {{ with .Values.image.pullPolicy -}}
-          imagePullPolicy: {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          imagePullPolicy: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
           {{- end }}
           env:
             - name: SPRING_DATASOURCE_URL

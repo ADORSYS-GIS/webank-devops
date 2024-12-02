@@ -118,6 +118,29 @@ image:
   ##
   pullSecrets: []
 
+
+## Liveness probe values
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+##
+livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: "{{ .Values.service.port }}"
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+## Readiness probe values
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
+##
+readinessProbe:
+  httpGet:
+    path: /actuator/health/readiness
+    port: "{{ .Values.service.port }}"
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+## @param service Kubernetes service configuration
+##
 service:
   ## Kubernetes service additional labels
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
@@ -168,7 +191,7 @@ ingress:
   annotations: "{{ $.Values.commonAnnotations | toYaml }}"
   ## Ingress hostnames
   ## Must be provided if Ingress is enabled
-  host: "obs.webank.local"
+  host: '{{ include "common.names.fullname" $ }}.webank.local'
   ## Ingress TLS configuration
   ## Secrets must be manually created in the namespace
   tls: false
