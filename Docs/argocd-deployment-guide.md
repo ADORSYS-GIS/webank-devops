@@ -20,7 +20,7 @@ Our ArgoCD is deployed using Terraform. The deployment configuration is already 
  enable_argocd = true
   argocd = {
     name          = "argocd"
-    chart_version = "6.7.3"
+    chart_version = "7.7.5"
     repository    = "https://argoproj.github.io/argo-helm"
     namespace     = "argocd"
     values = [
@@ -38,7 +38,7 @@ Our ArgoCD is deployed using Terraform. The deployment configuration is already 
  This configuration:
     1. enable_argocd = true: This part of the configuration controls whether ArgoCD will be deployed or not, for our case, yes
     2. Enables ArgoCD installation with Helm.
-    3. Specifies the version of the ArgoCD chart (6.7.3).
+    3. Specifies the version of the ArgoCD chart (7.7.5).
     4. Configures the repository URL for the ArgoCD chart.
     5. Defines the namespace (argocd).
     6. Uses the <ins> ***[argocd-values.yaml](https://github.com/ADORSYS-GIS/webank-devops/blob/main/terraform/files/argocd-values.yaml)***</ins> file to provide necessary configuration, including the OIDC client settings, ACM certificate ARN, and domain name.

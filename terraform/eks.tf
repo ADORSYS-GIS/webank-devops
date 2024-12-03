@@ -103,7 +103,7 @@ module "eks_blueprints_addons" {
   enable_argocd = true
   argocd = {
     name          = "argocd"
-    chart_version = "6.7.3"
+    chart_version = "7.7.5"
     repository    = "https://argoproj.github.io/argo-helm"
     namespace     = "argocd"
     values = [
