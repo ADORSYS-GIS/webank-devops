@@ -26,11 +26,11 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: webank-obs
-    repository: "file://../webank-obs"
-    version: 0.1.1
+    repository: "https://ADORSYS-GIS.github.io/webank-devops"
+    version: 0.1.0
     alias: obs
   - name: webank-userapp
-    repository: "file://../webank-userapp"
+    repository: "https://ADORSYS-GIS.github.io/webank-devops"
     version: 0.1.0
     alias: userapp
   - name: postgresql
