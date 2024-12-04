@@ -9,9 +9,10 @@ This documentation provides a step-by-step guide for deploying an Amazon Elastic
 4. [Pre-Requisites](#pre-requisites)
 5. [Project Structure](#project-structure)
 6. [Step-by-Step Guide](#step-by-step-guide)
-7. [Best Practices](#best-practices)
-8. [Sample Commands](#sample-commands)
-9. [Further Reading and References](#further-reading-and-references)
+7. [Best Practices](#some-best-practices)
+8. [Deployment](#deployment-instructions)
+9. [Accessing the EKS Cluster](#accessing-the-eks-cluster)
+10. [Conclusion](#conclusion)
 
 ## Introduction
 
@@ -43,6 +44,81 @@ Our Terraform project automates the creation of the following components:
 Below is a visual representation of the architecture:
 
  ![Architecture Diagram](./images/Architecture.png)
+
+### Components Overview
+
+This document provides an overview of key components within the AWS infrastructure that supports the deployment of applications on EKS (Elastic Kubernetes Service).
+
+#### 1. Route 53
+
+Route 53 is AWS's Domain Name System (DNS) service. It directs user requests to the appropriate resources in your infrastructure:
+
+- **Functionality**:
+   - Resolves domain names to the public IP addresses of the Load Balancer.
+   - Enables scalable and highly available DNS routing for applications.
+
+#### 2. Virtual Private Cloud (VPC)
+
+The VPC is the core networking layer that isolates the environment:
+
+- **Purpose**:
+   - Segregates resources logically and ensures secure communication within the cloud.
+
+- **CIDR Block**:
+   - A pre-defined range of IP addresses allocated to the VPC.
+
+- **Subnets**:
+   - The VPC is divided into public and private subnets for better security and availability.
+
+#### 3. Public Subnet
+
+Public subnets host resources that require direct access from the internet:
+
+- **Role**:
+   - Contains Load Balancers, which distribute incoming traffic across multiple EKS nodes.
+
+- **Connectivity**:
+   - Associated with an Internet Gateway for connectivity, allowing public access.
+
+#### 4. Private Subnet
+
+Private subnets host internal resources that should not be directly accessible from the internet:
+
+- **Role**:
+   - Contains EKS nodes (Kubernetes worker nodes), which run the application workloads.
+
+- **Outbound Access**:
+   - Resources in this subnet use a NAT Gateway in the public subnet for outbound internet access, ensuring security while allowing necessary updates and communication.
+
+#### 5. Load Balancer
+
+The Load Balancer manages incoming traffic and routes it to the EKS nodes:
+
+- **Type**:
+   - Elastic Load Balancer (ELB) ensures high availability and scalability.
+
+- **Integration**:
+   - Integrated with Kubernetes services to expose applications, allowing seamless routing of traffic.
+
+#### 6. EKS Nodes
+
+The EKS nodes are the compute layer of the Kubernetes cluster:
+
+- **Function**:
+   - Runs application pods and manages workloads assigned by Kubernetes.
+
+- **Deployment**:
+   - Spread across private subnets to enhance security and scalability, ensuring that only necessary access is exposed.
+
+#### 7. RDS (Relational Database Service)
+
+RDS is the managed database service hosted in the private subnet:
+
+- **Functionality**:
+   - Provides secure, scalable, and highly available storage for application data.
+
+- **Access Control**:
+   - Only accessible by EKS nodes within the VPC, ensuring that sensitive data is protected from public exposure.
 
 
 ## Pre-Requisites
@@ -90,14 +166,14 @@ The project is structured as follows:
    ├── rds.tf            # RDS configuration
    └── provider.tf       # Providers and backend setup
 ```
-# Step-by-Step Guide
+## Step-by-Step Guide
 
-## 1. VPC Setup
+### 1. VPC Setup
 
 The VPC module defines the networking layer for the infrastructure.
 EKS clusters require a VPC. Creating a VPC suitable for an AWS EKS cluster involves setting up various network components including subnets, route tables, and security groups. Below is a Terraform example that demonstrates how to create a basic VPC setup for EKS. This setup includes public subnets,private subnets,intra subnets and database subnets for the EKS cluster, which allows your Kubernetes nodes to communicate with the AWS EKS control plane and other AWS services.
 
-### vpc.tf:
+#### vpc.tf:
 
 ```hcl
 module "vpc" {
@@ -151,21 +227,18 @@ source = ```"terraform-aws-modules/eks/aws": ```This line specifies that we're u
 ```vpc_id = module.vpc.vpc_id:``` Associates the EKS cluster with our VPC.
 4. **Node Groups:**
 The node_groups block defines the configuration for the EKS managed node groups.
-- eks_nodes: This is the name of our node group.
-- desired_capacity = 3: The cluster will try to maintain 3 nodes.
-- max_capacity = 5: The cluster can scale up to a maximum of 5 nodes.
-- min_capacity = 1: The cluster will always have at least 1 node running.
-- instance_types = ["t3.medium"]: Specifies the EC2 instance type for the nodes.
+- ```eks_nodes:``` This is the name of our node group.
+- ```desired_capacity``` = 3: The cluster will try to maintain 3 nodes.
+- ```max_capacity``` = 5: The cluster can scale up to a maximum of 5 nodes.
+- ```min_capacity = 1:``` The cluster will always have at least 1 node running.
+- ```instance_types = ["t3.medium"]:``` Specifies the EC2 instance type for the nodes.
 
 5. **Tagging:**
 ```tags = { Environment = "dev" }:``` Adds a tag to the EKS cluster resources for easier management and cost allocation.
 
-## 2. EKS Cluster Setup
-
-The EKS module provisions the Kubernetes control plane, worker nodes, and associated IAM roles.
-
-
-### eks.tf:
+### 2. EKS Cluster Setup
+The EKS module provisions the Kubernetes control plane, worker nodes, and associated IAM roles. Below is a Terraform example that demonstrates how to create an EKS cluster using the official AWS EKS module.
+#### eks.tf:
 
 ```hcl
 module "eks" {
@@ -217,11 +290,11 @@ The eks_managed_node_groups block defines managed node groups.
 - ```instance_types = var.eks_ec2_instance_types:``` Allows flexibility in choosing EC2 instance types via variables.
 - ```capacity_type = "SPOT":``` Utilizes Spot Instances for cost savings, suitable for fault-tolerant workloads.
         
-## 3. RDS Database Setup
+### 3. RDS Database Setup
 
 This section details the configuration of an Amazon RDS (Relational Database Service) instance using Terraform.
 
-### rds.tf:
+#### rds.tf:
 
 ```hcl
 module "db" {
@@ -286,24 +359,146 @@ module "db" {
 6. **Tagging:**
 tags = merge(local.tags, {}): Applies a set of tags to the RDS instance, merging with locally defined tags.
 
-## Deployment Instructions
-Initialize Terraform:
+### 4. Provider Setup
+The provider.tf file specifies the cloud provider(s) and APIs Terraform interacts with to create and manage infrastructure.
+#### Provider.tf:
+```hcl 
+provider "aws" {
+  region = var.region
+}
 
+provider "kubernetes" {
+  host  = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  token = data.aws_eks_cluster_auth.cluster.token
+}
+
+provider "helm" {
+  kubernetes {
+    host  = module.eks.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+    token = data.aws_eks_cluster_auth.cluster.token
+  }
+} 
+```
+#### **Purpose of the provider.tf**
+The provider.tf file specifies the cloud provider(s) and APIs Terraform interacts with to create and manage infrastructure. In this context, it includes:
+- ```AWS provider``` for provisioning resources like VPCs, EKS clusters, and RDS instances.
+- ```Kubernetes provider``` for interacting with the EKS cluster and managing Kubernetes resources.
+- ```Helm provider``` for deploying Helm charts in the Kubernetes cluster.
+
+### 4. Variables Setup
+The variables.tf file defines input parameters to customize the Terraform configuration.
+### variables.tf:
+```hcl
+variable "region" {
+  description = "The AWS region to deploy resources to"
+  type        = string
+  default     = "eu-west-1"
+}
+
+variable "name" {
+  description = "The name of the cluster"
+  type        = string
+  default     = "webank-cluster"
+}
+
+variable "vpc_cidr" {
+  description = "The CIDR block for the VPC"
+  type        = string
+  default     = "12.34.0.0/16"
+}
+
+variable "azs" {
+  description = "Availability Zones for the VPC"
+  type = list(string)
+  default = ["eu-west-1a", "eu-west-1b"]
+}
+
+variable "db_username" {
+  description = "Username for the RDS database"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Password for the RDS database"
+  type        = string
+  sensitive   = true
+}
+``` 
+### Purpose of the variables.tf
+- The variables.tf file defines input parameters to customize the Terraform configuration.
+- Enables secure handling of sensitive values.
+- It makes the infrastructure flexible and reusable across environments by abstracting values.
+- Promotes reuse and modularity of the configuration.
+- Centralizes parameter definitions, simplifying updates and customization.
+
+### 5. Outputs Setup
+The outputs.tf file defines the values that Terraform should display or pass to other configurations after deployment.
+### outputs.tf:
+```hcl
+output "eks_cluster_name" {
+  description = "The name of the EKS cluster"
+  value       = module.eks.cluster_name
+}
+
+output "eks_cluster_endpoint" {
+  description = "The endpoint URL of the EKS cluster"
+  value       = module.eks.cluster_endpoint
+}
+
+output "argocd_server_url" {
+  value = "https://${local.argocdDomain}"
+} 
+```
+### Purpose of the outputs.tf
+- The outputs.tf file defines the values that Terraform should display or pass to other configurations after deployment. These outputs provide essential information about the provisioned infrastructure.
+- Offers quick access to key infrastructure details post-deployment.
+- Helps in chaining configurations by passing values between modules.
+
+## Deployment Instructions
+Initialize Terraform: The following commands will initialize Terraform in the current directory
 ```bash
  terraform init
 ```
-Validate Configuration:
+Validate Configuration: The following command will validate the Terraform configuration
 ```bash
 terraform validate
 ```
-Plan Infrastructure:
+Plan Infrastructure: The following command will plan the infrastructure changes
 ```bash
-terraform plan -var="db_username=<your-username>" -var="db_password=<your-password>"
+terraform plan 
 ```
-Apply Changes:
+Apply Changes: The following command will apply the infrastructure changes
 ```bash
-terraform apply -var="db_username=<your-username>" -var="db_password=<your-password>"
+terraform apply
 ```
+
+## Accessing the EKS Cluster
+
+To access the EKS cluster, you can use the following command:
+### Step 1: Update kubeconfig
+
+Run the following command to update your `kubectl` configuration to connect to the EKS cluster:
+```bash
+aws eks update-kubeconfig --region <region> --name <cluster_name>
+```
+Replace ```<region>``` with the AWS region where your EKS cluster is located (e.g., us-west-2).
+Replace ```<cluster_name>``` with the name of your EKS cluster.
+
+### Step 2: Verify the Configuration
+To ensure kubectl is correctly configured and can access your EKS cluster, run:
+```bash
+kubectl get svc
+```
+This command retrieves the list of services running in your Kubernetes cluster. If configured correctly, you should see a list of services.
+### Step 3: Test Access to the Cluster
+You can further verify access to the cluster by checking the nodes:
+```bash
+kubectl get nodes
+```
+This command will list all the worker nodes in your EKS cluster.
+
 ## Some Best Practices
 1. Modular Design:
 - Keep resources logically grouped to simplify maintenance.
@@ -323,6 +518,6 @@ terraform apply -var="db_username=<your-username>" -var="db_password=<your-passw
 - Store Terraform state securely in an S3 bucket with versioning.
 
 # Conclusion
-
+This guide provides a detailed walkthrough of setting up an Amazon EKS cluster with Terraform, ensuring a scalable, secure, and efficient environment for deploying containerized applications on AWS.
 
 
