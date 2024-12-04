@@ -1,11 +1,48 @@
+## @param kubeVersion Override Kubernetes version
+##
+kubeVersion: ~
+## @param nameOverride String to partially override common.names.fullname template (will maintain the release name)
+##
+nameOverride: ~
+## @param fullnameOverride String to fully override common.names.fullname template
+##
+fullnameOverride: ~
+## @param commonLabels Labels to add to all deployed resources
+##
+commonLabels: ~
+## @param commonAnnotations Annotations to add to all deployed resources
+##
+commonAnnotations: ~
+
+## Online Banking Service
+##
 obs:
-  service:
-    type: ClusterIP
+  ## Disable the obs ingress
   ingress:
     enabled: false
 
 userapp:
-  service:
-    type: ClusterIP
+  ## Disable the userapp ingress
   ingress:
     enabled: false
+
+db:
+  enabled: false
+
+
+ingress:
+  ## Additional labels for Ingress
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
+  additionalLabels: "{{ $.Values.commonLabels | toYaml }}"
+  ## Ingress classname
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class
+  className: ""
+  ## Ingress annotations
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+  annotations: "{{ $.Values.commonAnnotations | toYaml }}"
+  ## Ingress hostnames
+  ## Must be provided if Ingress is enabled
+  host: '{{ include "common.names.fullname" $ }}.webank.local'
+  ## Ingress TLS configuration
+  ## Secrets must be manually created in the namespace
+  tls: false

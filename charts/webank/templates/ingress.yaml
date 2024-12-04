@@ -1,36 +1,40 @@
+{{ with .Values.ingress -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: webank-ingress
+  name: {{ include "common.names.fullname" $ }}
+  namespace: {{ include "common.names.namespace" $ }}
+  {{- with include "common.annotations.standard" ( dict "customAnnotations" .annotations "context" $ ) }}
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/listen-ports: |
-      [
-        { "HTTP": 80 },
-        { "HTTPS": 443 }
-      ]
-    alb.ingress.kubernetes.io/load-balancer-name: webank-lb
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-central-1:571075516563:certificate/f839eb2b-d11f-4272-bcf2-1b37b1013dd7
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
-    alb.ingress.kubernetes.io/target-type: 'ip'
-
+    {{- . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "common.labels.standard" ( dict "customLabels" .additionalLabels "context" $ ) | nindent 4 }}
 spec:
-  ingressClassName: alb
+  {{ with .className -}}
+  ingressClassName: {{ . }}
+  {{- end }}
   rules:
-    - host: dev.webank.gis.ssegning.com
+    - host: {{ include "common.tplvalues.render" (dict "value" .host "context" $) }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: webank-userapp
+                name: {{ $.Release.Name }}-userapp
                 port:
-                  number: 80
+                  number: {{ include "common.tplvalues.render" (dict "value" $.Values.userapp.service.port "context" $) }}
           - path: /api
             pathType: Prefix
             backend:
               service:
-                name: webank-obs
+                name: {{ $.Release.Name }}-obs
                 port:
-                  number: 8080
+                  number: {{ include "common.tplvalues.render" (dict "value" $.Values.obs.service.port "context" $) }}
+  {{ if .tls }}
+  tls:
+    - hosts:
+        - {{ include "common.tplvalues.render" (dict "value" .host "context" $) }}
+  {{ end }}
+{{- end }}
