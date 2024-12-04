@@ -35,6 +35,11 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo update
 
+      - name: Package dependencies
+        run: |
+          helm package charts/webank-obs --destination charts/webank/charts
+          helm package charts/webank-userapp --destination charts/webank/charts
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
