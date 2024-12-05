@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.0
+version: 1.0.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -26,11 +26,11 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: webank-obs
-    repository: "file://../webank-obs"
+    repository: "https://adorsys-gis.github.io/webank-devops/"
     version: 0.1.0
     alias: obs
   - name: webank-userapp
-    repository: "file://../webank-userapp"
+    repository: "https://adorsys-gis.github.io/webank-devops/"
     version: 0.1.0
     alias: userapp
   - name: postgresql
