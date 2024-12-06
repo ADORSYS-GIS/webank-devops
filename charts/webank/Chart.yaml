@@ -10,7 +10,7 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: webank-obs
-    repository: "file://../../webank-obs/"
+    repository: "file://../webank-obs/"
     version: 0.1.0
     alias: obs
   - name: webank-userapp
