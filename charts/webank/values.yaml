@@ -25,6 +25,9 @@ userapp:
   ## Disable the userapp ingress
   ingress:
     enabled: false
+  env:
+    - name: VITE_BACKEND_URL
+      value: 'http://{{ include "common.names.fullname" $ }}.webank.local'
 
 db:
   enabled: false
