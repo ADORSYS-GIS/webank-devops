@@ -69,11 +69,10 @@ runs-on: ubuntu-latest
    ```
 
 4. **Add Helm Repositories**
-   - Adds external Helm chart repositories (`jetstack` and `bitnami`) and updates the repository index:
+   - Adds external Helm chart repositories (`bitnami`) and updates the repository index:
    ```yaml
    - name: Add repos to Helm
      run: |
-       helm repo add jetstack https://charts.jetstack.io
        helm repo add bitnami https://charts.bitnami.com/bitnami
        helm repo add webank https://ADORSYS-GIS.github.io/webank-devops
        helm repo update
