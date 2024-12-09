@@ -1,12 +1,30 @@
+{{ with .Values.service }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.app.name }}
+  name: {{ include "common.names.fullname" $ }}
+  namespace: {{ include "common.names.namespace" $ }}
+  labels:
+    {{- include "common.labels.standard" ( dict "customLabels" .additionalLabels "context" $ ) | nindent 4 }}
+  {{- with include "common.annotations.standard" ( dict "customAnnotations" .annotations "context" $ ) }}
+  annotations:
+    {{- . | nindent 4 }}
+  {{- end }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ include "common.tplvalues.render" (dict "value" .type "context" $) }}
   selector:
-    app: {{ .Values.app.name }}
+    {{- include "common.labels.matchLabels" ( dict "customLabels" .additionalLabels "context" $ ) | nindent 4 }}
   ports:
-    - protocol: TCP
-      port: {{ .Values.service.port }}
-      targetPort: 8080
+    - name: http
+      port: {{ include "common.tplvalues.render" (dict "value" .port "context" $) }}
+      targetPort: {{ include "common.tplvalues.render" (dict "value" .targetPort "context" $) }}
+  {{ with .loadBalancerIP }}
+  loadBalancerIP: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+  {{- end }}
+  {{ with .allocateLoadBalancerNodePorts }}
+  allocateLoadBalancerNodePorts: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+  {{- end }}
+  {{ with .clusterIP }}
+  clusterIP: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+  {{- end }}
+{{- end -}}

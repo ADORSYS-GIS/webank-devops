@@ -1,0 +1,22 @@
+global:
+  postgresql:
+    auth:
+      postgresPassword: "never-show-me-hide-me-only"
+      username: "change-and-hide-me"
+      password: "change-and-hide-me-more"
+      database: "webank-db"
+
+obs:
+  database:
+    host: "{{ .Release.Name }}-postgresql"
+    name: "{{ .Values.global.postgresql.auth.database }}"
+    user: "{{ .Values.global.postgresql.auth.username }}"
+    password: "{{ .Values.global.postgresql.auth.password }}"
+
+db:
+  enabled: true
+  architecture: "standalone"
+  primary:
+    persistence:
+      enabled: true
+      size: "10Gi"

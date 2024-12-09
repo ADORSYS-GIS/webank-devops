@@ -1,11 +1,18 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: test-connection
+  name: {{ include "common.names.fullname" $ }}-test-connection"
+  namespace: {{ include "common.names.namespace" $ }}
+  annotations:
+    {{- include "common.annotations.standard" ( dict "customAnnotations" $.Values.commonAnnotations "context" $ ) | nindent 4 }}
+    "helm.sh/hook": test
+  labels:
+    {{- include "common.labels.standard" ( dict "customLabels" $.Values.commonLabels "context" $ ) | nindent 4 }}
 spec:
   containers:
-  - name: curl
-    image: curlimages/curl
-    command:
-      - "curl"
-      - "http://{{ .Release.Name }}:8080/actuator/health"
+    - name: wget
+      image: busybox
+      command: [ 'wget' ]
+      args:
+        - 'http://{{ include "common.names.fullname" . }}:{{ .Values.service.port }}/actuator/health'
+  restartPolicy: Never
