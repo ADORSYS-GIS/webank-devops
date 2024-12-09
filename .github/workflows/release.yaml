@@ -37,5 +37,5 @@ jobs:
         uses: helm/chart-releaser-action@v1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          charts_dir: charts/webank
+        with:
           skip_existing: true
