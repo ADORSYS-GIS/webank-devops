@@ -1,8 +1,0 @@
-=================================================
-You deployed your "{{ template "common.names.fullname" $ }}" application.
-If you need to access the application, you can use the following command to get the URL:
-
-{{ if .Values.ingress -}}
-  http://{{ include "common.tplvalues.render" (dict "value" .Values.ingress.host "context" $) }}
-{{- end }}
-=================================================
