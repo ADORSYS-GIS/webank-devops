@@ -74,7 +74,8 @@ spec:
           {{- end }}
 
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.service.targetPort }}
+              name: http
 
           {{ with .Values.volumeMounts -}}
           volumeMounts:

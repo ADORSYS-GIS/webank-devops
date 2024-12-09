@@ -125,7 +125,7 @@ image:
 livenessProbe:
   httpGet:
     path: /actuator/health/liveness
-    port: "{{ .Values.service.port }}"
+    port: 8080
   initialDelaySeconds: 5
   periodSeconds: 5
 
@@ -135,7 +135,7 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /actuator/health/readiness
-    port: "{{ .Values.service.port }}"
+    port: 8080
   initialDelaySeconds: 5
   periodSeconds: 5
 

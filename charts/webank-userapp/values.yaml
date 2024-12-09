@@ -124,7 +124,7 @@ image:
 livenessProbe:
   httpGet:
     path: /
-    port: "{{ .Values.service.port }}"
+    port: 80
   initialDelaySeconds: 5
   periodSeconds: 5
 
@@ -134,7 +134,7 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /
-    port: "{{ .Values.service.port }}"
+    port: 80
   initialDelaySeconds: 5
   periodSeconds: 5
 
