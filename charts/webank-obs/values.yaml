@@ -83,7 +83,7 @@ volumeMounts: [ ]
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 env:
   - name: SPRING_PROFILES_ACTIVE
-    value: prod
+    value: postgres
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/

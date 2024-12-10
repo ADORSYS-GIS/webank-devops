@@ -8,7 +8,7 @@ global:
 
 obs:
   database:
-    host: "{{ .Release.Name }}-postgresql"
+    host: "{{ .Release.Name }}-db"
     name: "{{ .Values.global.postgresql.auth.database }}"
     user: "{{ .Values.global.postgresql.auth.username }}"
     password: "{{ .Values.global.postgresql.auth.password }}"
