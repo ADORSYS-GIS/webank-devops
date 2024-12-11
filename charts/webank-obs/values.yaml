@@ -97,10 +97,10 @@ image:
   registry: ghcr.io
   ## Specify a Repository for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  repository: adorsys-gis/webank-online
+  repository: adorsys-gis/webank-online-banking
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 'test'
+  tag: 'latest'
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
@@ -108,7 +108,7 @@ image:
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -126,7 +126,7 @@ livenessProbe:
   httpGet:
     path: /swagger-ui.html
     port: 8080
-  initialDelaySeconds: 5
+  initialDelaySeconds: 10
   periodSeconds: 5
 
 ## Readiness probe values
@@ -136,7 +136,7 @@ readinessProbe:
   httpGet:
     path: /swagger-ui.html
     port: 8080
-  initialDelaySeconds: 5
+  initialDelaySeconds: 10
   periodSeconds: 5
 
 ## @param service Kubernetes service configuration

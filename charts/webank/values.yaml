@@ -14,42 +14,23 @@ commonLabels: ~
 ##
 commonAnnotations: ~
 
-userapp:
-  ## Disable the userapp ingress
-  ingress:
-    enabled: false
-  env:
-    - name: VITE_BACKEND_URL
-      value: 'http://{{ include "common.names.fullname" $ }}.webank.local'
-
-global:
-  postgresql:
-    auth:
-      postgresPassword: "never-show-me-hide-me-only"
-      username: "change-and-hide-me"
-      password: "change-and-hide-me-more"
-      database: "webank-db"
-
 ## Online Banking Service
 ##
 obs:
   ## Disable the obs ingress
   ingress:
     enabled: false
-  database:
-    host: "{{ .Release.Name }}-db"
-    name: "{{ .Values.global.postgresql.auth.database }}"
-    user: "{{ .Values.global.postgresql.auth.username }}"
-    password: "{{ .Values.global.postgresql.auth.password }}"
+
+userapp:
+  ## Disable the userapp ingress
+  ingress:
+    enabled: false
+  env:
+    - name: VITE_BACKEND_URL
+      value: 'https://{{ include "common.names.fullname" $ }}.webank.local'
 
 db:
-  enabled: true
-  architecture: "standalone"
-  primary:
-    persistence:
-      enabled: true
-      size: "10Gi"
-
+  enabled: false
 
 ingress:
   ## Additional labels for Ingress

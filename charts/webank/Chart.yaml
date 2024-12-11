@@ -10,12 +10,12 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: webank-obs
-    repository: "file://../webank-obs/"
-    version: 1.0.1
+    repository: "https://ADORSYS-GIS.github.io/webank-devops/"
+    version: 1.0.2-rc
     alias: obs
   - name: webank-userapp
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
-    version: 1.0.1
+    version: 1.0.2-rc
     alias: userapp
   - name: postgresql
     repository: "https://charts.bitnami.com/bitnami"
