@@ -10,7 +10,7 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: webank-obs
-    repository: "https://ADORSYS-GIS.github.io/webank-devops/"
+    repository: "file://../webank-obs/"
     version: 1.0.1
     alias: obs
   - name: webank-userapp

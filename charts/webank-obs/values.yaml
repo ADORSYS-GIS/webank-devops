@@ -83,7 +83,7 @@ volumeMounts: [ ]
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 env:
   - name: SPRING_PROFILES_ACTIVE
-    value: prod
+    value: postgres
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -97,10 +97,10 @@ image:
   registry: ghcr.io
   ## Specify a Repository for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  repository: adorsys-gis/webank-online-banking
+  repository: adorsys-gis/webank-online
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 'latest'
+  tag: 'test'
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
@@ -108,7 +108,7 @@ image:
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -124,7 +124,7 @@ image:
 ##
 livenessProbe:
   httpGet:
-    path: /actuator/health/liveness
+    path: /swagger-ui.html
     port: 8080
   initialDelaySeconds: 5
   periodSeconds: 5
@@ -134,7 +134,7 @@ livenessProbe:
 ##
 readinessProbe:
   httpGet:
-    path: /actuator/health/readiness
+    path: /swagger-ui.html
     port: 8080
   initialDelaySeconds: 5
   periodSeconds: 5
