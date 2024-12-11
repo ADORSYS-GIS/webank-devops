@@ -1,11 +1,9 @@
 name: Terraform Deployment
 
 on:
-  
   workflow_dispatch:
-  push:
-    branches:
-      - deploy
+  push: null
+  pull_request: null
 
 defaults:
   run:
@@ -46,14 +44,13 @@ jobs:
     name: Deploy to ${{ matrix.name }} Environment
     environment:
       name: ${{ matrix.name }}
-      url: https://${{ env.DOMAIN_NAME }}
+      url: https://${{ vars.DOMAIN_NAME }}
     strategy:
       matrix:
-        env:
+        name:
           - dev
         include:
-          - env: dev
-            name: development
+          - name: dev
             description: "Deploy to Dev Environment"
 
     steps:
@@ -70,29 +67,25 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Set DB Password and Username as Environment Variables
         run: |
-          echo "TF_VAR_name=${{ matrix.env }}-cluster" >> $GITHUB_ENV
-          echo "TF_VAR_db_username=${{ env.DB_USERNAME }}" >> $GITHUB_ENV
+          echo "TF_VAR_name=${{ matrix.name }}-cluster" >> $GITHUB_ENV
+          echo "TF_VAR_db_username=${{ vars.DB_USERNAME }}" >> $GITHUB_ENV
           echo "TF_VAR_db_password=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
-          echo "TF_VAR_oidc_kc_client_id=${{ env.OIDC_KC_CLIENT_ID }}" >> $GITHUB_ENV
+          echo "TF_VAR_oidc_kc_client_id=${{ vars.OIDC_KC_CLIENT_ID }}" >> $GITHUB_ENV
           echo "TF_VAR_oidc_kc_client_secret=${{ secrets.OIDC_KC_CLIENT_SECRET }}" >> $GITHUB_ENV
-          echo "TF_VAR_oidc_kc_issuer_url=${{ env.OIDC_KC_ISSUER_URL }}" >> $GITHUB_ENV
-          echo "TF_VAR_cert_arn=${{ env.CERT_ARN }}" >> $GITHUB_ENV
-          echo "TF_VAR_region=${{ env.AWS_REGION }}" >> $GITHUB_ENV
-          echo "TF_VAR_azs=${{ env.AWS_AVAILABLE_ZONES }}" >> $GITHUB_ENV
-          echo "TF_VAR_zone_name=${{ env.DOMAIN_NAME }}" >> $GITHUB_ENV
+          echo "TF_VAR_oidc_kc_issuer_url=${{ vars.OIDC_KC_ISSUER_URL }}" >> $GITHUB_ENV
+          echo "TF_VAR_cert_arn=${{ vars.CERT_ARN }}" >> $GITHUB_ENV
+          echo "TF_VAR_region=${{ vars.AWS_REGION }}" >> $GITHUB_ENV
+          echo "TF_VAR_zone_name=${{ vars.DOMAIN_NAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init -var-file=${{ matrix.env }}.tfvars
-
-      - name: Terraform Validate
-        run: terraform validate -var-file=${{ matrix.env }}.tfvars
+        run: terraform init -var-file=${{ matrix.name }}.tfvars
 
       - name: Terraform Plan
-        run: terraform plan -var-file=${{ matrix.env }}.tfvars -out=plan.tfplan
+        run: terraform plan -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
 
       - name: Terraform Apply
         if: github.event_name == 'workflow_dispatch'
