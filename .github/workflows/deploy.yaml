@@ -85,9 +85,6 @@ jobs:
       - name: Terraform Init
         run: terraform init -var-file=${{ matrix.name }}.tfvars
 
-      - name: Terraform Validate
-        run: terraform validate -var-file=${{ matrix.name }}.tfvars
-
       - name: Terraform Plan
         run: terraform plan -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
 
