@@ -1,11 +1,9 @@
 name: Terraform Deployment
 
 on:
-  
   workflow_dispatch:
-  push:
-    branches:
-      - deploy
+  push: null
+  pull_request: null
 
 defaults:
   run:
@@ -49,7 +47,7 @@ jobs:
       url: https://${{ env.DOMAIN_NAME }}
     strategy:
       matrix:
-        env:
+        name:
           - dev
         include:
           - env: dev
