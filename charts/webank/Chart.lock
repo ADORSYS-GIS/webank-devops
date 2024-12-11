@@ -1,0 +1,15 @@
+dependencies:
+- name: webank-obs
+  repository: https://ADORSYS-GIS.github.io/webank-devops/
+  version: 1.0.1
+- name: webank-userapp
+  repository: https://ADORSYS-GIS.github.io/webank-devops/
+  version: 1.0.1
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.2.3
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 2.27.0
+digest: sha256:bff77497232faacb3af4a063e54edf01053fb556ad665f0501ad4cedf5145516
+generated: "2024-12-10T17:31:06.011533053+01:00"
