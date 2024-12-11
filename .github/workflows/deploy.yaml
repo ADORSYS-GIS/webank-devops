@@ -41,10 +41,18 @@ jobs:
     needs:
       - checks
     runs-on: ubuntu-latest
-    name: Deploy to dev Environment
+    name: Deploy to ${{ matrix.name }} Environment
     environment:
-      name: dev
+      name: ${{ matrix.name }}
       url: https://${{ env.DOMAIN_NAME }}
+    strategy:
+      matrix:
+        name:
+          - dev
+        include:
+          - name: dev
+            description: "Deploy to Dev Environment"
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -63,7 +71,7 @@ jobs:
 
       - name: Set DB Password and Username as Environment Variables
         run: |
-          echo "TF_VAR_name=dev-cluster" >> $GITHUB_ENV
+          echo "TF_VAR_name=${{ matrix.name }}-cluster" >> $GITHUB_ENV
           echo "TF_VAR_db_username=${{ env.DB_USERNAME }}" >> $GITHUB_ENV
           echo "TF_VAR_db_password=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
           echo "TF_VAR_oidc_kc_client_id=${{ env.OIDC_KC_CLIENT_ID }}" >> $GITHUB_ENV
@@ -75,13 +83,13 @@ jobs:
           echo "TF_VAR_zone_name=${{ env.DOMAIN_NAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init -var-file=dev.tfvars
+        run: terraform init -var-file=${{ matrix.name }}.tfvars
 
       - name: Terraform Validate
-        run: terraform validate -var-file=dev.tfvars
+        run: terraform validate -var-file=${{ matrix.name }}.tfvars
 
       - name: Terraform Plan
-        run: terraform plan -var-file=dev.tfvars -out=plan.tfplan
+        run: terraform plan -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
 
       - name: Terraform Apply
         if: github.event_name == 'workflow_dispatch'
