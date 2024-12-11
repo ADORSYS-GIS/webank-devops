@@ -83,6 +83,8 @@ jobs:
 
       - name: Terraform Init
         run: terraform init -var-file=${{ matrix.name }}.tfvars
+          -backend-config="bucket=adorsys-webank-dev-tfstate" \
+          -backend-config="dynamodb_table=webank-tflock" \
 
       - name: Terraform Plan
         run: terraform plan -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
