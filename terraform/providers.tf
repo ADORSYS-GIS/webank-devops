@@ -15,12 +15,3 @@ provider "helm" {
     token = data.aws_eks_cluster_auth.cluster.token
   }
 }
-
-
-terraform {
-  backend "s3" {
-    region  = "eu-central-1"
-    key     = "state/webank-eks-cluster-v7"
-    encrypt = true
-  }
-}
