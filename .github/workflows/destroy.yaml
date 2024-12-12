@@ -12,7 +12,17 @@ defaults:
 jobs:
   destroy:
     runs-on: ubuntu-latest
-
+    name: Destroys ${{ matrix.name }} Environment
+    environment:
+      name: ${{ matrix.name }}
+      url: https://${{ vars.DOMAIN_NAME }}
+    strategy:
+      matrix: 
+        name:
+          - dev
+        include:
+          - name: dev
+            description: "Environment to be destroyed"
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
