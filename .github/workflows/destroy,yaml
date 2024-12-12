@@ -2,6 +2,8 @@ name: Terraform Destroy
 
 on:
   workflow_dispatch:
+  push: chore/terraform-destroy-workflow
+
 
 defaults:
   run:
@@ -43,4 +45,5 @@ jobs:
         run: terraform init -var-file=dev.tfvars
 
       - name: Terraform Destroy
+        if: github.event_name == 'workflow_dispatch'
         run: terraform destroy -auto-approve -var-file=dev.tfvars
