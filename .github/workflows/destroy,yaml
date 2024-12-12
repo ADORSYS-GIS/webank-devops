@@ -6,8 +6,6 @@ on:
     branches:
       - chore/terraform-destroy-workflow
 
-
-
 defaults:
   run:
     working-directory: ./terraform
@@ -34,7 +32,7 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          echo "TF_VAR_name=${{ matrix.name }}-cluster" >> $GITHUB_ENV
+          echo "TF_VAR_name=${{ vars.NAME }}-cluster" >> $GITHUB_ENV
           echo "TF_VAR_db_username=${{ vars.DB_USERNAME }}" >> $GITHUB_ENV
           echo "TF_VAR_db_password=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
           echo "TF_VAR_oidc_kc_client_id=${{ vars.OIDC_KC_CLIENT_ID }}" >> $GITHUB_ENV
