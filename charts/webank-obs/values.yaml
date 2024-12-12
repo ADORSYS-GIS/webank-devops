@@ -83,7 +83,7 @@ volumeMounts: [ ]
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 env:
   - name: SPRING_PROFILES_ACTIVE
-    value: prod
+    value: postgres
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -124,9 +124,9 @@ image:
 ##
 livenessProbe:
   httpGet:
-    path: /actuator/health/liveness
+    path: /swagger-ui.html
     port: 8080
-  initialDelaySeconds: 5
+  initialDelaySeconds: 10
   periodSeconds: 5
 
 ## Readiness probe values
@@ -134,9 +134,9 @@ livenessProbe:
 ##
 readinessProbe:
   httpGet:
-    path: /actuator/health/readiness
+    path: /swagger-ui.html
     port: 8080
-  initialDelaySeconds: 5
+  initialDelaySeconds: 10
   periodSeconds: 5
 
 ## @param service Kubernetes service configuration

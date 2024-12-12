@@ -27,11 +27,10 @@ userapp:
     enabled: false
   env:
     - name: VITE_BACKEND_URL
-      value: 'http://{{ include "common.names.fullname" $ }}.webank.local'
+      value: 'https://{{ include "common.names.fullname" $ }}.webank.local'
 
 db:
   enabled: false
-
 
 ingress:
   ## Additional labels for Ingress
