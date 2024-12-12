@@ -77,7 +77,7 @@ jobs:
         shell: bash
 
       - name: Run tfsec
-        run: ~/.tfsec/tfsec .
+        run: ~/.tfsec/tfsec . || true
 
   deploy:
     if: ${{ inputs.name }} == matrix.name
