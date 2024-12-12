@@ -2,7 +2,10 @@ name: Terraform Destroy
 
 on:
   workflow_dispatch:
-  push: chore/terraform-destroy-workflow
+  push:
+    branches:
+      - chore/terraform-destroy-workflow
+
 
 
 defaults:
