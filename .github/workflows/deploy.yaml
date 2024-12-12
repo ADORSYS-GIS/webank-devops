@@ -82,9 +82,17 @@ jobs:
     if: ${{ inputs.apply-or-destroy != 'none' }}
     needs: [tflint, tfsec]
     runs-on: ubuntu-latest
+    name: Terraform ${{ matrix.name }} Environment
+    environment:
+      name: ${{ matrix.name }}
+      url: https://${{ vars.DOMAIN_NAME }}
     strategy:
-      matrix:
-        name: [dev]
+      matrix: 
+        name:
+          - dev
+        include:
+          - name: dev
+            description: "Environment to be changed"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
