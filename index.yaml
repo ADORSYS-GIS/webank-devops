@@ -57,6 +57,33 @@ entries:
     version: 1.0.2-rc.2
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2024-12-12T15:20:56.49992586Z"
+    dependencies:
+    - alias: obs
+      name: webank-obs
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.0.2-rc
+    - alias: userapp
+      name: webank-userapp
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.0.1
+    - alias: db
+      condition: db.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.2.3
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 493f258551d496833db24084f0a61460059e8ecff7fff4557f7d081b8837d4c7
+    name: webank
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-1.0.2-rc.2/webank-1.0.2-rc.2.tgz
+    version: 1.0.2-rc.2
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2024-12-09T13:31:13.887106789Z"
     dependencies:
     - alias: obs
@@ -207,6 +234,20 @@ entries:
     version: 1.0.2-rc
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-12-12T15:20:56.602834917Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 9186559b93533f9c52fad22c9cd26b92e4d98ca85aef4394eba314490bcad2a6
+    name: webank-obs
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-obs-1.0.2-rc/webank-obs-1.0.2-rc.tgz
+    version: 1.0.2-rc
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-12-09T13:28:23.279825211Z"
     dependencies:
     - name: common
@@ -290,4 +331,4 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-userapp-0.1.0/webank-userapp-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-12T10:56:51.838956209Z"
+generated: "2024-12-12T15:20:56.602908697Z"
