@@ -2,9 +2,9 @@ module "terraform_state_backend" {
   source  = "cloudposse/tfstate-backend/aws"
   version = "1.5.0"
 
-  namespace = "dev"
-  stage     = "dev"
-  name      = "terraform-state"
+  namespace = "webank"
+  stage     = "staging"
+  name      = "terraform"
 
   attributes = ["state"]
 

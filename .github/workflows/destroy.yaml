@@ -19,9 +19,9 @@ jobs:
     strategy:
       matrix: 
         name:
-          - dev
+          - staging
         include:
-          - name: dev
+          - name: staging
             description: "Environment to be destroyed"
     steps:
       - name: Checkout Code
@@ -52,7 +52,7 @@ jobs:
           echo "TF_VAR_zone_name=${{ vars.DOMAIN_NAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init -var-file=dev.tfvars
+        run: terraform init -var-file=staging.tfvars
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve -var-file=dev.tfvars
+        run: terraform destroy -auto-approve -var-file=staging.tfvars

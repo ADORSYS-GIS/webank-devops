@@ -42,7 +42,7 @@ variable "db_instance" {
 variable "environment" {
   description = "The environment to deploy resources to"
   type        = string
-  default     = "dev"
+  default     = "staging"
 }
 
 variable "eks_ec2_instance_types" {
