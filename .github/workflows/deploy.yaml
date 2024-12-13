@@ -86,15 +86,15 @@ jobs:
         name:
           - dev
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
       - name: Check if deployment should proceed
         run: |
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.environment }}" != "${{ matrix.name }}" ]]; then
             echo "Skipping deployment for ${{ matrix.name }}"
             exit 0
           fi
-
-      - name: Checkout Code
-        uses: actions/checkout@v4
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
