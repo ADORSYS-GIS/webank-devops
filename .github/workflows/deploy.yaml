@@ -111,7 +111,7 @@ jobs:
 
       - name: Set DB Password and Username as Environment Variables
         run: |
-          echo "TF_VAR_name=${{ matrix.name }}-cluster1" >> $GITHUB_ENV
+          echo "TF_VAR_name=${{ matrix.name }}-env" >> $GITHUB_ENV
           echo "TF_VAR_db_username=${{ vars.DB_USERNAME }}" >> $GITHUB_ENV
           echo "TF_VAR_db_password=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
           echo "TF_VAR_oidc_kc_client_id=${{ vars.OIDC_KC_CLIENT_ID }}" >> $GITHUB_ENV

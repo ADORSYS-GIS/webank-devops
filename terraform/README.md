@@ -19,7 +19,6 @@ This Terraform configuration creates a basic AWS EKS cluster with the following 
    export TF_VAR_db_password="db_username_password123"
    export TF_VAR_name="webank-test-me"
    export TF_VAR_region="eu-central-1"
-   export TF_VAR_azs='["eu-central-1a", "eu-central-1b"]'
    ```
 
 1. Initialize Terraform:  
