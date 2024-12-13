@@ -57,11 +57,17 @@ jobs:
           echo "TF_VAR_zone_name=${{ vars.DOMAIN_NAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init -var-file=${{ matrix.name }}.tfvars -backend-config="region=${{ vars.AWS_REGION }}" -backend-config="bucket=webank-dev-terraform-state" -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
+        run: |
+          terraform init -var-file=${{ matrix.name }}.tfvars \
+          -backend-config="region=${{ vars.AWS_REGION }}" \
+          -backend-config="bucket=webank-dev-terraform-state" \
+          -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
       - name: Terraform Plan
-        run: terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan -backend-config="region=${{ vars.AWS_REGION }}" -backend-config="bucket=webank-dev-terraform-state" -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
+        run: |
+          terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
 
       - name: Terraform Destroy
         if: github.event_name == 'workflow_dispatch'
-        run: terraform destroy -auto-approve -var-file=${{ matrix.name }}.tfvars -backend-config="region=${{ vars.AWS_REGION }}" -backend-config="bucket=webank-dev-terraform-state" -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
+        run: |
+          terraform destroy -auto-approve -var-file=${{ matrix.name }}.tfvars
