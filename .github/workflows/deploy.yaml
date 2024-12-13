@@ -3,7 +3,7 @@ name: Terraform Deployment
 on:
   workflow_dispatch:
     inputs:
-      name:
+      environment:
         description: "Environment name"
         required: true
         type: choice
@@ -18,11 +18,7 @@ defaults:
 
 jobs:
   tflint:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
@@ -32,7 +28,7 @@ jobs:
       name: Cache plugin dir
       with:
         path: ~/.tflint.d/plugins
-        key: ${{ matrix.os }}-tflint-${{ hashFiles('.tflint.hcl') }}
+        key: ${{ runner.os }}-tflint-${{ hashFiles('.tflint.hcl') }}
 
     - uses: terraform-linters/setup-tflint@v4.1.0
       name: Setup TFLint
@@ -49,7 +45,6 @@ jobs:
 
     - name: Run TFLint
       run: tflint -f compact
-
 
   tfsec:
     name: tfsec
@@ -80,7 +75,7 @@ jobs:
         run: ~/.tfsec/tfsec . || true
 
   deploy:
-    if: ${{ inputs.name }} == matrix.name
+    if: github.event_name != 'workflow_dispatch' || inputs.environment == matrix.name
     needs: [tflint, tfsec]
     runs-on: ubuntu-latest
     name: Deploy to ${{ matrix.name }} Environment
@@ -91,9 +86,6 @@ jobs:
       matrix: 
         name:
           - dev
-        include:
-          - name: dev
-            description: "Deploy to dev Environment"
 
     steps:
       - name: Checkout Code
