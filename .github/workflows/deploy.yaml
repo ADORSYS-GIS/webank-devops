@@ -75,7 +75,6 @@ jobs:
         run: ~/.tfsec/tfsec . || true
 
   deploy:
-    if: github.event_name != 'workflow_dispatch' || inputs.environment == matrix.name
     needs: [tflint, tfsec]
     runs-on: ubuntu-latest
     name: Deploy to ${{ matrix.name }} Environment
@@ -86,8 +85,14 @@ jobs:
       matrix: 
         name:
           - dev
-
     steps:
+      - name: Check if deployment should proceed
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.environment }}" != "${{ matrix.name }}" ]]; then
+            echo "Skipping deployment for ${{ matrix.name }}"
+            exit 0
+          fi
+
       - name: Checkout Code
         uses: actions/checkout@v4
 
