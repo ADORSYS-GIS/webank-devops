@@ -1,8 +1,8 @@
 vpc_cidr                   = "12.34.0.0/16"
 environment                = "dev"
-eks_min_instance           = 3
+eks_min_instance           = 2
 eks_max_instance           = 8
-eks_desired_instance       = 4
+eks_desired_instance       = 3
 db_instance                = "db.t3.medium"
 db_backup_retention_period = null
 db_skip_final_snapshot     = true
