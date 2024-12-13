@@ -170,7 +170,7 @@ strategy:
 1. **Environment Matrix**:
    - Defines the `dev` environment for deployment.
    - Includes metadata such as `name` and `description` for clear identification.
-   - **Why**: Supports scalability for future environments (e.g., staging, production).
+   - **Why**: Supports scalability for future environments (e.g., dev, production).
 
 2. **Dynamic Environment**:
    - `environment` specifies the deployment environment (`development`) and its associated URL.
@@ -274,7 +274,7 @@ strategy:
    - AWS credentials and sensitive values (e.g., DB passwords) are securely stored as GitHub Secrets.
 
 4. **Environment Scalability**:
-   - Matrix configurations allow for easy addition of new environments (e.g., staging, production).
+   - Matrix configurations allow for easy addition of new environments (e.g., dev, production).
 
 5. **Validation and Best Practices**:
    - Validates and enforces best practices, minimizing the risk of deploying flawed infrastructure.

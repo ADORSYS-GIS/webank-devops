@@ -52,7 +52,11 @@ jobs:
           echo "TF_VAR_zone_name=${{ vars.DOMAIN_NAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init -var-file=dev.tfvars
+        run: terraform init -var-file=${{ matrix.name }}.tfvars -backend-config="bucket=adorsys-webank-dev-tfstate" -backend-config="dynamodb_table=webank-tflock"
+
+      - name: Terraform Plan
+        run: terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
 
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve -var-file=dev.tfvars
+        if: github.event_name == 'workflow_dispatch'
+        run: terraform destroy -auto-approve plan.tfplan
