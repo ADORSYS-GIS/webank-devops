@@ -88,7 +88,7 @@ jobs:
       name: ${{ matrix.name }}
       url: https://${{ vars.DOMAIN_NAME }}
     strategy:
-      matrix:
+      matrix: 
         name:
           - dev
         include:
