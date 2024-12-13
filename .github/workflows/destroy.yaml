@@ -20,12 +20,17 @@ jobs:
       matrix: 
         name:
           - dev
-        include:
-          - name: dev
-            description: "Environment to be destroyed"
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Check if deployment should proceed
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.environment }}" != "${{ matrix.name }}" ]]; then
+            echo "Skipping deployment for ${{ matrix.name }}"
+            exit 0
+          fi
+
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
@@ -52,11 +57,23 @@ jobs:
           echo "TF_VAR_zone_name=${{ vars.DOMAIN_NAME }}" >> $GITHUB_ENV
 
       - name: Terraform Init
-        run: terraform init -var-file=${{ matrix.name }}.tfvars -backend-config="bucket=adorsys-webank-dev-tfstate" -backend-config="dynamodb_table=webank-tflock"
+        run: |
+          terraform init -var-file=${{ matrix.name }}.tfvars \
+          -backend-config="region=${{ vars.AWS_REGION }}" \
+          -backend-config="bucket=webank-dev-terraform-state" \
+          -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
       - name: Terraform Plan
-        run: terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
+        run: |
+          terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan \
+          -backend-config="region=${{ vars.AWS_REGION }}" \
+          -backend-config="bucket=webank-dev-terraform-state" \
+          -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
       - name: Terraform Destroy
         if: github.event_name == 'workflow_dispatch'
-        run: terraform destroy -auto-approve plan.tfplan
+        run: |
+          terraform destroy -auto-approve -var-file=${{ matrix.name }}.tfvars \
+          -backend-config="region=${{ vars.AWS_REGION }}" \
+          -backend-config="bucket=webank-dev-terraform-state" \
+          -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
