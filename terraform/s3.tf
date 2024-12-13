@@ -3,7 +3,7 @@ module "terraform_state_backend" {
   version = "1.5.0"
 
   namespace = "webank"
-  stage     = "staging"
+  stage     = "dev"
   name      = "terraform"
 
   attributes = ["state"]

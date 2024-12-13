@@ -1,5 +1,5 @@
 vpc_cidr                   = "12.34.0.0/16"
-environment                = "staging"
+environment                = "dev"
 eks_min_instance           = 1
 eks_max_instance           = 3
 eks_desired_instance       = 2
