@@ -18,6 +18,16 @@ spec:
           env:
             - name: VITE_BACKEND_URL
               value: 'https://dev.webank.gis.ssegning.com/api'
+        obs:
+          webank-obs:
+            env:
+              - name: SPRING_DATASOURCE_URL
+                value: jdbc:postgresql://webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com:5432/webank_dev_env
+              - name: SPRING_DATASOURCE_USERNAME
+                value: webank
+              - name: SPRING_DATASOURCE_PASSWORD
+                value: jude1234
+
         ingress:
           host: dev.webank.gis.ssegning.com
           className: alb
