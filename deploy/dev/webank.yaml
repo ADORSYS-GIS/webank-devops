@@ -23,7 +23,7 @@ spec:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
             user: webank
-            password: webank
+            secretName: rds-secret
 
         ingress:
           host: dev.webank.gis.ssegning.com
