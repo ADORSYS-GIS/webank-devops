@@ -11,4 +11,4 @@ appVersion: "1.0.0"
 dependencies:
   - name: common
     version: 2.27.0
-    repository: https://charts.bitnami.com/bitnami
+    repository:https://repo.broadcom.com/bitnami-files/

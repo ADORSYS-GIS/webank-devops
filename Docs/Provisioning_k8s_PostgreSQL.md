@@ -19,7 +19,7 @@ The Bitnami PostgreSQL Helm chart simplifies the process of deploying and managi
 
 ### Add the Bitnami Helm Repository
 ```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add bitnamihttps://repo.broadcom.com/bitnami-files/
 helm repo update
 ```
 
