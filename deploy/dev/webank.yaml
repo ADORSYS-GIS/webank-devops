@@ -23,7 +23,6 @@ spec:
           className: alb
           annotations:
             alb.ingress.kubernetes.io/load-balancer-name: webank-dev
-            alb.ingress.kubernetes.io/backend-protocol: HTTPS
             alb.ingress.kubernetes.io/listen-ports: |
               [
                 {
