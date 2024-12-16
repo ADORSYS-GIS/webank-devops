@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: webank
+  namespace: argocd
+spec:
+  project: application
+  source:
+    repoURL: https://adorsys-gis.github.io/webank-devops
+    chart: webank
+    targetRevision: 1.0.2-rc.2
+    helm:
+      releaseName: webank
+      valueFiles:
+        - values.yaml
+      valuesObject:
+        userapp:
+          env:
+            - name: VITE_BACKEND_URL
+              value: 'https://dev.webank.gis.ssegning.com/api'
+        ingress:
+          host: dev.webank.gis.ssegning.com
+          className: alb
+          annotations:
+            alb.ingress.kubernetes.io/load-balancer-name: webank-dev
+            alb.ingress.kubernetes.io/backend-protocol: HTTPS
+            alb.ingress.kubernetes.io/listen-ports: |
+              [
+                {
+                  "HTTP":80
+                }, 
+                {
+                  "HTTPS": 443
+                }
+              ]
+
+            alb.ingress.kubernetes.io/ssl-redirect: '443'
+            alb.ingress.kubernetes.io/scheme: "internet-facing"
+            alb.ingress.kubernetes.io/target-type: "ip"
+            alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-central-1:571075516563:certificate/1cee4019-ba69-40a8-a888-95f62a376f88"
+            external-dns.alpha.kubernetes.io/hostname: "dev.webank.gis.ssegning.com"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: webank
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+    revisionHistoryLimit: 4
