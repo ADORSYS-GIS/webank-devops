@@ -19,7 +19,7 @@ spec:
             pullPolicy: Always
           env:
             - name: VITE_BACKEND_URL
-              value: 'https://dev.webank.gis.ssegning.com/api'
+              value: '/api'
         obs:
           image:
             tag: '1473bff4c1c849d51fac38436df5475b665bbfe5'
