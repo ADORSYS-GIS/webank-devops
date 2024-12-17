@@ -22,7 +22,7 @@ spec:
               value: '/api'
         obs:
           image:
-            pullPolicy: Always
+            tag: '1473bff4c1c849d51fac38436df5475b665bbfe5'
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
@@ -44,7 +44,6 @@ spec:
                   "HTTPS": 443
                 }
               ]
-
             alb.ingress.kubernetes.io/ssl-redirect: '443'
             alb.ingress.kubernetes.io/scheme: "internet-facing"
             alb.ingress.kubernetes.io/target-type: "ip"
