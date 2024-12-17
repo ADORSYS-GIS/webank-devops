@@ -15,10 +15,14 @@ spec:
         - values.yaml
       valuesObject:
         userapp:
+          image:
+            pullPolicy: Always
           env:
             - name: VITE_BACKEND_URL
-              value: 'https://dev.webank.gis.ssegning.com/api'
+              value: '/api'
         obs:
+          image:
+            pullPolicy: Always
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
