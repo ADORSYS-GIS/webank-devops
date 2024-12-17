@@ -4,7 +4,6 @@ resource "kubernetes_secret" "rds_secret" {
     namespace = "webank"
   }
   data = {
-    password = base64encode(var.db_password)
+    password = var.db_password
   }
 }
-
