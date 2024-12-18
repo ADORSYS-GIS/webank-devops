@@ -22,7 +22,7 @@ spec:
               value: '/api'
         obs:
           image:
-            tag: '21a765fe411e839d99cde7ebc94445c771f1a0a6'
+            tag: '4badba0d3c3b98f0d5a132b3b9e5b78bed2d451c'
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
