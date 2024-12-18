@@ -35,7 +35,7 @@ dependencies:
     condition: db.enabled
   - name: common
     version: 2.27.0         <-------------------------(6) same as above
-    repository: https://charts.bitnami.com/bitnami
+    repository:https://repo.broadcom.com/bitnami-files/
 ```
 
 ### Explanation
@@ -70,7 +70,7 @@ appVersion: "1.0.0"       <---------------------------(8) version for obs(docker
 dependencies:             <------- Same as (5) and (6) above ---------->
   - name: common
     version: 2.27.0
-    repository: https://charts.bitnami.com/bitnami
+    repository:https://repo.broadcom.com/bitnami-files/
 ```
 
 ### Chart for webank-userapp
@@ -88,7 +88,7 @@ appVersion: "1.0.0"       <---------------------------(10) version for obs helm 
 dependencies:             <------- Same as (5) and (6) above ---------->
   - name: common
     version: 2.27.0
-    repository: https://charts.bitnami.com/bitnami
+    repository:https://repo.broadcom.com/bitnami-files/
 ```
 
 ### Explanation
