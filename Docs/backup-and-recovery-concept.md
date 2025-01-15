@@ -1,4 +1,21 @@
-# Introduction
+# Software Disaster Recovery and Backup: A Comprehensive Guide
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [What is Software Disaster Recovery?](#what-is-software-disaster-recovery)
+3. [Key Elements of SDR](#key-elements-of-sdr)
+4. [What is Backup?](#what-is-backup)
+5. [Types of Backups](#types-of-backups)
+6. [Importance of Disaster Recovery and Backup](#importance-of-disaster-recovery-and-backup)
+7. [Steps to Develop a Disaster Recovery and Backup Plan](#steps-to-develop-a-disaster-recovery-and-backup-plan)
+8. [Best Practices](#best-practices)
+9. [Technologies for Disaster Recovery and Backup](#technologies-for-disaster-recovery-and-backup)
+10. [Backup and Disaster Recovery Options for Webank Online Banking Application](#posible-backup-and-disaster-recovery-options-for-webank-online-banking-application)
+11. [Recommendations](#recommendations)
+12. [Conclusion](#conclusion)
+
+## Introduction
 
 This document provides an in-depth understanding of software disaster recovery and backup strategies, their importance, and best practices for  implementation for the webank online banking project.
 
@@ -10,47 +27,48 @@ Software disaster recovery (SDR) refers to the processes, tools, and policies de
 
 Disaster Recovery Plan (DRP): A detailed roadmap for responding to and recovering from disasters.
 
-- Risk Assessment: Identification and evaluation of potential threats.
-- Business Impact Analysis (BIA): Determination of critical systems and the potential impact of their failure.
-- Recovery Time Objective (RTO): Maximum acceptable downtime for systems.
-- Recovery Point Objective (RPO): Maximum acceptable data loss measured in time.
+- **Risk Assessment:** Identification and evaluation of potential threats.
+- **Business Impact Analysis (BIA):** Determination of critical systems and the potential impact of their failure.
+- **Recovery Time Objective (RTO):** Maximum acceptable downtime for systems.
+- **Recovery Point Objective (RPO):** Maximum acceptable data loss measured in time.
 
 ## What is Backup?
 
 Backup refers to the process of creating and storing copies of data to ensure it can be recovered in case of data loss. Backups are the foundation of any disaster recovery strategy and are critical for mitigating risks associated with data corruption, accidental deletion, or ransomware attacks.
 
-### Types of Backups
+## Types of Backups
 
-- Full Backup: A complete copy of all data.
-- Incremental Backup: Copies only the data that has changed since the last backup.
-- Differential Backup: Copies data changed since the last full backup.
-- Mirror Backup: A real-time, exact replica of the original data.
+- **Full Backup:** A complete copy of all data.
+- **Incremental Backup:** Copies only the data that has changed since the last backup.
+- **Differential Backup:** Copies data changed since the last full backup.
+- **Mirror Backup:** A real-time, exact replica of the original data.
 
 ## Importance of Disaster Recovery and Backup
 
-- Business Continuity: Ensures uninterrupted operations even during crises.
-- Data Protection: Safeguards sensitive and critical information.
-- Compliance: Meets regulatory requirements for data security and availability.
-- Cost Efficiency: Minimizes financial losses associated with downtime.
-- Reputation Management: Maintains customer trust by ensuring reliability.
+- **Business Continuity:** Ensures uninterrupted operations even during crises.
+- **Data Protection:** Safeguards sensitive and critical information.
+- **Compliance:** Meets regulatory requirements for data security and availability.
+- **Cost Efficiency:** Minimizes financial losses associated with downtime.
+- **Reputation Management:** Maintains customer trust by ensuring reliability.
 
 ## Steps to Develop a Disaster Recovery and Backup Plan
 
-1. Assess Risks
+1. **Assess Risks:**
 Identify potential threats such as hardware failures, cyberattacks, and natural disasters.
 Evaluate the likelihood and impact of each risk.
-2. Define Objectives
+
+2. **Define Objectives:**
 Establish RTO and RPO for critical systems.
 Prioritize applications and data based on business impact.
-3. Develop a Backup Strategy
+3. **Develop a Backup Strategy:**
 Choose the appropriate type of backup for your needs.
 Determine backup frequency and retention policies.
 Select secure storage solutions (e.g., cloud storage, off-site facilities).
-4. Implement Disaster Recovery Solutions
+4. **Implement Disaster Recovery Solutions**
 Deploy failover systems and redundant infrastructure.
 Use virtualization for rapid recovery of software environments.
 Test recovery procedures regularly to ensure effectiveness.
-5. Document and Train
+5. **Document and Train**
 Create comprehensive documentation of recovery and backup processes.
 Train employees and stakeholders on their roles during a disaster.
 
@@ -77,9 +95,9 @@ Combining on-premises and cloud-based strategies to leverage the strengths of bo
 
 ## Posible Backup and disaster Recovery options for webank online banking application
 
-## **Backup Options**
+### **Backup Options**
 
-### **1. AWS Backup**
+#### **1. AWS Backup**
 
 #### **Description**
 
