@@ -82,8 +82,10 @@ volumeMounts: [ ]
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 env:
-  - name: VITE_BACKEND_URL
-    value: http://backend.local:8080
+  - name: VITE_WEABNK_PRS_URL
+    value: /
+  - name: VITE_WEBANK_OBS_URL
+    value: /
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
