@@ -21,6 +21,11 @@ obs:
   ingress:
     enabled: false
 
+prs:
+  ## Disable the prs ingress
+  ingress:
+    enabled: false
+
 userapp:
   ## Disable the userapp ingress
   ingress:

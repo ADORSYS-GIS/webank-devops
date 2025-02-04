@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" $ }}
+  namespace: {{ include "common.names.namespace" $ }}
+  {{- with include "common.annotations.standard" ( dict "customAnnotations" $.Values.commonAnnotations "context" $ ) }}
+  annotations:
+    {{- . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- include "common.labels.standard" ( dict "customLabels" $.Values.commonLabels "context" $ ) | nindent 4 }}
+
+spec:
+  {{ with .Values.replicaCount -}}
+  replicas: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+  {{- end }}
+
+  {{ with .Values.strategy -}}
+  strategy:
+  {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4}}
+  {{- end }}
+
+  selector:
+    matchLabels:
+      {{ include "common.labels.matchLabels" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 6 }}
+
+  template:
+    metadata:
+      {{- with include "common.annotations.standard" ( dict "customAnnotations" $.Values.commonAnnotations "context" $ ) }}
+      annotations:
+        {{- . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{ include "common.labels.standard" ( dict "customLabels" .Values.commonAnnotations "context" $ ) | nindent 8 }}
+
+    spec:
+      {{ with .Values.image.pullSecrets -}}
+      imagePullSecrets:
+      {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 8}}
+      {{- end }}
+      containers:
+        - name: online-banking-service
+          {{ $imageTpl := include "common.images.image" (dict "imageRoot" .Values.image "global" $.Values.global) }}
+          image: {{ include "common.tplvalues.render" (dict "value" $imageTpl "context" $) | quote }}
+
+          {{ with .Values.livenessProbe -}}
+          livenessProbe: {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          {{- end }}
+
+          {{ with .Values.readinessProbe -}}
+          readinessProbe: {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          {{- end }}
+
+          {{ with .Values.image.pullPolicy -}}
+          imagePullPolicy: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+          {{- end }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "{{ include "constant.db.url" $ }}"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "{{ include "common.tplvalues.render" (dict "value" .Values.database.user "context" $) }}"
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: '{{ include "db.secret.name" $ }}'
+                  key: {{ .Values.database.secretKey }}
+          {{ with .Values.env -}}
+          {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          {{- end }}
+
+          {{ with .Values.envFrom -}}
+          envFrom:
+          {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          {{- end }}
+
+          ports:
+            - containerPort: {{ .Values.service.targetPort }}
+              name: http
+
+          {{ with .Values.volumeMounts -}}
+          volumeMounts:
+          {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
+          {{- end }}
+
+      {{ with .Values.volumes }}
+      volumes:
+      {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 6}}
+      {{ end }}
