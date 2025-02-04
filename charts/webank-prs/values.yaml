@@ -82,16 +82,6 @@ volumeMounts: [ ]
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 
-
-  ENV TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID}
-  ENV TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN}
-  ENV TWILIO_PHONE_NUMBER=${TWILIO_PHONE_NUMBER}
-  ENV OTP_SALT=${OTP_SALT}
-  ENV SERVER_PRIVATE_KEY_JSON=${SERVER_PRIVATE_KEY_JSON}
-  ENV SERVER_PUBLIC_KEY_JSON=${SERVER_PUBLIC_KEY_JSON}
-  ENV JWT_ISSUER=${JWT_ISSUER}
-  ENV JWT_EXPIRATION_TIME_MS=${JWT_EXPIRATION_TIME_MS}
-
 env:
   - name: TWILIO_ACCOUNT_SID
     value: ${TWILIO_ACCOUNT_SID}
@@ -133,7 +123,7 @@ image:
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/

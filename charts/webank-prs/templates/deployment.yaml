@@ -55,15 +55,6 @@ spec:
           imagePullPolicy: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
           {{- end }}
           env:
-            - name: SPRING_DATASOURCE_URL
-              value: "{{ include "constant.db.url" $ }}"
-            - name: SPRING_DATASOURCE_USERNAME
-              value: "{{ include "common.tplvalues.render" (dict "value" .Values.database.user "context" $) }}"
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: '{{ include "db.secret.name" $ }}'
-                  key: {{ .Values.database.secretKey }}
           {{ with .Values.env -}}
           {{ include "common.tplvalues.render" (dict "value" . "context" $) | nindent 12}}
           {{- end }}
