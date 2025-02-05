@@ -73,8 +73,10 @@ jobs:
 
       - name: Unlock Terraform State (if locked)
         run: |
-            LOCK_ID=$(aws dynamodb scan --table-name webank-dev-terraform-state-lock --query "Items[*].LockID.S" --output text)
-            if [ ! -z "$LOCK_ID" ]; then
+            LOCK_ID=$(aws dynamodb scan --table-name webank-dev-terraform-state-lock \
+              --query "Items[0].LockID.S" --output text)
+            
+            if [ -n "$LOCK_ID" ]; then
               echo "Unlocking Terraform state with ID: $LOCK_ID"
               terraform force-unlock -force "$LOCK_ID"
             else
