@@ -69,16 +69,6 @@ jobs:
           -backend-config="bucket=webank-dev-terraform-state" \
           -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
-
-      - name: Unlock Terraform State (if locked)
-        run: |
-              LOCK_ID="1253bdff-64c5-6801-2691-ac16ddaa37db"
-              echo "Attempting to unlock Terraform state with ID: $LOCK_ID"
-              terraform force-unlock -force "$LOCK_ID"
-              echo "Terraform state unlock attempt completed."
-        
-
-
       - name: Terraform Plan
         run: |
           terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
