@@ -2,6 +2,13 @@ name: Terraform Destroy
 
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment name"
+        required: true
+        type: choice
+        options:
+          - dev
 
 defaults:
   run:
