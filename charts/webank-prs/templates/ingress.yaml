@@ -1,3 +1,4 @@
+{{- if and (.Values.ingress.enabled) (eq .Values.service.type "ClusterIP") }}
 {{ with .Values.ingress -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -22,27 +23,13 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ $.Release.Name }}-userapp
+                name: {{ include "common.names.fullname" $ }}
                 port:
-                  number: {{ include "common.tplvalues.render" (dict "value" $.Values.userapp.service.port "context" $) }}
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $.Release.Name }}-obs
-                port:
-                  number: {{ include "common.tplvalues.render" (dict "value" $.Values.obs.service.port "context" $) }}
-          - path: /api/prs
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $.Release.Name }}-prs
-                port:
-                  number: {{ include "common.tplvalues.render" (dict "value" $.Values.prs.service.port "context" $) }}
-
+                  number: {{ include "common.tplvalues.render" (dict "value" $.Values.service.port "context" $) }}
   {{ if .tls }}
   tls:
     - hosts:
         - {{ include "common.tplvalues.render" (dict "value" .host "context" $) }}
   {{ end }}
+{{- end }}
 {{- end }}

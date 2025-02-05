@@ -1,0 +1,18 @@
+dependencies:
+- name: webank-obs
+  repository: file://../webank-obs/
+  version: 1.2.0
+- name: webank-userapp
+  repository: file://../webank-userapp/
+  version: 1.0.1
+- name: webank-prs
+  repository: file://../webank-prs/
+  version: 1.0.0
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 16.2.3
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 2.27.0
+digest: sha256:24689fb6fc9283761e900e68f948955f82b0886063793465526c284a64acc832
+generated: "2025-02-04T16:11:53.613260443+01:00"
