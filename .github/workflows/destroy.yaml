@@ -73,15 +73,12 @@ jobs:
 
       - name: Unlock Terraform State (if locked)
         run: |
-            LOCK_ID=$(aws dynamodb scan --table-name webank-dev-terraform-state-lock \
-              --query "Items[0].LockID.S" --output text)
-            
-            if [ -n "$LOCK_ID" ]; then
-              echo "Unlocking Terraform state with ID: $LOCK_ID"
+              LOCK_ID="1253bdff-64c5-6801-2691-ac16ddaa37db"
+              echo "Attempting to unlock Terraform state with ID: $LOCK_ID"
               terraform force-unlock -force "$LOCK_ID"
-            else
-              echo "No lock found. Skipping unlock."
-            fi
+              echo "Terraform state unlock attempt completed."
+        
+
 
       - name: Terraform Plan
         run: |
