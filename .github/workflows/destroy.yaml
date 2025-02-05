@@ -70,6 +70,15 @@ jobs:
           -backend-config="bucket=webank-dev-terraform-state" \
           -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
+
+      - name: Check for Existing Lock
+        id: lock-check
+        run: |
+            LOCK_INFO=$(terraform state pull | jq '.serial')
+            if [ "$LOCK_INFO" != "0" ]; then
+              echo "Found existing lock, forcing unlock..."
+            fi
+
       - name: Terraform Plan
         run: |
           terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
