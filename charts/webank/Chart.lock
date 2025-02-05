@@ -9,10 +9,10 @@ dependencies:
   repository: file://../webank-prs/
   version: 1.0.0
 - name: postgresql
-  repository: https://charts.bitnami.com/bitnami
+  repository: https://repo.broadcom.com/bitnami-files/
   version: 16.2.3
 - name: common
-  repository: https://charts.bitnami.com/bitnami
+  repository: https://repo.broadcom.com/bitnami-files/
   version: 2.27.0
-digest: sha256:24689fb6fc9283761e900e68f948955f82b0886063793465526c284a64acc832
-generated: "2025-02-04T16:11:53.613260443+01:00"
+digest: sha256:d34bdf8ed5838096c8f642a32489448311b276e5f334f23fd9764ed8f3bed446
+generated: "2025-02-05T11:17:02.986974696+01:00"
