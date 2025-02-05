@@ -17,7 +17,11 @@ commonAnnotations: ~
 ## Online Banking Service
 ##
 obs:
-  ## Disable the obs ingress
+  ingress:
+    enabled: false
+
+prs:
+  ## Disable the prs ingress
   ingress:
     enabled: false
 
@@ -26,11 +30,18 @@ userapp:
   ingress:
     enabled: false
   env:
-    - name: VITE_BACKEND_URL
+    - name: VITE_WEBANK_OBS_URL
+      value: 'https://{{ include "common.names.fullname" $ }}.webank.local'
+    - name: VITE_WEBANK_PRS_URL
       value: 'https://{{ include "common.names.fullname" $ }}.webank.local'
 
-db:
-  enabled: false
+global:
+  postgresql:
+    auth:
+      postgresPassword: "never-show-me-hide-me-only"
+      username: "change-and-hide-me"
+      password: "change-and-hide-me-more"
+      database: "webank-db"
 
 ingress:
   ## Additional labels for Ingress
