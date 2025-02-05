@@ -9,7 +9,6 @@ on:
         type: choice
         options:
           - dev
-  push: null
   pull_request: null
 
 defaults:
