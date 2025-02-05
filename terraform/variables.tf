@@ -33,6 +33,54 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "prs_private_key"{
+  description = "prs private key token"
+  type        = string
+  sensitive   = true
+}
+
+variable "prs_public_key"{
+  description = "prs public key token"
+  type        = string  
+  sensitive = false
+}
+
+variable "jwt_issuer"{
+  description = "jwt issuer"
+  type        = string  
+  sensitive = false
+}
+
+variable "jwt_expiration"{
+  description = "jwt expiration"
+  type        = string  
+  sensitive = false 
+}
+
+variable "twilio_account_sid"{
+  description = "twilio account sid"
+  type        = string  
+  sensitive = false
+}
+
+variable "twilio_auth_token"{
+  description = "twilio auth token"
+  type        = string  
+  sensitive = false
+}
+
+variable "twilio_phone_number"{
+  description = "twilio phone number"
+  type        = string  
+  sensitive = false
+}
+
+variable "otp_salt"{
+  description = "otp salt"
+  type        = string  
+  sensitive = true
+}
+
 variable "db_instance" {
   description = "The instance type for the RDS database"
   type        = string

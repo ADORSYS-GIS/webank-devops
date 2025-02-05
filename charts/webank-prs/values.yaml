@@ -81,11 +81,24 @@ volumeMounts: [ ]
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+
 env:
-  - name: VITE_WEABNK_PRS_URL
-    value: /
-  - name: VITE_WEBANK_OBS_URL
-    value: /
+  - name: TWILIO_ACCOUNT_SID
+    value: ${TWILIO_ACCOUNT_SID}
+  - name: TWILIO_AUTH_TOKEN
+    value: ${TWILIO_AUTH_TOKEN}
+  - name: TWILIO_PHONE_NUMBER
+    value: ${TWILIO_PHONE_NUMBER}
+  - name: OTP_SALT
+    value: ${OTP_SALT}
+  - name: SERVER_PRIVATE_KEY_JSON
+    value: ${SERVER_PRIVATE_KEY_JSON}
+  - name: SERVER_PUBLIC_KEY_JSON
+    value: ${SERVER_PUBLIC_KEY_JSON}
+  - name: JWT_ISSUER
+    value: ${JWT_ISSUER}
+  - name: JWT_EXPIRATION_TIME_MS
+    value: ${JWT_EXPIRATION_TIME_MS}
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -99,10 +112,10 @@ image:
   registry: ghcr.io
   ## Specify a Repository for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  repository: adorsys-gis/webank-userapp
+  repository: adorsys-gis/webank-prs
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 3f9ca531fd9a81abf287f2327da01397b788525f
+  tag: 'latest'
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
@@ -110,7 +123,7 @@ image:
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: https://kubernetes.io/docs/concepts/containers/images/#pre-pulled-images
   ##
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -118,16 +131,17 @@ image:
   ## pullSecrets:
   ##   - name: myRegistryKeySecretName
   ##
-  pullSecrets: [ ]
+  pullSecrets: []
+
 
 ## Liveness probe values
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 ##
 livenessProbe:
   httpGet:
-    path: /
-    port: 80
-  initialDelaySeconds: 5
+    path: /swagger-ui.html
+    port: 8080
+  initialDelaySeconds: 10
   periodSeconds: 5
 
 ## Readiness probe values
@@ -135,11 +149,13 @@ livenessProbe:
 ##
 readinessProbe:
   httpGet:
-    path: /
-    port: 80
-  initialDelaySeconds: 5
+    path: /swagger-ui.html
+    port: 8080
+  initialDelaySeconds: 10
   periodSeconds: 5
 
+## @param service Kubernetes service configuration
+##
 service:
   ## Kubernetes service additional labels
   ## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
@@ -149,10 +165,10 @@ service:
   type: ClusterIP
   ## Kubernetes service port
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
-  port: 80
+  port: 8080
   ## Kubernetes service targetPort
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
-  targetPort: 80
+  targetPort: 8080
   ## Kubernetes annotations for service
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
   annotations: "{{ $.Values.commonAnnotations | toYaml }}"
