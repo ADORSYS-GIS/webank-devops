@@ -16,19 +16,39 @@ spec:
       valuesObject:
         userapp:
           image:
+            tag: '3f9ca531fd9a81abf287f2327da01397b788525f'
             pullPolicy: Always
           env:
-            - name: VITE_BACKEND_URL
+            - name: VITE_WEBANK_OBS_URL
               value: '/api'
+            - name: VITE_WEBANK_PRS_URL
+              value: '/api/prs'
+        
         obs:
           image:
             tag: '4badba0d3c3b98f0d5a132b3b9e5b78bed2d451c'
+            pullPolicy: Always
+          env:
+            name: webank_obs_env
+            user: webank
+            secretName: webank-obs-secret
+
+           
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
             user: webank
             secretName: rds-secret
 
+        prs:
+          image:
+            tag: latest
+            pullPolicy: Always
+          env:
+            name: webank_prs_env
+            user: webank
+            secretName: webank-prs-secret
+          
         ingress:
           host: dev.webank.gis.ssegning.com
           className: alb
