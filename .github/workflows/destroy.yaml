@@ -71,12 +71,14 @@ jobs:
           -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
 
-      - name: Check for Existing Lock
-        id: lock-check
+      - name: Unlock Terraform State (if locked)
         run: |
-            LOCK_INFO=$(terraform state pull | jq '.serial')
-            if [ "$LOCK_INFO" != "0" ]; then
-              echo "Found existing lock, forcing unlock..."
+            LOCK_ID=$(aws dynamodb scan --table-name webank-dev-terraform-state-lock --query "Items[*].LockID.S" --output text)
+            if [ ! -z "$LOCK_ID" ]; then
+              echo "Unlocking Terraform state with ID: $LOCK_ID"
+              terraform force-unlock -force "$LOCK_ID"
+            else
+              echo "No lock found. Skipping unlock."
             fi
 
       - name: Terraform Plan
