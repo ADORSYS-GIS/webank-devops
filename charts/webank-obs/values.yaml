@@ -84,6 +84,10 @@ volumeMounts: [ ]
 env:
   - name: SPRING_PROFILES_ACTIVE
     value: postgres
+  - name: SERVER_PRIVATE_KEY_JSON
+    value: '{ "kty": "EC", "crv": "P-256", "d": "E-_KxQl0ow6_4Munq81OH_lg64R2vDpe3zq9XnI0AjE", "x": "PHlAcVDiqi7130xWiMn5CEbOyg_Yo0qfOhabhPlDV_s", "y": "N5bqvbDjbsX2uo2_lzKrwPt7fySMweZVeFSAv99TEEc" }'
+  - name: SERVER_PUBLIC_KEY_JSON
+    value: '{ "kty": "EC", "crv": "P-256", "x": "PHlAcVDiqi7130xWiMn5CEbOyg_Yo0qfOhabhPlDV_s", "y": "N5bqvbDjbsX2uo2_lzKrwPt7fySMweZVeFSAv99TEEc" }'
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -100,7 +104,7 @@ image:
   repository: adorsys-gis/webank-online-banking
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 'latest'
+  tag: c782fc1fc45148b93549236019566a9cec4ccc1c
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
@@ -125,7 +129,7 @@ image:
 livenessProbe:
   httpGet:
     path: /swagger-ui.html
-    port: 8080
+    port: 8081
   initialDelaySeconds: 10
   periodSeconds: 5
 
@@ -135,7 +139,7 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /swagger-ui.html
-    port: 8080
+    port: 8081
   initialDelaySeconds: 10
   periodSeconds: 5
 
@@ -150,10 +154,10 @@ service:
   type: ClusterIP
   ## Kubernetes service port
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
-  port: 8080
+  port: 8081
   ## Kubernetes service targetPort
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
-  targetPort: 8080
+  targetPort: 8081
   ## Kubernetes annotations for service
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
   annotations: "{{ $.Values.commonAnnotations | toYaml }}"

@@ -73,7 +73,7 @@ runs-on: ubuntu-latest
    ```yaml
    - name: Add repos to Helm
      run: |
-       helm repo add bitnami https://charts.bitnami.com/bitnami
+       helm repo add bitnamihttps://repo.broadcom.com/bitnami-files/
        helm repo add webank https://ADORSYS-GIS.github.io/webank-devops
        helm repo update
    ```
