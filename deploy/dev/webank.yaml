@@ -42,6 +42,7 @@ spec:
           image:
             tag: latest
             pullPolicy: Always
+          env: ~
           envFrom:
           - secretRef:
               name: webank-prs-secret
