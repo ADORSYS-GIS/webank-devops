@@ -20,11 +20,7 @@ spec:
           image:
             tag: '3f9ca531fd9a81abf287f2327da01397b788525f'
             pullPolicy: Always
-          env:
-            - name: VITE_WEBANK_OBS_URL
-              value: '/api'
-            - name: VITE_WEBANK_PRS_URL
-              value: '/api/prs'
+         
         
         obs:
           env:
