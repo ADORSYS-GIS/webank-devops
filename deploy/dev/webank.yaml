@@ -28,11 +28,9 @@ spec:
           image:
             tag: '4badba0d3c3b98f0d5a132b3b9e5b78bed2d451c'
             pullPolicy: Always
-          env:
-            name: webank_obs_env
-            user: webank
-            secretName: webank-obs-secret
-
+          envFrom:
+          - secretRef:
+              name: webank-obs-secret
            
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
@@ -44,10 +42,9 @@ spec:
           image:
             tag: latest
             pullPolicy: Always
-          env:
-            name: webank_prs_env
-            user: webank
-            secretName: webank-prs-secret
+          envFrom:
+          - secretRef:
+              name: webank-prs-secret
           
         ingress:
           host: dev.webank.gis.ssegning.com
