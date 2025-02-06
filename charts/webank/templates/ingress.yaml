@@ -19,18 +19,21 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
               service:
                 name: {{ $.Release.Name }}-userapp
                 port:
                   number: {{ include "common.tplvalues.render" (dict "value" $.Values.userapp.service.port "context" $) }}
           - path: /api
+            pathType: Prefix
             backend:
               service:
                 name: {{ $.Release.Name }}-obs
                 port:
                   number: {{ include "common.tplvalues.render" (dict "value" $.Values.obs.service.port "context" $) }}
           - path: /api/prs
+            pathType: Prefix
             backend:
               service:
                 name: {{ $.Release.Name }}-prs
