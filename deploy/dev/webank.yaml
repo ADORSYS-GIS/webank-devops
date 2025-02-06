@@ -14,6 +14,8 @@ spec:
       valueFiles:
         - values.yaml
       valuesObject:
+        db:
+          enabled: false
         userapp:
           image:
             tag: '3f9ca531fd9a81abf287f2327da01397b788525f'
