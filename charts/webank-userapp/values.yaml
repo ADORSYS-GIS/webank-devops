@@ -102,7 +102,7 @@ image:
   repository: adorsys-gis/webank-userapp
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 7fa84c8ca0c7a99596f3338ab475a68eb3d09a48
+  tag: latest
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
