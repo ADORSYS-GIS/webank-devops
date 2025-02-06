@@ -22,9 +22,9 @@ spec:
             pullPolicy: Always
           env:
             - name: VITE_WEBANK_OBS_URL
-              value: 'dev.webank.gis.ssegning.com'
+              value: '/api'
             - name: VITE_WEBANK_PRS_URL
-              value: 'dev.webank.gis.ssegning.com'
+              value: '/api/prs'
         
         obs:
           env:
