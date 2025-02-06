@@ -30,7 +30,7 @@ spec:
           image:
             tag: fe6894210ba40fa213bfe6afab1552d2ca0c64ec
             pullPolicy: Always
-          env:
+          env: 
           - name: SPRING_PROFILES_ACTIVE
             value: postgres
           envFrom:
