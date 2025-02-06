@@ -41,6 +41,9 @@ spec:
             secretName: rds-secret
 
         prs:
+          image:
+            tag: 01d3c4f5cdd519f9ce67b518841176df91872d5e
+            pullPolicy: Always
           env: []
           envFrom:
           - secretRef:
