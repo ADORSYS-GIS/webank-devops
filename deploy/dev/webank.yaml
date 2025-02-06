@@ -18,7 +18,7 @@ spec:
           enabled: false
         userapp:
           image:
-            tag: 'latest'
+            tag: 48db13942061b31224dd7d4ca8c86ac9c49c4d41
             pullPolicy: Always
           env:
             - name: VITE_WEBANK_OBS_URL
@@ -27,6 +27,9 @@ spec:
               value: '/api/prs'
         
         obs:
+          image:
+            tag: fe6894210ba40fa213bfe6afab1552d2ca0c64ec
+            pullPolicy: Always
           env:
           - name: SPRING_PROFILES_ACTIVE
             value: postgres
@@ -42,7 +45,7 @@ spec:
 
         prs:
           image:
-            tag: 01d3c4f5cdd519f9ce67b518841176df91872d5e
+            tag: a5dacfdeadf38a64bd719aaea3fc740d21f08231
             pullPolicy: Always
           env: []
           envFrom:
