@@ -27,9 +27,6 @@ spec:
               value: '/api/prs'
         
         obs:
-          image:
-            tag: '4badba0d3c3b98f0d5a132b3b9e5b78bed2d451c'
-            pullPolicy: Always
           env:
           - name: SPRING_PROFILES_ACTIVE
             value: postgres
