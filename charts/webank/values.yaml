@@ -30,10 +30,7 @@ userapp:
   ingress:
     enabled: false
   env:
-    - name: VITE_WEBANK_OBS_URL
-      value: 'https://{{ include "common.names.fullname" $ }}.webank.local'
-    - name: VITE_WEBANK_PRS_URL
-      value: 'https://{{ include "common.names.fullname" $ }}.webank.local'
+
 
 global:
   postgresql:

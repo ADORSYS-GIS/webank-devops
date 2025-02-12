@@ -1,12 +1,12 @@
 dependencies:
 - name: webank-obs
-  repository: file://../webank-obs/
+  repository: https://ADORSYS-GIS.github.io/webank-devops/
   version: 1.2.0
 - name: webank-userapp
-  repository: file://../webank-userapp/
+  repository: https://ADORSYS-GIS.github.io/webank-devops/
   version: 1.0.1
 - name: webank-prs
-  repository: file://../webank-prs/
+  repository: https://ADORSYS-GIS.github.io/webank-devops/
   version: 1.0.0
 - name: postgresql
   repository: https://repo.broadcom.com/bitnami-files/
@@ -14,5 +14,5 @@ dependencies:
 - name: common
   repository: https://repo.broadcom.com/bitnami-files/
   version: 2.27.0
-digest: sha256:d34bdf8ed5838096c8f642a32489448311b276e5f334f23fd9764ed8f3bed446
-generated: "2025-02-05T11:17:02.986974696+01:00"
+digest: sha256:581b73d41822c57dcc6b5b24497eba574e8aedb5d253e21ead657d95330d7209
+generated: "2025-02-05T12:46:46.850104951+01:00"
