@@ -1,31 +1,35 @@
 # Deploying a New Webank Module
 
-#### Introduction
+### Introduction
 
 This guide provides a step-by-step process for deploying a new Webank module (microservice), such as webank-bankaccount. By following this guide, developers can set up a new service and integrate it seamlessly into the existing Webank ecosystem.
 
-##### Prerequisites
+### Prerequisites
 
 **Ensure you have access to:**
 
-- The Webank GitHub repository
+- #### The webank-devops GitHub repository 
+  The repository where the terraform scripts, helm charts and other deployment-related files are located.
 
-- Kubernetes cluster credentials for local deployment or simple trigger worflow manually
+- #### Rights to add secrets and variables to webank-devops
+  This is only required in the case where the new module being deployed requires external variables. These must be injected, as secrets or variables, depending on how sensitive they are, during the creation of the infrastructure via the terraform apply workflow. 
 
-- ArgoCD access
+- #### ArgoCD access
+  ArgoCD is what injects our application into the infrastructure set up by terraform. Access to it is normally granted to every member of the organization owning webank-devops (ADORSYS-GIS). Access to our ArgoCD is instrumental in monitoring the environment wherein our application is running.
 
-- Terraform setup
-
-#### Steps to Deploy a New Webank Module
+### Steps to Deploy a New Webank Module
 
 1. **Create a New Directory for the Module(Microservice)**
-Navigate to the **charts/** directory and replicate an existing module directory (e.g., webank-userapp , webank-obs or webank-prs).
+
+Navigate to the **charts/** directory at the root of **webank-devops/** and replicate an existing module directory (e.g., webank-userapp , webank-obs or webank-prs).
 
 ```code
 cd charts
 cp -r webank-userapp <name-of-new-module>
 ```
 2. **Update Chart.yaml**
+
+Of the newly created module's helm chart.
 
 Modify the metadata inside charts/<name-of-new-module>/Chart.yaml:
 
@@ -46,9 +50,11 @@ dependencies:
     repository: https://repo.broadcom.com/bitnami-files/
 ```
 
-**NOTE:** Everything in the **Chart.yaml** remains thesame except the **version** and maybe the **dependencies..** becuase some modules might  not  need dependencies.. you can see for **webank-prs**
+**NOTE**: Everything in the **Chart.yaml** remains the same except the **version** and maybe the **dependencies..** because some modules might  not  need dependencies.. you can see for **webank-prs**. If the new module does not require dependencies, the whole dependency block should be removed.
 
 3. **Update values.yaml**
+
+Of the newly created module's helm chart.
 
 Modify charts/<name-of-new-module>/values.yaml to set the correct Docker image tag:
 
@@ -64,8 +70,12 @@ image:
   digest: ""
 
   pullPolicy: Always
-  ```
-**NOTE:** In the **values.yaml** file you might also want to define the environtmental variables  for your new module
+```
+**NOTE:** 
+
+In the **values.yaml** file you might also want to define the environtment variables for your new module, especially if you are first going to test a local deployment using minikube. 
+
+Even if you *are* going for full-blown deployment, environment variables that your application needs that are not sensitive may also be added here. An example is in **webank-obs/values.yaml** with the variable SPRING_PROFILES_ACTIVE.
 
 4. **Modify webank.yaml**
 
@@ -132,9 +142,9 @@ checkout how configurations were set for **webank-obs and webank-prs** in the **
                   number: {{ include "common.tplvalues.render" (dict "value" $.Values.prs.service.port "context" $) }}
 ```
 
-notice how we defined paths for the webank-userapp, webank-obs and webank-prs.. clean right?? yesssssss
+Notice how we defined paths for the webank-userapp, webank-obs and webank-prs... clean right?? Yesssss
 
-to do same for a new modules, we copy,paste then modify the path field..nothing more and also the name field.. **(name: {{ $.Release.Name }}- <change to fit your module )**
+To do same for a new modules, we copy, paste then modify the path field..nothing more and also the name field.. **(name: {{ $.Release.Name }}- <change to fit your module )**
 
 Next-Step : Go to the values.yaml file and disable ingress..
 
