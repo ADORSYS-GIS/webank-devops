@@ -33,5 +33,8 @@ resource "kubernetes_secret" "webank_obs_secret" {
   data = {
     SERVER_PRIVATE_KEY_JSON = var.prs_private_key
     SERVER_PUBLIC_KEY_JSON =  var.prs_public_key
+    JWT_ISSUER = var.jwt_issuer
+    JWT_EXPIRATION_TIME_MS = var.jwt_expiration
+
 }
 }
