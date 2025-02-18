@@ -86,6 +86,10 @@ env:
     value: ${SERVER_PRIVATE_KEY_JSON}
   - name: SERVER_PUBLIC_KEY_JSON
     value: ${SERVER_PUBLIC_KEY_JSON}
+  - name: JWT_ISSUER
+    value: ${JWT_ISSUER}
+  - name: JWT_EXPIRATION_TIME_MS
+    value: ${JWT_EXPIRATION_TIME_MS}
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -102,7 +106,7 @@ image:
   repository: adorsys-gis/webank-online-banking
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 712c886a175b9df77f4b0763d9135be74c0e4504
+  tag: ed984108ae0d696d576da5ead7556b9fe2b8be60
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
