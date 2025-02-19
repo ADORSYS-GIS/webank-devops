@@ -86,6 +86,10 @@ env:
     value: ${SERVER_PRIVATE_KEY_JSON}
   - name: SERVER_PUBLIC_KEY_JSON
     value: ${SERVER_PUBLIC_KEY_JSON}
+  - name: JWT_ISSUER
+    value: ${JWT_ISSUER}
+  - name: JWT_EXPIRATION_TIME_MS
+    value: ${JWT_EXPIRATION_TIME_MS}
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
