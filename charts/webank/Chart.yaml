@@ -29,3 +29,7 @@ dependencies:
   - name: common
     version: 2.27.0
     repository: "https://repo.broadcom.com/bitnami-files/"
+  - name: redis
+    version: 20.8.0
+    repository: "https://repo.broadcom.com/bitnami-files/"
+    alias: redis

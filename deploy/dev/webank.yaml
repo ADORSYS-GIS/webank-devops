@@ -28,11 +28,19 @@ spec:
         
         obs:
           image:
-            tag: a810828e607d3845c55b56eee0d9ecd72a81f619
+            tag: 77f7040dfdf406a89d3b452c2289c4f8ba7e2ee7
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
             value: postgres
+          - name: SPRING_REDIS_HOST
+            value: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
+          - name: SPRING_REDIS_PORT 
+            value: "6379"
+          - name: SPRING_REDIS_PASSWORD
+            value: "yourpassword"
+          - name: SPRING_REDIS_TIMEOUT
+            value: "2000"
           envFrom:
           - secretRef:
               name: webank-obs-secret
@@ -43,11 +51,32 @@ spec:
             user: webank
             secretName: rds-secret
 
+        redis:
+          enabled: true
+          architecture: standalone
+          host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
+          port: 6379
+          auth:
+            enabled: true
+            password: "yourpassword"
+          persistence:
+            enabled: false
+
         prs:
           image:
-            tag: b9f187e69c4c9167984dab012e46df28e9b1d9a7
+            tag: a96a195ea265822fc15037822a9325c81ae91ed8
             pullPolicy: Always
-          env: []
+          env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: postgres
+          - name: SPRING_REDIS_HOST
+            value: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
+          - name: SPRING_REDIS_PORT 
+            value: "6379"
+          - name: SPRING_REDIS_PASSWORD
+            value: "yourpassword"
+          - name: SPRING_REDIS_TIMEOUT
+            value: "2000"
           envFrom:
           - secretRef:
               name: webank-prs-secret
