@@ -100,13 +100,13 @@ env:
   - name: JWT_EXPIRATION_TIME_MS
     value: ${JWT_EXPIRATION_TIME_MS}
   - name: SPRING_REDIS_HOST
-    value: "redis-cache"
+    value: ${SPRING_REDIS_HOST}
   - name: SPRING_REDIS_PORT 
-    value: "6379"
+    value: ${SPRING_REDIS_PORT}
   - name: SPRING_REDIS_PASSWORD
-    value: "yourpassword"
+    value: ${SPRING_REDIS_PASSWORD}
   - name: SPRING_REDIS_TIMEOUT
-    value: "2000"
+    value: ${SPRING_REDIS_TIMEOUT}
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -123,7 +123,7 @@ image:
   repository: adorsys-gis/webank-prs
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: c319458732084c787f56338026f8ef783def3c0b
+  tag: a96a195ea265822fc15037822a9325c81ae91ed8
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""

@@ -28,7 +28,7 @@ spec:
         
         obs:
           image:
-            tag: 768689a7548d874948685bd892210f06611e3d21
+            tag: 77f7040dfdf406a89d3b452c2289c4f8ba7e2ee7
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
@@ -64,7 +64,7 @@ spec:
 
         prs:
           image:
-            tag: c319458732084c787f56338026f8ef783def3c0b
+            tag: a96a195ea265822fc15037822a9325c81ae91ed8
             pullPolicy: Always
           env:
           - name: SPRING_PROFILES_ACTIVE
