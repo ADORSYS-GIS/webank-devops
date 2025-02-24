@@ -43,6 +43,17 @@ spec:
             user: webank
             secretName: rds-secret
 
+        redis:
+          enabled: true
+          architecture: standalone
+          host: redis-cache
+          port: 6379
+          auth:
+            enabled: true
+            password: "yourpassword"
+          persistence:
+            enabled: false
+
         prs:
           image:
             tag: b9f187e69c4c9167984dab012e46df28e9b1d9a7

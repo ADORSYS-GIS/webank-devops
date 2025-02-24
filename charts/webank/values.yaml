@@ -1,21 +1,15 @@
 ## @param kubeVersion Override Kubernetes version
-##
 kubeVersion: ~
 ## @param nameOverride String to partially override common.names.fullname template (will maintain the release name)
-##
 nameOverride: ~
 ## @param fullnameOverride String to fully override common.names.fullname template
-##
 fullnameOverride: ~
 ## @param commonLabels Labels to add to all deployed resources
-##
 commonLabels: ~
 ## @param commonAnnotations Annotations to add to all deployed resources
-##
 commonAnnotations: ~
 
 ## Online Banking Service
-##
 obs:
   ingress:
     enabled: false
@@ -31,7 +25,6 @@ userapp:
     enabled: false
   env:
 
-
 global:
   postgresql:
     auth:
@@ -39,6 +32,22 @@ global:
       username: "change-and-hide-me"
       password: "change-and-hide-me-more"
       database: "webank-db"
+
+## Redis Cache Configuration
+redis:
+  enabled: true
+  # Set the deployment architecture (e.g., standalone, sentinel, cluster)
+  architecture: standalone
+  # Host name for the Redis service; adjust as needed for your cluster/domain
+  host: redis-cache
+  port: 6379
+  auth:
+    enabled: true
+    # Password used by your application to connect to Redis
+    password: "yourpassword"
+  persistence:
+    # Enable persistence if required for your use case
+    enabled: false
 
 ingress:
   ## Additional labels for Ingress
