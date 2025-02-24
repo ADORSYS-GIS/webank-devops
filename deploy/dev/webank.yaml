@@ -34,7 +34,7 @@ spec:
           - name: SPRING_PROFILES_ACTIVE
             value: postgres
           - name: SPRING_REDIS_HOST
-            value: redis-cache
+            value: "redis-cache"
           - name: SPRING_REDIS_PORT 
             value: "6379"
           - name: SPRING_REDIS_PASSWORD
@@ -54,7 +54,7 @@ spec:
         redis:
           enabled: true
           architecture: standalone
-          host: redis-cache
+          host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
           port: 6379
           auth:
             enabled: true
