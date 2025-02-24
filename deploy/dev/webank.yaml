@@ -45,7 +45,7 @@ spec:
 
         prs:
           image:
-            tag: 35e30897d6ba68509b7ace7342f693e016cbe2b2
+            tag: b9f187e69c4c9167984dab012e46df28e9b1d9a7
             pullPolicy: Always
           env: []
           envFrom:
