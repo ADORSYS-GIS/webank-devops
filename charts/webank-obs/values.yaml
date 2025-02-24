@@ -91,7 +91,7 @@ env:
   - name: JWT_EXPIRATION_TIME_MS
     value: ${JWT_EXPIRATION_TIME_MS}
   - name: SPRING_REDIS_HOST
-    value: "redis-cache"
+    value: redis-cache
   - name: SPRING_REDIS_PORT 
     value: "6379"
   - name: SPRING_REDIS_PASSWORD

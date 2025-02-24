@@ -33,6 +33,14 @@ spec:
           env: 
           - name: SPRING_PROFILES_ACTIVE
             value: postgres
+          - name: SPRING_REDIS_HOST
+            value: redis-cache
+          - name: SPRING_REDIS_PORT 
+            value: "6379"
+          - name: SPRING_REDIS_PASSWORD
+            value: "yourpassword"
+          - name: SPRING_REDIS_TIMEOUT
+            value: "2000"
           envFrom:
           - secretRef:
               name: webank-obs-secret
@@ -58,7 +66,17 @@ spec:
           image:
             tag: b9f187e69c4c9167984dab012e46df28e9b1d9a7
             pullPolicy: Always
-          env: []
+          env:
+          - name: SPRING_PROFILES_ACTIVE
+            value: postgres
+          - name: SPRING_REDIS_HOST
+            value: redis-cache
+          - name: SPRING_REDIS_PORT 
+            value: "6379"
+          - name: SPRING_REDIS_PASSWORD
+            value: "yourpassword"
+          - name: SPRING_REDIS_TIMEOUT
+            value: "2000"
           envFrom:
           - secretRef:
               name: webank-prs-secret
