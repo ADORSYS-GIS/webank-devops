@@ -115,7 +115,7 @@ image:
   repository: adorsys-gis/webank-prs
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 499316fd6ef9714d2cf9ea151eda7e4ab66e8ea6
+  tag: 99705e496426490c2ef9b9a63a1ae8d880d831c9
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
@@ -210,3 +210,28 @@ ingress:
   ## Ingress TLS configuration
   ## Secrets must be manually created in the namespace
   tls: false
+
+## @param persistence Persistence configuration
+##
+database:
+  ##
+  ##
+  name: '{{ template "common.names.fullname" . }}-db'
+  ##
+  ##
+  host: webank-db
+  ##
+  ##
+  port: 5432
+  ##
+  ##
+  user: webank-user
+  ##
+  ##
+  password: webank-password
+  ##
+  ##
+  secretName: ~
+  ##
+  ##
+  secretKey: password

@@ -154,3 +154,9 @@ variable "oidc_kc_issuer_url" {
   description = "The issuer URL for the OIDC provider"
   type        = string
 }
+
+variable "userapp_teller_password" {
+  description = "Password for teller privileges in userapp"
+  type        = string
+  sensitive   = true
+}

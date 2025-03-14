@@ -38,3 +38,14 @@ resource "kubernetes_secret" "webank_obs_secret" {
 
 }
 }
+
+resource "kubernetes_secret" "webank_userapp_secret" {  
+  metadata {
+    name      = "webank-userapp-secret"
+    namespace = "webank"
+  }
+  data = {
+    VITE_WEBANK_TELLER_PASSWORD = var.userapp_teller_password
+
+}
+}

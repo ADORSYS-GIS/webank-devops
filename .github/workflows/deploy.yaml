@@ -127,6 +127,7 @@ jobs:
           echo "TF_VAR_twilio_auth_token=${{ vars.TWILIO_AUTH_TOKEN }}" >> $GITHUB_ENV
           echo "TF_VAR_twilio_phone_number=${{ vars.TWILIO_PHONE_NUMBER }}" >> $GITHUB_ENV
           echo "TF_VAR_otp_salt=${{ secrets.OTP_SALT }}" >> $GITHUB_ENV
+          echo "TF_VAR_userapp_teller_password"="${{ secrets.USERAPP_TELLER_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Terraform Init
         run: |
