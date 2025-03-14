@@ -27,7 +27,7 @@ spec:
               value: '/api/prs'
           envFrom:
           - secretRef:
-              name: webank_userapp_secret
+              name: webank-userapp-secret
         
         obs:
           image:
