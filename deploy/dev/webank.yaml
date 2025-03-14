@@ -25,6 +25,9 @@ spec:
               value: '/api'
             - name: VITE_WEBANK_PRS_URL
               value: '/api/prs'
+          envFrom:
+          - secretRef:
+              name: webank_userapp_secret
         
         obs:
           image:
@@ -45,7 +48,7 @@ spec:
 
         prs:
           image:
-            tag: 99705e496426490c2ef9b9a63a1ae8d880d831c9
+            tag: 4068a65d8c5ead153fd94f72b317a89a5b69475b
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
