@@ -25,6 +25,9 @@ spec:
               value: '/api'
             - name: VITE_WEBANK_PRS_URL
               value: '/api/prs'
+          envFrom:
+          - secretRef:
+              name: webank_userapp_secret
         
         obs:
           image:
