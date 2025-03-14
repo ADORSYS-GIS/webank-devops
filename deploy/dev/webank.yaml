@@ -18,7 +18,7 @@ spec:
           enabled: false
         userapp:
           image:
-            tag: dfa0a2d74295ca040f58558a7108c0a0162a839a
+            tag: de9b5d4807fe7e002082f31206853e0532900a9f
             pullPolicy: Always
           env:
             - name: VITE_WEBANK_OBS_URL
@@ -45,12 +45,20 @@ spec:
 
         prs:
           image:
-            tag: 499316fd6ef9714d2cf9ea151eda7e4ab66e8ea6
+            tag: 99705e496426490c2ef9b9a63a1ae8d880d831c9
             pullPolicy: Always
-          env: []
+          env: 
+          - name: SPRING_PROFILES_ACTIVE
+            value: postgres
           envFrom:
           - secretRef:
               name: webank-prs-secret
+
+          database:
+            host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
+            name: webank_dev_env
+            user: webank
+            secretName: rds-secret
           
         ingress:
           host: dev.webank.gis.ssegning.com
