@@ -20,10 +20,3 @@ db:
     persistence:
       enabled: true
       size: "10Gi"
-
-prs:
-  database:
-    host: "{{ .Release.Name }}-db"
-    name: "{{ .Values.global.postgresql.auth.database }}"
-    user: "{{ .Values.global.postgresql.auth.username }}"
-    password: "{{ .Values.global.postgresql.auth.password }}"
