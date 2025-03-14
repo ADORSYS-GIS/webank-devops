@@ -115,7 +115,7 @@ image:
   repository: adorsys-gis/webank-prs
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 4068a65d8c5ead153fd94f72b317a89a5b69475b
+  tag: 66c6345025fb1eb79b315657d693d35547a2d2e2
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
