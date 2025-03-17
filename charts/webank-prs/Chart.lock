@@ -1,0 +1,6 @@
+dependencies:
+- name: common
+  repository: https://repo.broadcom.com/bitnami-files/
+  version: 2.27.0
+digest: sha256:f61f15e5ad241b07616f3e34e4be8281fdd5818d67bc3a661fcc05fad5c079d0
+generated: "2025-03-17T09:55:18.223585136+01:00"
