@@ -56,7 +56,7 @@ spec:
           {{- end }}
           env:
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com:5432/webank_dev_env
+              value: "{{ include "constant.db.url" $ }}"
             - name: SPRING_DATASOURCE_USERNAME
               value: "{{ include "common.tplvalues.render" (dict "value" .Values.database.user "context" $) }}"
             - name: SPRING_DATASOURCE_PASSWORD
