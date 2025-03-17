@@ -38,8 +38,7 @@ spec:
             value: postgres
           envFrom:
           - secretRef:
-              name: webank-obs-secret
-           
+              name: webank-obs-secret           
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
@@ -56,7 +55,6 @@ spec:
           envFrom:
           - secretRef:
               name: webank-prs-secret
-
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
