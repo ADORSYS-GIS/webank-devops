@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://adorsys-gis.github.io/webank-devops
     chart: webank
-    targetRevision: 1.3.0-rc
+    targetRevision: 1.3.0-rc-1
     helm:
       releaseName: webank
       valueFiles:
