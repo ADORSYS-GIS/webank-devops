@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - feat/deploy-over-argocd
-      - feat/database-connection-for-prs-and-kyc-pages
 
 jobs:
   release:
