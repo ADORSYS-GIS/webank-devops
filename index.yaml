@@ -3,6 +3,37 @@ entries:
   webank:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-03-18T09:08:51.371466505Z"
+    dependencies:
+    - alias: obs
+      name: webank-obs
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.2.0
+    - alias: userapp
+      name: webank-userapp
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.0.1
+    - alias: prs
+      name: webank-prs
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.0.1
+    - alias: db
+      condition: db.enabled
+      name: postgresql
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 16.2.3
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 3956f58343252b7ce864fd7504e0de4994784accd49a8a4b04e0e4f3f4a13f0d
+    name: webank
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-1.3.0-rc-1/webank-1.3.0-rc-1.tgz
+    version: 1.3.0-rc-1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-03-17T14:14:23.228588687Z"
     dependencies:
     - alias: obs
@@ -3011,6 +3042,20 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-03-18T09:08:51.49075281Z"
+    dependencies:
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 0d54189f67427c443c81ad6faadbadb9835b24a534ca6239f6f11bd6e4c182ad
+    name: webank-prs
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-prs-1.0.1-rc/webank-prs-1.0.1-rc.tgz
+    version: 1.0.1-rc
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-02-05T10:18:39.718780557Z"
     description: A Helm chart for Kubernetes
     digest: fc9e5b6079043e5fa2869e248c1fc8a022560d85024f668aa6fc3ced196d64d6
@@ -3062,4 +3107,4 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-userapp-0.1.0/webank-userapp-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-17T14:28:58.250088793Z"
+generated: "2025-03-18T09:08:51.491277791Z"
