@@ -99,6 +99,10 @@ env:
     value: ${JWT_ISSUER}
   - name: JWT_EXPIRATION_TIME_MS
     value: ${JWT_EXPIRATION_TIME_MS}
+  - name: ${EMAIL}
+    value: ${EMAIL}
+  - name: ${PASSWORD}
+    value: ${PASSWORD}
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
@@ -115,7 +119,7 @@ image:
   repository: adorsys-gis/webank-prs
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 66c6345025fb1eb79b315657d693d35547a2d2e2
+  tag: cf473e31804906edaf95e1ca3cced343a63b221c
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
