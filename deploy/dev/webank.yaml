@@ -18,7 +18,7 @@ spec:
           enabled: false
         userapp:
           image:
-            tag: eb812167ef9287a04e898a6a17c85f18768d4f44
+            tag: 502a6fdcaba1dcf28975ec2a3d1274eba01a5248
             pullPolicy: Always
           env:
             - name: VITE_WEBANK_OBS_URL
