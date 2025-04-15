@@ -18,7 +18,7 @@ spec:
           enabled: false
         userapp:
           image:
-            tag: de9b5d4807fe7e002082f31206853e0532900a9f
+            tag: 5921fbe3287b4b52e7919dbba53e3936ce350006
             pullPolicy: Always
           env:
             - name: VITE_WEBANK_OBS_URL
@@ -47,7 +47,7 @@ spec:
 
         prs:
           image:
-            tag: 66c6345025fb1eb79b315657d693d35547a2d2e2
+            tag: 37e3db7732a32f48bfdeb88eb44fdc565c6d080d
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
