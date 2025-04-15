@@ -22,6 +22,8 @@ resource "kubernetes_secret" "webank_prs_secret" {
     TWILIO_AUTH_TOKEN = var.twilio_auth_token
     TWILIO_PHONE_NUMBER = var.twilio_phone_number
     OTP_SALT = var.otp_salt
+    EMAIL = var.email
+    PASSWORD = var.email_password
   }
 }
 

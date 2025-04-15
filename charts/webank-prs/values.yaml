@@ -99,6 +99,10 @@ env:
     value: ${JWT_ISSUER}
   - name: JWT_EXPIRATION_TIME_MS
     value: ${JWT_EXPIRATION_TIME_MS}
+  - name: ${EMAIL}
+    value: ${EMAIL}
+  - name: ${PASSWORD}
+    value: ${PASSWORD}
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/

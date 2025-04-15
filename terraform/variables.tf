@@ -81,6 +81,18 @@ variable "otp_salt"{
   sensitive = true
 }
 
+variable "email"{
+  description = "email"
+  type        = string  
+  sensitive = false
+}
+
+variable "email_password"{
+  description = "email password"
+  type        = string  
+  sensitive = true
+}
+
 variable "db_instance" {
   description = "The instance type for the RDS database"
   type        = string
