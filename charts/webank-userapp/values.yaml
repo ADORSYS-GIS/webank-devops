@@ -103,7 +103,7 @@ image:
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
 
-  tag: e9ddf0d98dd872e45fa82a8aa645245258bb6686
+  tag: c81bfa723d67109ae37b7d9fb1a1a4ba892c69f9
 
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
