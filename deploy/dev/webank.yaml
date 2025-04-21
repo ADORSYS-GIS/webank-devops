@@ -47,7 +47,7 @@ spec:
 
         prs:
           image:
-            tag: 37e3db7732a32f48bfdeb88eb44fdc565c6d080d
+            tag: 2da97f139ddf8b7b7960afa3c5b09f8a9c4ef565
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
