@@ -31,7 +31,7 @@ spec:
         
         obs:
           image:
-            tag: 30daa555f6b21eaa638da99a2c16d911babd7e1e
+            tag: 5449c006321bf922a70655507a44ea877f50d20e
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE

@@ -106,7 +106,7 @@ image:
   repository: adorsys-gis/webank-online-banking
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: 30daa555f6b21eaa638da99a2c16d911babd7e1e
+  tag: 5449c006321bf922a70655507a44ea877f50d20e
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
