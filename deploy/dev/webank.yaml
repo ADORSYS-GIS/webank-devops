@@ -16,6 +16,36 @@ spec:
       valuesObject:
         db:
           enabled: false
+        monitoring:
+          enabled: true
+
+          prometheus:
+            image:
+              tag: latest
+              pullPolicy: IfNotPresent
+            service:
+              type: ClusterIP
+
+          grafana:
+            image:
+              tag: latest
+              pullPolicy: IfNotPresent
+            admin:
+              existingSecret: grafana-admin-secret
+            service:
+              type: ClusterIP
+            ingress:
+              enabled: true
+              hosts:
+                - grafana.dev.webank.gis.ssegning.com
+              annotations:
+                kubernetes.io/ingress.class: alb
+                alb.ingress.kubernetes.io/scheme: internet-facing
+                alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-central-1:571075516563:certificate/1cee4019-ba69-40a8-a888-95f62a376f88"
+
+          alertmanager:
+            enabled: true
+
         userapp:
           image:
             tag: 48fe41a693ee6e26e440790b6b109e7d4178846c
