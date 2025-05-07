@@ -39,7 +39,6 @@ spec:
                 name: {{ $.Release.Name }}-prs
                 port:
                   number: {{ include "common.tplvalues.render" (dict "value" $.Values.prs.service.port "context" $) }}
-
           - path: /grafana
             pathType: Prefix
             backend:
