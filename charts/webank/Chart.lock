@@ -15,7 +15,7 @@ dependencies:
   repository: https://repo.broadcom.com/bitnami-files/
   version: 2.27.0
 - name: webank-monitoring
-  repository: file://../webank-monitoring
+  repository: https://ADORSYS-GIS.github.io/webank-devops/
   version: 0.1.0
-digest: sha256:6a5d56850440add3aa9b8838fab31b55ade8041d014953287607be81ddf104bc
-generated: "2025-05-07T13:47:02.029379751+01:00"
+digest: sha256:6747480b7765bf81883d7997e7033c1ad0d330435e6840656519a058faaeeee6
+generated: "2025-05-07T13:55:09.982682898+01:00"
