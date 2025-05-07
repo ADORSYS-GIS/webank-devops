@@ -29,9 +29,10 @@ spec:
           grafana:
             image:
               tag: latest
-              pullPolicy: IfNotPresent
-            admin:
-              existingSecret: grafana-admin-secret
+              pullPolicy: IfNotPresent 
+          envFrom:
+          - secretRef:
+              name: webank-userapp-secret
             service:
               type: ClusterIP
             ingress:

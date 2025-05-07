@@ -130,6 +130,8 @@ jobs:
           echo "TF_VAR_userapp_teller_password"="${{ secrets.USERAPP_TELLER_PASSWORD }}" >> $GITHUB_ENV
           echo "TF_VAR_email"="${{ vars.EMAIL }}" >> $GITHUB_ENV
           echo "TF_VAR_email_password"="${{ secrets.PASSWORD }}" >> $GITHUB_ENV
+          echo "TF_VAR_admin_user"="${{ secrets.GRAFANA_USER_NAME }}" >> $GITHUB_ENV
+          echo "TF_VAR_admin_password"="${{ secrets.GRAFANA_USER_PASSWORD }}" >> $GITHUB_ENV
 
       - name: Terraform Init
         run: |
