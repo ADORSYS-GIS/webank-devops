@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "webank-monitoring.fullname" . }}-grafana-datasource
+  labels:
+    app: grafana
+    grafana_datasource: "1"
+data:
+  prometheus-datasource.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://{{ include "webank-monitoring.fullname" . }}-prometheus:{{ .Values.prometheus.service.port }}
+        isDefault: true
+        editable: true

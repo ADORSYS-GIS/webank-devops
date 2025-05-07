@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "webank-monitoring.fullname" . }}-grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: "{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.grafana.service.port }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/grafana/grafana.ini
+              subPath: grafana.ini
+            - name: dashboards
+              mountPath: /var/lib/grafana/dashboards
+            - name: provisioning
+              mountPath: /etc/grafana/provisioning/dashboards
+            - name: datasource
+              mountPath: /etc/grafana/provisioning/datasources
+
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "webank-monitoring.fullname" . }}-grafana-config
+        - name: dashboards
+          configMap:
+            name: {{ include "webank-monitoring.fullname" . }}-grafana-dashboards
+        - name: provisioning
+          configMap:
+            name: {{ include "webank-monitoring.fullname" . }}-grafana-dashboard-provider
+        - name: datasource
+          configMap:
+            name: {{ include "webank-monitoring.fullname" . }}-grafana-datasource

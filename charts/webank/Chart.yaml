@@ -29,3 +29,8 @@ dependencies:
   - name: common
     version: 2.27.0
     repository: "https://repo.broadcom.com/bitnami-files/"
+  - name: webank-monitoring
+    repository: "file://../webank-monitoring"
+    version: 0.1.0
+    alias: monitoring
+    condition: monitoring.enabled

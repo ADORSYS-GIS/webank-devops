@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "webank-monitoring.fullname" . }}-grafana-dashboards
+data:
+  default.json: |
+    {
+      "__inputs": [],
+      "title": "Webank Overview",
+      "panels": [],
+      "schemaVersion": 30,
+      "version": 1
+    }

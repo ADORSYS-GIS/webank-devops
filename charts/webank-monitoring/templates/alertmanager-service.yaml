@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+  labels:
+    app: alertmanager
+spec:
+  type: {{ .Values.alertmanager.service.type }}
+  ports:
+    - port: {{ .Values.alertmanager.service.port }}
+      targetPort: 9093
+  selector:
+    app: alertmanager

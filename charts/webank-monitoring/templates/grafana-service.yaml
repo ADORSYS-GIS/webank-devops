@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "webank-monitoring.fullname" . }}-grafana
+spec:
+  type: {{ .Values.grafana.service.type }}
+  ports:
+    - port: {{ .Values.grafana.service.port }}
+      targetPort: {{ .Values.grafana.service.port }}
+      protocol: TCP
+      name: http
+  selector:
+    app: grafana

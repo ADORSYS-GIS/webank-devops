@@ -14,5 +14,8 @@ dependencies:
 - name: common
   repository: https://repo.broadcom.com/bitnami-files/
   version: 2.27.0
-digest: sha256:ca4808ef7021fd34b58f2ece522ce91512c535c54a55bc1d7954c359c025f0c0
-generated: "2025-03-18T10:13:06.38932506+01:00"
+- name: webank-monitoring
+  repository: file://../webank-monitoring
+  version: 0.1.0
+digest: sha256:6a5d56850440add3aa9b8838fab31b55ade8041d014953287607be81ddf104bc
+generated: "2025-05-07T13:47:02.029379751+01:00"

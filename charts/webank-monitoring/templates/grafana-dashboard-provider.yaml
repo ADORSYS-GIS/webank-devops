@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "webank-monitoring.fullname" . }}-grafana-dashboard-provider
+  labels:
+    app: grafana
+data:
+  provider.yaml: |
+    apiVersion: 1
+    providers:
+      - name: '{{ (index .Values.grafana.dashboards.providers 0).name }}'
+        orgId: {{ (index .Values.grafana.dashboards.providers 0).orgId }}
+        folder: '{{ (index .Values.grafana.dashboards.providers 0).folder }}'
+        type: {{ (index .Values.grafana.dashboards.providers 0).type }}
+        disableDeletion: {{ (index .Values.grafana.dashboards.providers 0).disableDeletion }}
+        updateIntervalSeconds: {{ (index .Values.grafana.dashboards.providers 0).updateIntervalSeconds }}
+        options:
+          path: {{ (index .Values.grafana.dashboards.providers 0).options.path }}
