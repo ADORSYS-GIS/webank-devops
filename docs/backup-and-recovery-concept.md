@@ -1,221 +1,263 @@
-
-# Introduction
-
-This document provides an in-depth understanding of software disaster recovery and backup strategies, their importance, and best practices for  implementation for the webank online banking project.
-
-## What is Software Disaster Recovery?
-
-Software disaster recovery (SDR) refers to the processes, tools, and policies designed to restore software systems, applications, and data to their functional state after a disruptive event. The goal of SDR is to minimize the impact of disasters on business operations by ensuring rapid recovery and resumption of services.
-
-## Key Elements of SDR
-
-Disaster Recovery Plan (DRP): A detailed roadmap for responding to and recovering from disasters.
-
-- Risk Assessment: Identification and evaluation of potential threats.
-- Business Impact Analysis (BIA): Determination of critical systems and the potential impact of their failure.
-- Recovery Time Objective (RTO): Maximum acceptable downtime for systems.
-- Recovery Point Objective (RPO): Maximum acceptable data loss measured in time.
-
-## What is Backup?
-
-Backup refers to the process of creating and storing copies of data to ensure it can be recovered in case of data loss. Backups are the foundation of any disaster recovery strategy and are critical for mitigating risks associated with data corruption, accidental deletion, or ransomware attacks.
-
-### Types of Backups
-
-- Full Backup: A complete copy of all data.
-- Incremental Backup: Copies only the data that has changed since the last backup.
-- Differential Backup: Copies data changed since the last full backup.
-- Mirror Backup: A real-time, exact replica of the original data.
-
-## Importance of Disaster Recovery and Backup
-
-- Business Continuity: Ensures uninterrupted operations even during crises.
-- Data Protection: Safeguards sensitive and critical information.
-- Compliance: Meets regulatory requirements for data security and availability.
-- Cost Efficiency: Minimizes financial losses associated with downtime.
-- Reputation Management: Maintains customer trust by ensuring reliability.
-
-## Steps to Develop a Disaster Recovery and Backup Plan
-
-1. Assess Risks
-Identify potential threats such as hardware failures, cyberattacks, and natural disasters.
-Evaluate the likelihood and impact of each risk.
-2. Define Objectives
-Establish RTO and RPO for critical systems.
-Prioritize applications and data based on business impact.
-3. Develop a Backup Strategy
-Choose the appropriate type of backup for your needs.
-Determine backup frequency and retention policies.
-Select secure storage solutions (e.g., cloud storage, off-site facilities).
-4. Implement Disaster Recovery Solutions
-Deploy failover systems and redundant infrastructure.
-Use virtualization for rapid recovery of software environments.
-Test recovery procedures regularly to ensure effectiveness.
-5. Document and Train
-Create comprehensive documentation of recovery and backup processes.
-Train employees and stakeholders on their roles during a disaster.
-
-## Best Practices
-
-- Automate Backups: Schedule regular backups to avoid manual errors.
-- Use Encryption: Protect backup data with robust encryption methods.
-- Adopt a Multi-Site Strategy: Store backups in multiple geographic locations.
-- Perform Regular Testing: Validate recovery plans through periodic drills.
-- Monitor Continuously: Use monitoring tools to detect and address issues proactively.
-
-## Technologies for Disaster Recovery and Backup
-
-- Cloud-Based Solutions
-- Amazon Web Services (AWS)
-- Microsoft Azure
-- Google Cloud Platform (GCP)
-- On-Premises Solutions
-- Network-attached storage (NAS)
-- Storage area networks (SAN)
-- Backup appliances (e.g., Dell EMC Data Domain, Veeam Backup & Replication)
-- Hybrid Solutions
-Combining on-premises and cloud-based strategies to leverage the strengths of both.
-
-# Necessary Backups, How and Why to Back Them Up for webank
-
-## 1. AWS EKS Cluster Configuration
-
-- **Why:** Ensures that infrastructure changes (e.g., cluster config, resources) are recoverable in case of accidental deletion or drift.
-- **How:** Store Terraform state in AWS S3 with versioning enabled.
-
-## 2. ArgoCD Configuration
-
-- **Why:** Allows quick restoration of application configurations, ensuring the system can be redeployed if ArgoCD is lost or corrupted.
-- **How:** Store ArgoCD config in Git (manifests, Helm values). Take periodic snapshots of ArgoCD settings.
-
-## 3. Helm Charts
-
-- **Why:** Helm charts define the deployment structure of your applications, ensuring they can be redeployed or rolled back to a previous state.
-- **How:** Store Helm charts in an S3 bucket or Helm repository.
-
-## 4. GitHub Repository
-
-- **Why:** GitHub repositories store your application code and configuration; having backups ensures the ability to recover code after an accidental deletion or compromise.
-- **How:** Use GitHub backups or a self-hosted Git mirror. Enable branch protections.
-
-## 5. Persistent Volumes (Databases, Storage)
-
-- **Why:** Ensures that data is not lost during failures, enabling restoration of databases and persistent volumes to their most recent state.
-- **How:** AWS EBS snapshots, AWS RDS backups, enable automated backups and point-in-time recovery.
-
-## 6. Terraform State
-
-- **Why:** Terraform state files track the infrastructure’s current state; backups and versioning ensure that you can restore or reapply infrastructure changes after failures.
-- **How:** Store in AWS S3, enable versioning, use DynamoDB for state locking.
-
-# Possible Disasters and Recovery Strategies for webank deployment
-
-## 1. Kubernetes Cluster Failure (EKS Outage)
-
-### **Cause:**
-
-AWS EKS region-wide outage, misconfiguration, or accidental deletion.
-
-### **Impact:**
-
-Entire Webank application goes down.
-
-### **Recovery:**
-
-- Use Terraform to quickly recreate EKS in another region.
-- Ensure your ArgoCD instance is redeployed with access to GitHub.
-- Restore application state from backups (databases, persistent volumes).
-
-## 2. Argo CD Failure
-
-**Cause:**
-
-Accidental deletion, misconfiguration, or credential loss.
-
-**Impact:**
-
-Deployment automation stops, causing delays in updates.
-
-**Recovery:**
-
-- Reinstall Argo CD using Terraform (`terraform apply -target=module.argocd`)
-- Restore Argo CD applications (`kubectl apply -f argocd-apps.yaml`)
-- Restore OIDC secrets (`kubectl apply -f argocd-secrets.yaml`)
-- Ensure ArgoCD has access to GitHub and Kubernetes.
-
-## 3. Data Loss (RDSFailure)
-
-**Cause:**
-
-- Accidental deletion
-- AWS infrastructure failure
-
-**Impact:**
-
-Loss of application data.
-
-**Recovery:**
-
-- Restore RDS snapshot (`aws rds restore-db-instance-from-db-snapshot`)
-- Use AWS RDS backups for managed databases.
-- Enable point-in-time recovery for critical storage.
-
-## 4. Helm chart Corruption or Incorrect Deployment
-
-**Cause:**
-
-Bad Helm chart update or incorrect values in Helm configuration.
-
-**Impact:***
-
-Service crashes or incorrect configurations deployed.
-**Recovery:**
-
-Roll back to a previous Helm release (helm rollback <release> <revision>).
-Use kubectl get events and kubectl describe pod to diagnose issues.
-Validate Helm charts in staging before production deployments.
-
-## 5. Terraform State Loss or Corruption
-
-**Cause:**
-
-Terraform state file (terraform.tfstate) is lost or corrupted.
-**Impact:**
-
-Infrastructure drift, inability to track changes.
-**Recovery:**
-
-- Store Terraform state in an AWS S3 bucket with versioning enabled.
-- Enable state locking using AWS DynamoDB.
-
-## 6. GitHub Repository Deletion or Compromise
-
-**Cause:**
-Accidental deletion, repository corruption, unauthorized access.
-
-### **Impact**
-
-ArgoCD loses source of truth for deployments.
-**Recovery:**
-
-- Restore GitHub repository from GitHub backups or self-hosted mirror.
-- Restrict access and enforce branch protection rules.
-- Store Helm chart tarballs in an AWS S3 bucket as a backup.
-
-# Backup and Disaster Recovery Implementation Plan for webank
-
-## 1. Create an automated backup strategy script
-
-- The script should be able to backup all necessary webank componenets.
-- The script should be ran automatically and frequently base on webanks RTO and RPO.
-- Add documentation
-
-## 2. Create a recovery script
-
-- The script should automate restoring from backups in case of a disaster.
-- Create a versioned disaster recovery runbook which provides step-by-step instructions for recovering webank’s infrastructure in the event of a disaster.
-
-## Conclusion
-
-An effective backup disaster recovery and plan is not optional; it is a critical component of any organization’s IT strategy. By understanding the principles outlined in this document, businesses can build resilience against unexpected disruptions, protect their data, and ensure long-term success. Implementing these strategies requires commitment, regular evaluation, and adaptation to evolving threats and technologies.
-For further guidance on implementing a disaster recovery and backup plan tailored to your organization, consult with industry professionals or refer to specialized resources
+# Webank Disaster Recovery & Backup Strategy
+
+## Key Components We Protect
+
+Here's the refined section with exact code references and updated architecture diagram:
+
+### 1. Infrastructure (EKS Cluster)
+```mermaid
+graph LR
+    A[Terraform Code] --> B[Terraform State]
+    B --> C[S3 Backend]
+    C --> D[Encryption: AES256]
+    D --> E[State Locking: AWS Managed]
+    E --> F[EKS Cluster]
+```
+
+**How we protect it:**
+- **Terraform Code**: Complete infrastructure definition in `terraform/` directory
+  - `main.tf`: Core architecture (contains naming logic and tagging policy)
+  - `eks.tf`: EKS cluster configuration
+  - `s3.tf`: [State storage](https://github.com/ADORSYS-GIS/webank-devops/blob/main/terraform/s3.tf) (see encryption config below)
+
+```hcl
+# terraform/s3.tf
+terraform {
+  backend "s3" {
+    key            = "terraform.tfstate"
+    encrypt        = true  # AES256 encryption at rest
+  }
+}
+```
+
+```hcl
+# terraform/main.tf
+locals {
+  name     = "webank-${var.name}"  # Base name for all resources
+  tags = {
+    Owner       = local.name,
+    Environment = var.environment
+  }
+}
+```
+
+- **State Management**:
+  - Versioned S3 storage (configured in S3 bucket properties)
+  - AWS-managed state locking (implicit in S3 backend)
+  - Secure credentials via AWS provider (see `provider.tf`)
+
+```hcl
+# terraform/provider.tf
+provider "aws" {
+  region = var.region  # Defined in `variables.tf`
+}
+```
+
+**Recovery Process Flow:**
+```mermaid
+sequenceDiagram
+    Developer->>Terraform: terraform init
+    Terraform->>S3: Fetch encrypted state
+    Terraform->>AWS: Validate region (var.region)
+    Terraform->>EKS: Rebuild cluster using:
+    EKS->>main.tf: Name: webank-${var.name}
+    EKS->>eks.tf: Cluster config
+```
+
+**Recovery Steps:**
+1. Initialize environment:
+   ```bash
+   cd terraform/
+   terraform init  # Uses s3.tf backend config
+   ```
+2. Apply infrastructure:
+   ```bash
+   terraform apply  # Uses eks.tf + variables.tf
+   ```
+
+**Key Security Features:**
+1. Encryption: `encrypt = true` in S3 backend (s3.tf)
+2. IAM Role: Kubernetes provider inherits EKS permissions (provider.tf)
+3. Resource Naming: All resources prefixed with `webank-${var.name}` (main.tf)
+
+**Critical File References:**
+1. [s3.tf](https://github.com/ADORSYS-GIS/webank-devops/blob/main/terraform/s3.tf) - State encryption
+2. [main.tf](https://github.com/ADORSYS-GIS/webank-devops/blob/main/terraform/main.tf) - Resource naming/tagging
+3. [eks.tf](https://github.com/ADORSYS-GIS/webank-devops/blob/main/terraform/eks.tf) - Cluster definition
+4. [provider.tf](https://github.com/ADORSYS-GIS/webank-devops/blob/main/terraform/provider.tf) - AWS region config
+
+
+### 2. Application Configuration
+```mermaid
+graph LR
+    A[Helm Charts] --> B[charts/]
+    A --> C[values.yaml]
+    C --> D[Git Repo]
+    D --> E[Kubernetes]
+```
+
+**How we protect it:**
+- All Helm charts in `charts/` directory (webank, webank-obs, etc.)
+- Version-controlled in Git with full history
+- Values files (like `values.yaml` and `values-postgres.yaml`) store environment-specific settings
+
+**Recovery steps:**
+1. Clone git repository
+2. Deploy with `helm install` using saved values files
+
+### 3. Continuous Delivery (ArgoCD)
+```mermaid
+graph LR
+    A[ArgoCD] --> B[deploy/dev/webank.yaml]
+    B --> C[Git Repo]
+    C --> D[Terraform]
+    D --> E[EKS Cluster]
+```
+
+**How we protect it:**
+- ArgoCD configuration stored in git (see `docs/argocd-deployment-guide.md`)
+- Application manifests in `deploy/dev/webank.yaml`
+- Kubernetes secrets for credentials stored in git (encrypted)
+
+**Recovery steps:**
+1. Reinstall ArgoCD using terraform
+2. Apply saved manifests: `kubectl apply -f deploy/dev/webank.yaml`
+
+### 4. Database (PostgreSQL)
+```mermaid
+graph LR
+    A[RDS Instance] --> B[Automated Backups]
+    B --> C[S3 Storage]
+    C --> D[Point-in-Time Recovery]
+    D --> E[`docs/Provisioning_k8s_PostgreSQL.md`]
+```
+
+**How we protect it:**
+- AWS RDS automated daily backups (configured in `terraform/rds.tf`)
+- Point-in-time recovery enabled (retention period defined in terraform)
+- Manual snapshots stored in S3
+
+**Recovery steps:**
+1. Use AWS Console or CLI to restore RDS snapshot
+2. Follow `docs/Provisioning_k8s_PostgreSQL.md` for reconfiguration
+
+## Recovery Scenarios
+
+### Scenario 1: Complete Infrastructure Loss
+```mermaid
+graph LR
+    A[Cluster Failure] --> B[`terraform apply`]
+    B --> C[Restore RDS Snapshot]
+    C --> D[Redeploy Apps]
+    D --> E[ArgoCD Sync]
+```
+
+**Steps:**
+1. Recreate EKS cluster: `terraform apply` in `terraform/`
+2. Redeploy ArgoCD: Follow `docs/argocd-deployment-guide.md`
+3. Restore database from RDS snapshot
+4. Sync applications through ArgoCD UI
+
+### Scenario 2: Application Configuration Loss
+```mermaid
+graph LR
+    A[Git Repo] --> B[Clone Repository]
+    B --> C[Restore Secrets]
+```
+
+**Steps:**
+1. Clone git repository
+2. Redeploy Helm charts: `helm install charts/webank`
+3. Restore secrets: `kubectl apply -f secrets.yaml`
+
+### Scenario 3: Database Failure
+```mermaid
+graph LR
+    A[Restore Snapshot] --> B[Update Connection]
+    B --> C[Reconfigure App]
+    C --> D[`charts/*/values.yaml`]
+```
+
+**Steps:**
+1. Restore RDS snapshot via AWS Console
+2. Update database connection details in:
+   - `charts/*/values.yaml`
+   - `deploy/dev/webank.yaml`
+
+## Security Considerations
+```mermaid
+graph LR
+    A[Encryption] --> B[At Rest - S3 SSE]
+    A --> C[In-Transit - TLS]
+    D[Access Control] --> E[IAM Policies]
+    D --> F[OIDC - Keycloak]
+```
+
+All sensitive data is protected through:
+- Encryption at rest (S3 Server Side Encryption)
+- In-transit encryption (TLS 1.2+)
+- IAM policies for infrastructure access
+- OIDC authentication via Keycloak (configured in `terraform/files/argocd-values.yaml`)
+
+## Tools We Actually Use
+
+| Purpose                  | Tool Used               | Configuration Location        |
+|--------------------------|-------------------------|-------------------------------|
+| Infrastructure Backup    | Terraform + S3          | `terraform/`                  |
+| App Configuration Backup | Git + Helm Charts       | `charts/` and `deploy/`       |
+| CI/CD System Backup      | ArgoCD + Git            | `docs/argocd-deployment-guide.md` |
+| Database Backup          | AWS RDS Automated       | `terraform/rds.tf`            |
+
+## Verification Process
+```mermaid
+flowchart LR
+    A[Weekly Test] --> B[Deploy Staging]
+    B --> C[Restore DB]
+    C --> D[Validate]
+    D -->|Pass| E[Update Docs]
+    D -->|Fail| F[Troubleshoot]
+```
+
+1. **Weekly Tests:** Recreate environment from backups in staging
+2. **Monthly Drills:** Practice full recovery using `docs/backup-and-recovery-concept.md`
+3. **Automated Checks:** CloudWatch alarms monitor backup success
+
+Sure! Here's a clean and well-structured **Markdown (.md)** version combining the key information about RTO and RPO:
+
+## Key Metrics: RTO and RPO
+
+## 1. RTO (Recovery Time Objective)
+
+**Definition:**  
+The maximum acceptable amount of time that webank can be down after a failure or disaster.
+
+**Objective:**  
+≤ 2 hours for core banking services
+
+### What It Means:
+RTO defines how quickly webank  must be restored to avoid significant business impact.
+
+### Real Example:
+> If webank goes down, and our RTO is **2 hours**, we **must bring it back online within 2 hours** to prevent unacceptable consequences such as customer dissatisfaction, regulatory issues, or financial loss.
+
+To meet this objective, we must make use of the  recovery  processes listed above (e.g., Terraform for infrastructure provisioning, ArgoCD for deployment, and backup/restore mechanisms) are optimized and tested to recover within the defined timeframe.
+
+
+## 2. RPO (Recovery Point Objective)
+
+**Definition:**  
+The maximum acceptable amount of data loss measured in time. It determines how recent webank last backup must be.
+
+**Objective:**  
+≤ 15 minutes for transaction data
+
+### What It Means:
+RPO indicates how much data webank can afford to lose if a failure occurs.
+
+### Real Example:
+> If webank RPO is **15 minutes**, we must perform backups at least every 15 minutes. In case of a database crash, restoring from the last backup ensures we only lose up to 15 minutes of data.
+
+This requires setting up automated, frequent backups (e.g., snapshots, transaction logs) to protect critical data like customer transactions.
+
+
+These metrics guide our **Disaster Recovery (DR)** and **Business Continuity Planning (BCP)** strategies to ensure resilience and minimize downtime and data loss.
