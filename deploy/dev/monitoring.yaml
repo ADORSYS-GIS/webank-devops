@@ -48,3 +48,13 @@ spec:
             enabled: true
             hosts:
                 - dev.webank.gis.ssegning.com
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+    revisionHistoryLimit: 4
