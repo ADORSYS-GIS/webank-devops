@@ -10,7 +10,6 @@ spec:
     chart: webank-monitoring
     targetRevision: 0.1.0
     helm:
-      releaseName: webank-monitoring
       valueFiles:
         - values.yaml
       valuesObject:
