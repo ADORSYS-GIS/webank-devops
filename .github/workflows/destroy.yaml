@@ -22,9 +22,10 @@ jobs:
       name: ${{ matrix.name }}
       url: https://${{ vars.DOMAIN_NAME }}
     strategy:
-      matrix: 
+      matrix:
         name:
           - dev
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -35,7 +36,6 @@ jobs:
             echo "Skipping deployment for ${{ matrix.name }}"
             exit 0
           fi
-
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
@@ -77,9 +77,9 @@ jobs:
       - name: Terraform Init
         run: |
           terraform init -var-file=${{ matrix.name }}.tfvars \
-          -backend-config="region=${{ vars.AWS_REGION }}" \
-          -backend-config="bucket=webank-dev-terraform-state" \
-          -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
+            -backend-config="region=${{ vars.AWS_REGION }}" \
+            -backend-config="bucket=webank-dev-terraform-state" \
+            -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
       - name: Terraform Plan
         run: |
