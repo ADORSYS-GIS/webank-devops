@@ -15,6 +15,6 @@ data:
 
     receivers:
       - name: 'default'
-        email_configs:
-          - to: 'kingkoufan@gmail.com'
-            send_resolved: true
+        # email_configs:
+        #   - to: 'kingkoufan@gmail.com'
+        #     send_resolved: true
