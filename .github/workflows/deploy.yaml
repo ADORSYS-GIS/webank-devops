@@ -9,7 +9,11 @@ on:
         type: choice
         options:
           - dev
-  pull_request: null
+
+  pull_request:
+    branches:
+      - main
+      - feat/prometheus-backend-integration
 
 defaults:
   run:
