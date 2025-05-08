@@ -22,10 +22,9 @@ jobs:
       name: ${{ matrix.name }}
       url: https://${{ vars.DOMAIN_NAME }}
     strategy:
-      matrix:
+      matrix: 
         name:
           - dev
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -36,6 +35,7 @@ jobs:
             echo "Skipping deployment for ${{ matrix.name }}"
             exit 0
           fi
+
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
@@ -51,7 +51,7 @@ jobs:
 
       - name: Set Environment Variables
         run: |
-          echo "TF_VAR_name=${{ matrix.name }}-env" >> $GITHUB_ENV
+          echo "TF_VAR_name=${{ matrix.name }}-cluster" >> $GITHUB_ENV
           echo "TF_VAR_db_username=${{ vars.DB_USERNAME }}" >> $GITHUB_ENV
           echo "TF_VAR_db_password=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
           echo "TF_VAR_oidc_kc_client_id=${{ vars.OIDC_KC_CLIENT_ID }}" >> $GITHUB_ENV
@@ -60,35 +60,23 @@ jobs:
           echo "TF_VAR_cert_arn=${{ vars.CERT_ARN }}" >> $GITHUB_ENV
           echo "TF_VAR_region=${{ vars.AWS_REGION }}" >> $GITHUB_ENV
           echo "TF_VAR_zone_name=${{ vars.DOMAIN_NAME }}" >> $GITHUB_ENV
-
-          # Safely inject the JSON private key
-          echo 'TF_VAR_prs_private_key<<EOF' >> $GITHUB_ENV
-          echo "${{ secrets.SERVER_PRIVATE_KEY_JSON }}" >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-
-          # Safely inject the JSON public key
-          echo 'TF_VAR_prs_public_key<<EOF' >> $GITHUB_ENV
-          echo "${{ secrets.SERVER_PUBLIC_KEY_JSON }}" >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-
+          echo "TF_VAR_prs_private_key=${{ secrets.SERVER_PRIVATE_KEY_JSON }}" >> $GITHUB_ENV
+          echo "TF_VAR_prs_public_key=${{ secrets.SERVER_PUBLIC_KEY_JSON }}" >> $GITHUB_ENV
           echo "TF_VAR_jwt_issuer=${{ vars.JWT_ISSUER }}" >> $GITHUB_ENV
           echo "TF_VAR_jwt_expiration=${{ vars.JWT_EXPIRATION_TIME_MS }}" >> $GITHUB_ENV
           echo "TF_VAR_twilio_account_sid=${{ vars.TWILIO_ACCOUNT_SID }}" >> $GITHUB_ENV
           echo "TF_VAR_twilio_auth_token=${{ vars.TWILIO_AUTH_TOKEN }}" >> $GITHUB_ENV
           echo "TF_VAR_twilio_phone_number=${{ vars.TWILIO_PHONE_NUMBER }}" >> $GITHUB_ENV
           echo "TF_VAR_otp_salt=${{ secrets.OTP_SALT }}" >> $GITHUB_ENV
-          echo "TF_VAR_userapp_teller_password=${{ secrets.USERAPP_TELLER_PASSWORD }}" >> $GITHUB_ENV
-          echo "TF_VAR_admin_user=${{ secrets.GRAFANA_USER_NAME }}" >> $GITHUB_ENV
-          echo "TF_VAR_admin_password=${{ secrets.GRAFANA_USER_PASSWORD }}" >> $GITHUB_ENV
-          echo "TF_VAR_email=${{ vars.EMAIL }}" >> $GITHUB_ENV
-          echo "TF_VAR_email_password=${{ secrets.PASSWORD }}" >> $GITHUB_ENV
+          echo "TF_VAR_email"="${{ vars.EMAIL }}" >> $GITHUB_ENV
+          echo "TF_VAR_email_password"="${{ secrets.PASSWORD }}" >> $GITHUB_ENV
 
       - name: Terraform Init
         run: |
           terraform init -var-file=${{ matrix.name }}.tfvars \
-            -backend-config="region=${{ vars.AWS_REGION }}" \
-            -backend-config="bucket=webank-dev-terraform-state" \
-            -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
+          -backend-config="region=${{ vars.AWS_REGION }}" \
+          -backend-config="bucket=webank-dev-terraform-state" \
+          -backend-config="dynamodb_table=webank-dev-terraform-state-lock"
 
       - name: Terraform Plan
         run: |
