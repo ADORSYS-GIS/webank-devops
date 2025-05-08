@@ -3212,6 +3212,20 @@ entries:
     version: 1.3.0-rc
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-05-08T10:08:13.258388979Z"
+    dependencies:
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: c8eaf32ec0244c30d4437aceaec2004530d163f1603e396db166efcc4a899c6e
+    name: webank-obs
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-obs-1.3.0-rc/webank-obs-1.3.0-rc.tgz
+    version: 1.3.0-rc
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-02-05T10:18:39.613149753Z"
     dependencies:
     - name: common
@@ -3226,13 +3240,13 @@ entries:
     version: 1.2.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-12T10:53:44.973524728Z"
+    created: "2024-12-18T12:07:21.03515727Z"
     dependencies:
     - name: common
-      repository: https://charts.bitnami.com/bitnami
+      repository: https://repo.broadcom.com/bitnami-files/
       version: 2.27.0
     description: A Helm chart for Kubernetes
-    digest: 602815fd108bdc71dd48a7955d7b83681f0c2b6f07ccaba3ad8eeba6b0789145
+    digest: 8d8a0d89096da72832ca4aba7399dd4f320998e027eeed5f67d0e11fb8d2c291
     name: webank-obs
     type: application
     urls:
@@ -3240,27 +3254,13 @@ entries:
     version: 1.0.2-rc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-17T09:10:17.889791883Z"
+    created: "2024-12-17T09:30:11.768374683Z"
     dependencies:
     - name: common
       repository: https://repo.broadcom.com/bitnami-files/
       version: 2.27.0
     description: A Helm chart for Kubernetes
-    digest: 7e8e75eee916d4076509a693fbace9117fdc85be6d96224595215e10a8c03850
-    name: webank-obs
-    type: application
-    urls:
-    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-obs-1.0.2-rc/webank-obs-1.0.2-rc.tgz
-    version: 1.0.2-rc
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2024-12-18T11:08:04.949157444Z"
-    dependencies:
-    - name: common
-      repository: https://repo.broadcom.com/bitnami-files/
-      version: 2.27.0
-    description: A Helm chart for Kubernetes
-    digest: 7864873e819a889ebb7a35401136fc9c046d3b33669e83d9b6c4a98ffc7a9ef8
+    digest: a970a977ebdab1f637fd6606a65902808f3aa654d2de2c980100ae3e7449f19e
     name: webank-obs
     type: application
     urls:
@@ -3324,13 +3324,13 @@ entries:
     version: 1.0.2-rc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-18T12:07:21.03515727Z"
+    created: "2024-12-17T09:10:17.889791883Z"
     dependencies:
     - name: common
       repository: https://repo.broadcom.com/bitnami-files/
       version: 2.27.0
     description: A Helm chart for Kubernetes
-    digest: 8d8a0d89096da72832ca4aba7399dd4f320998e027eeed5f67d0e11fb8d2c291
+    digest: 7e8e75eee916d4076509a693fbace9117fdc85be6d96224595215e10a8c03850
     name: webank-obs
     type: application
     urls:
@@ -3394,13 +3394,13 @@ entries:
     version: 1.0.2-rc
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-17T09:30:11.768374683Z"
+    created: "2024-12-18T11:08:04.949157444Z"
     dependencies:
     - name: common
       repository: https://repo.broadcom.com/bitnami-files/
       version: 2.27.0
     description: A Helm chart for Kubernetes
-    digest: a970a977ebdab1f637fd6606a65902808f3aa654d2de2c980100ae3e7449f19e
+    digest: 7864873e819a889ebb7a35401136fc9c046d3b33669e83d9b6c4a98ffc7a9ef8
     name: webank-obs
     type: application
     urls:
@@ -3492,6 +3492,20 @@ entries:
     version: 1.0.2-rc
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-12-12T10:53:44.973524728Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 602815fd108bdc71dd48a7955d7b83681f0c2b6f07ccaba3ad8eeba6b0789145
+    name: webank-obs
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-obs-1.0.2-rc/webank-obs-1.0.2-rc.tgz
+    version: 1.0.2-rc
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-12-09T13:28:23.279825211Z"
     dependencies:
     - name: common
@@ -3535,13 +3549,13 @@ entries:
   webank-prs:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-05-07T15:25:42.813966883Z"
+    created: "2025-05-08T10:08:13.391949665Z"
     dependencies:
     - name: common
       repository: https://repo.broadcom.com/bitnami-files/
       version: 2.27.0
     description: A Helm chart for Kubernetes
-    digest: d08c5f4dea60adb979f57bf780848870bf55d11721f27a8b4071e15468c00d03
+    digest: e380bb05b758bc7462dcd7c8586fd616898f479d60ac722ab32c2f3241f3cb87
     name: webank-prs
     type: application
     urls:
@@ -3619,6 +3633,20 @@ entries:
     version: 1.2.0-rc
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-05-07T15:25:42.813966883Z"
+    dependencies:
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: d08c5f4dea60adb979f57bf780848870bf55d11721f27a8b4071e15468c00d03
+    name: webank-prs
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-prs-1.2.0-rc/webank-prs-1.2.0-rc.tgz
+    version: 1.2.0-rc
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2025-03-17T14:05:58.683299457Z"
     dependencies:
     - name: common
@@ -3631,20 +3659,6 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-prs-1.0.1/webank-prs-1.0.1.tgz
     version: 1.0.1
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2025-03-18T09:08:51.49075281Z"
-    dependencies:
-    - name: common
-      repository: https://repo.broadcom.com/bitnami-files/
-      version: 2.27.0
-    description: A Helm chart for Kubernetes
-    digest: 0d54189f67427c443c81ad6faadbadb9835b24a534ca6239f6f11bd6e4c182ad
-    name: webank-prs
-    type: application
-    urls:
-    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-prs-1.0.1-rc/webank-prs-1.0.1-rc.tgz
-    version: 1.0.1-rc
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2025-03-18T09:14:48.422752032Z"
@@ -3682,6 +3696,20 @@ entries:
       version: 2.27.0
     description: A Helm chart for Kubernetes
     digest: ebfdd646508fab7e4b00ba5478ece1ff740f5a1e03c3e0da13fd61ab5a71938e
+    name: webank-prs
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-prs-1.0.1-rc/webank-prs-1.0.1-rc.tgz
+    version: 1.0.1-rc
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-03-18T09:08:51.49075281Z"
+    dependencies:
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 0d54189f67427c443c81ad6faadbadb9835b24a534ca6239f6f11bd6e4c182ad
     name: webank-prs
     type: application
     urls:
@@ -3754,4 +3782,4 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-userapp-0.1.0/webank-userapp-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-08T09:42:42.82036077Z"
+generated: "2025-05-08T10:08:13.392540651Z"
