@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: webank
+  name: webank-monitoring
   namespace: argocd
 spec:
   project: application
@@ -10,7 +10,7 @@ spec:
     chart: webank-monitoring
     targetRevision: 0.1.0
     helm:
-      releaseName: webank
+      releaseName: webank-monitoring
       valueFiles:
         - values.yaml
       valuesObject:
