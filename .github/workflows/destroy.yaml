@@ -49,7 +49,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Set DB Password and Username as Environment Variables
+      - name: Set Environment Variables
         run: |
           echo "TF_VAR_name=${{ matrix.name }}-cluster" >> $GITHUB_ENV
           echo "TF_VAR_db_username=${{ vars.DB_USERNAME }}" >> $GITHUB_ENV
@@ -68,12 +68,12 @@ jobs:
           echo "TF_VAR_twilio_auth_token=${{ vars.TWILIO_AUTH_TOKEN }}" >> $GITHUB_ENV
           echo "TF_VAR_twilio_phone_number=${{ vars.TWILIO_PHONE_NUMBER }}" >> $GITHUB_ENV
           echo "TF_VAR_otp_salt=${{ secrets.OTP_SALT }}" >> $GITHUB_ENV
-          echo "TF_VAR_email"="${{ vars.EMAIL }}" >> $GITHUB_ENV
-          echo "TF_VAR_email_password"="${{ secrets.PASSWORD }}" >> $GITHUB_ENV
+          echo "TF_VAR_userapp_teller_password"="${{ secrets.USERAPP_TELLER_PASSWORD }}" >> $GITHUB_ENV
           echo "TF_VAR_admin_user=${{ secrets.GRAFANA_USER_NAME }}" >> $GITHUB_ENV
           echo "TF_VAR_admin_password=${{ secrets.GRAFANA_USER_PASSWORD }}" >> $GITHUB_ENV
+          echo "TF_VAR_email"="${{ vars.EMAIL }}" >> $GITHUB_ENV
+          echo "TF_VAR_email_password"="${{ secrets.PASSWORD }}" >> $GITHUB_ENV
 
-          
       - name: Terraform Init
         run: |
           terraform init -var-file=${{ matrix.name }}.tfvars \
