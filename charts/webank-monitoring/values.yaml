@@ -55,3 +55,11 @@ alertmanager:
   service:
     type: ClusterIP
     port: 9093
+
+ingress:
+  enabled: true
+  domain: dev.webank.gis.ssegning.com
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2

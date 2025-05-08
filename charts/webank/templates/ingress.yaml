@@ -39,27 +39,6 @@ spec:
                 name: {{ $.Release.Name }}-prs
                 port:
                   number: {{ include "common.tplvalues.render" (dict "value" $.Values.prs.service.port "context" $) }}
-          - path: /grafana
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $.Release.Name }}-monitoring-grafana
-                port:
-                  number: 80
-          - path: /prometheus
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $.Release.Name }}-monitoring-prometheus
-                port:
-                  number: 80
-          - path: /alertmanager
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $.Release.Name }}-monitoring-alertmanager
-                port:
-                  number: 80
 
   {{ if .tls }}
   tls:
