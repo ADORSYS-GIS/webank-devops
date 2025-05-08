@@ -21,11 +21,6 @@ dependencies:
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
     version: 1.2.0-rc
     alias: prs
-  - name: webank-monitoring
-    repository: "https://ADORSYS-GIS.github.io/webank-devops/"
-    version: 0.1.0
-    alias: monitoring
-    condition: monitoring.enabled
   - name: postgresql
     repository: "https://repo.broadcom.com/bitnami-files/"
     version: 16.2.3

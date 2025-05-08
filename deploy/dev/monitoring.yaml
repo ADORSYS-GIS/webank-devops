@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: webank
+  namespace: argocd
+spec:
+  project: application
+  source:
+    repoURL: https://adorsys-gis.github.io/webank-devops
+    chart: webank-monitoring
+    targetRevision: 0.1.0
+    helm:
+      releaseName: webank
+      valueFiles:
+        - values.yaml
+      valuesObject:
+        monitoring:
+          enabled: true
+
+          prometheus:
+            image:
+              tag: latest
+              pullPolicy: IfNotPresent
+            service:
+              type: ClusterIP
+            hosts:
+              - dev.webank.gis.ssegning.com
+
+          grafana:
+            image:
+              tag: latest
+              pullPolicy: IfNotPresent 
+          envFrom:
+          - secretRef:
+              name: webank-userapp-secret
+            service:
+              type: ClusterIP
+            ingress:
+              enabled: true
+            hosts:
+                - dev.webank.gis.ssegning.com
+            annotations:
+              kubernetes.io/ingress.class: alb
+              alb.ingress.kubernetes.io/scheme: internet-facing
+              alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-central-1:571075516563:certificate/1cee4019-ba69-40a8-a888-95f62a376f88"
+
+          alertmanager:
+            enabled: true
+            hosts:
+                - dev.webank.gis.ssegning.com
