@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "webank-monitoring.fullname" . }}‐ingress
+  name: {{ include "webank-monitoring.fullname" . }}-grafana
   labels:
     app: {{ include "webank-monitoring.name" . }}
   annotations:
@@ -38,7 +38,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "webank-monitoring.fullname" . }}‐prometheus-ingress
+  name: {{ include "webank-monitoring.fullname" . }}-prometheus
   labels:
     app: {{ include "webank-monitoring.name" . }}
   annotations:
