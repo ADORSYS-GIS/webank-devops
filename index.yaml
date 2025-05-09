@@ -3179,6 +3179,16 @@ entries:
   webank-monitoring:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-05-09T08:24:28.903222887Z"
+    description: Helm chart for Prometheus, Grafana, and future alerting components
+    digest: 11ba1b8ba5f451ba0e7b56ef668d3a7287549240cd7cc9e277339b65c8a7974f
+    name: webank-monitoring
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-monitoring-0.1.1-rc.8/webank-monitoring-0.1.1-rc.8.tgz
+    version: 0.1.1-rc.8
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-05-09T08:05:47.54956645Z"
     description: Helm chart for Prometheus, Grafana, and future alerting components
     digest: 3126f9638814cb5583e59499972df1bfd5a878542fff4fb56e11a2570ecd3565
@@ -4410,4 +4420,4 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-userapp-0.1.0/webank-userapp-0.1.0.tgz
     version: 0.1.0
-generated: "2025-05-09T08:05:47.550004349Z"
+generated: "2025-05-09T08:24:28.903813394Z"
