@@ -29,3 +29,7 @@ dependencies:
   - name: common
     repository: "https://repo.broadcom.com/bitnami-files/"
     version: 2.27.0
+  - name: webank-monitoring
+    repository: "https://ADORSYS-GIS.github.io/webank-devops/"
+    version: 0.1.1-rc.10
+    alias: monitoring

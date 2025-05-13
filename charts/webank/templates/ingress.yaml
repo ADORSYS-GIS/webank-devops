@@ -39,8 +39,20 @@ spec:
                 name: {{ $.Release.Name }}-prs
                 port:
                   number: {{ include "common.tplvalues.render" (dict "value" $.Values.prs.service.port "context" $) }}
-
-  {{ if .tls }}
+          - path: /grafana
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "webank-monitoring.fullname" . }}-grafana
+                port:
+                  number: {{ .Values.grafana.service.port }}
+          - path: /prometheus
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "webank-monitoring.fullname" . }}-prometheus
+                port:
+                  number: {{ .Values.prometheus.service.port }}  {{ if .tls }}
   tls:
     - hosts:
         - {{ include "common.tplvalues.render" (dict "value" .host "context" $) }}
