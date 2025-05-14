@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feat/prometheus-backend-integration
+      - feat/retry-prometheus-backend-integration
 
 jobs:
   release:
