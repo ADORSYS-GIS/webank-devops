@@ -13,11 +13,11 @@ prometheus:
       - job_name: 'webank-obs'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['webank-obs:8081']
+          - targets: ['dev.webank.gis.ssegning.com/api:8081']
       - job_name: 'webank-prs'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['webank-prs:8080']
+          - targets: ['dev.webank.gis.ssegning.com/api/prs:8080']
 
 grafana:
   enabled: true
@@ -46,6 +46,9 @@ grafana:
       type: prometheus
       url: http://webank-monitoring-prometheus:9090
       isDefault: true
+  envFrom:
+    - secretRef:
+        name: webank-monitoring-secret
 
 alertmanager:
   enabled: true
