@@ -3,4 +3,4 @@ kind: Kustomization
 
 resources:
   - webank.yaml
-  - monitoring.yaml
+  # - monitoring.yaml
