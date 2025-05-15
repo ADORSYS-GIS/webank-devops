@@ -44,7 +44,7 @@ resource "kubernetes_secret" "webank_obs_secret" {
 resource "kubernetes_secret" "webank_monitoring_secret" {  
   metadata {
     name      = "webank-monitoring-secret"
-    namespace = "webank"
+    namespace = "monitoring"
   }
   data = {
     admin-user = var.admin_user

@@ -57,4 +57,5 @@ spec:
     - hosts:
         - grafana.{{ .Values.ingress.domain }}
         - prometheus.{{ .Values.ingress.domain }}
+        - alertmanager.{{ .Values.ingress.domain }}
 {{- end }}

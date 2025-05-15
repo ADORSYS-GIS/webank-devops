@@ -15,14 +15,14 @@ data:
                 - "alertmanager:{{ .Values.alertmanager.service.port }}"
 
     scrape_configs:
-      - job_name: 'webank-obs'
+      - job_name: 'webank-obs-backend'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['webank-obs:8081']
-      - job_name: 'webank-prs'
+          - targets: ['dev.webank.gis.ssegning.com/api']
+      - job_name: 'webank-prs-backend'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['webank-prs:8080']
+          - targets: ['dev.webank.gis.ssegning.com/api/prs']
 
     # Adding alerting rules here
     rule_files:
