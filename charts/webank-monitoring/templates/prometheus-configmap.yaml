@@ -16,13 +16,13 @@ data:
 
     scrape_configs:
       - job_name: 'webank-obs-backend'
-        metrics_path: '/actuator/prometheus'
+        metrics_path: '/api/actuator/prometheus'
         static_configs:
-          - targets: ['dev.webank.gis.ssegning.com/api']
+          - targets: ['dev.webank.gis.ssegning.com']
       - job_name: 'webank-prs-backend'
-        metrics_path: '/actuator/prometheus'
+        metrics_path: '/api/prs/actuator/prometheus'
         static_configs:
-          - targets: ['dev.webank.gis.ssegning.com/api/prs']
+          - targets: ['dev.webank.gis.ssegning.com']
 
     # Adding alerting rules here
     rule_files:
