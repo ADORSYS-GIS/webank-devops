@@ -10,14 +10,14 @@ prometheus:
     scrape_interval: 15s
     evaluation_interval: 15s
     scrape_configs:
-      - job_name: 'webank-obs'
+      - job_name: 'webank-obs-backend'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['dev.webank.gis.ssegning.com/api:8081']
-      - job_name: 'webank-prs'
+          - targets: ['dev.webank.gis.ssegning.com/api']
+      - job_name: 'webank-prs-backend'
         metrics_path: '/actuator/prometheus'
         static_configs:
-          - targets: ['dev.webank.gis.ssegning.com/api/prs:8080']
+          - targets: ['dev.webank.gis.ssegning.com/api/prs']
 
 grafana:
   enabled: true
@@ -27,9 +27,6 @@ grafana:
   service:
     type: ClusterIP
     port: 3000
-  admin:
-    user: admin
-    password: promqueen42
   dashboards:
     enabled: true
     providers:
@@ -44,11 +41,12 @@ grafana:
   datasources:
     - name: Prometheus
       type: prometheus
-      url: http://webank-monitoring-prometheus:9090
+      url: https://prometheus.dev.webank.gis.ssegning.com
       isDefault: true
-  envFrom:
-    - secretRef:
-        name: webank-monitoring-secret
+  admin:
+    existingSecret: webank-monitoring-secret
+    userKey: admin-user
+    passwordKey: admin-password
 
 alertmanager:
   enabled: true
