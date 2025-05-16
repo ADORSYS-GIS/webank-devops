@@ -46,9 +46,17 @@ grafana:
       url: https://prometheus.dev.webank.gis.ssegning.com
       isDefault: true
   admin:
+    # Name of existing Kubernetes Secret containing admin credentials
+    # If not specified, a new Secret will be created with values below
     existingSecret: webank-monitoring-secret
+    # Keys within the Secret that contain the username and password
     userKey: admin-user
     passwordKey: admin-password
+    # Fallback values if existingSecret is not found or not specified
+    # These values will be used to create a new Secret
+    user: admin
+    password: admin
+
 
 alertmanager:
   enabled: true

@@ -17,6 +17,17 @@ spec:
           image: "{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}"
           ports:
             - containerPort: {{ .Values.grafana.service.port }}
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.grafana.admin.existingSecret | default (printf "%s-grafana-admin" (include "webank-monitoring.fullname" .)) }}
+                  key: {{ .Values.grafana.admin.userKey }}
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.grafana.admin.existingSecret | default (printf "%s-grafana-admin" (include "webank-monitoring.fullname" .)) }}
+                  key: {{ .Values.grafana.admin.passwordKey }}
           volumeMounts:
             - name: config
               mountPath: /etc/grafana/grafana.ini

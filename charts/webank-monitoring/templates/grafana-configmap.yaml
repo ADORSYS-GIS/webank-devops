@@ -6,10 +6,9 @@ metadata:
     app: grafana
 data:
   grafana.ini: |
-    [security]
-    admin_user = {{ .Values.grafana.admin.user }}
-    admin_password = {{ .Values.grafana.admin.password }}
-
+    # Admin credentials will be set via environment variables
+    # GF_SECURITY_ADMIN_USER and GF_SECURITY_ADMIN_PASSWORD
+    
     [dashboards]
     default_home_dashboard_path = /var/lib/grafana/dashboards/default.json
 
