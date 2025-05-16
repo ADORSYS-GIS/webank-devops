@@ -4,14 +4,14 @@ description: A Helm chart for Kubernetes
 
 type: application
 
-version: 1.3.1-rc.1
+version: 1.3.1-rc.2
 
 appVersion: "1.16.0"
 
 dependencies:
   - name: webank-obs
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
-    version: 1.3.0-rc
+    version: 1.3.0-rc.1
     alias: obs
   - name: webank-userapp
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
@@ -19,7 +19,7 @@ dependencies:
     alias: userapp
   - name: webank-prs
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
-    version: 1.2.0-rc
+    version: 1.2.0-rc.1
     alias: prs
   - name: postgresql
     repository: "https://repo.broadcom.com/bitnami-files/"
