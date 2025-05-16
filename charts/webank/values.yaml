@@ -31,11 +31,6 @@ userapp:
     enabled: false
   env:
 
-monitoring:
-  enabled: true
-  ingress:
-    enabled: false
-
 global:
   postgresql:
     auth:
