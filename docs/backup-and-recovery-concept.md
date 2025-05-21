@@ -2,7 +2,6 @@
 
 ## Key Components We Protect
 
-Here's the refined section with exact code references and updated architecture diagram:
 
 ### 1. Infrastructure (EKS Cluster)
 ```mermaid
@@ -222,7 +221,6 @@ flowchart LR
 2. **Monthly Drills:** Practice full recovery using `docs/backup-and-recovery-concept.md`
 3. **Automated Checks:** CloudWatch alarms monitor backup success
 
-Sure! Here's a clean and well-structured **Markdown (.md)** version combining the key information about RTO and RPO:
 
 ## Key Metrics: RTO and RPO
 
