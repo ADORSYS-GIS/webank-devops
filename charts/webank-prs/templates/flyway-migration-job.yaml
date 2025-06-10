@@ -1,0 +1,36 @@
+{{- if .Values.flyway.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: webank-prs-flyway-migration
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: flyway
+          image: "{{ .Values.flyway.image.repository }}:{{ .Values.flyway.image.tag }}"
+          command: ["flyway", "migrate"]
+          env:
+            - name: FLYWAY_URL
+              value: "{{ include "constant.db.url" . }}"
+            - name: FLYWAY_USER
+              value: "{{ .Values.database.user }}"
+            - name: FLYWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.database.secretName }}
+                  key: {{ .Values.database.secretKey }}
+          volumeMounts:
+            - name: migration-scripts
+              mountPath: /flyway/sql
+      volumes:
+        - name: migration-scripts
+          configMap:
+            name: webank-prs-flyway-scripts
+{{- end }} 

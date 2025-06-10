@@ -73,40 +73,40 @@ resources:
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
-volumes: [ ]
+volumes: []
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
-volumeMounts: [ ]
+volumeMounts: []
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 
 env:
-  - name: TWILIO_ACCOUNT_SID
-    value: ${TWILIO_ACCOUNT_SID}
-  - name: TWILIO_AUTH_TOKEN
-    value: ${TWILIO_AUTH_TOKEN}
-  - name: TWILIO_PHONE_NUMBER
-    value: ${TWILIO_PHONE_NUMBER}
-  - name: OTP_SALT
-    value: ${OTP_SALT}
-  - name: SERVER_PRIVATE_KEY_JSON
-    value: ${SERVER_PRIVATE_KEY_JSON}
-  - name: SERVER_PUBLIC_KEY_JSON
-    value: ${SERVER_PUBLIC_KEY_JSON}
-  - name: JWT_ISSUER
-    value: ${JWT_ISSUER}
-  - name: JWT_EXPIRATION_TIME_MS
-    value: ${JWT_EXPIRATION_TIME_MS}
-  - name: ${EMAIL}
-    value: ${EMAIL}
-  - name: ${PASSWORD}
-    value: ${PASSWORD}
+- name: TWILIO_ACCOUNT_SID
+  value: ${TWILIO_ACCOUNT_SID}
+- name: TWILIO_AUTH_TOKEN
+  value: ${TWILIO_AUTH_TOKEN}
+- name: TWILIO_PHONE_NUMBER
+  value: ${TWILIO_PHONE_NUMBER}
+- name: OTP_SALT
+  value: ${OTP_SALT}
+- name: SERVER_PRIVATE_KEY_JSON
+  value: ${SERVER_PRIVATE_KEY_JSON}
+- name: SERVER_PUBLIC_KEY_JSON
+  value: ${SERVER_PUBLIC_KEY_JSON}
+- name: JWT_ISSUER
+  value: ${JWT_ISSUER}
+- name: JWT_EXPIRATION_TIME_MS
+  value: ${JWT_EXPIRATION_TIME_MS}
+- name: ${EMAIL}
+  value: ${EMAIL}
+- name: ${PASSWORD}
+  value: ${PASSWORD}
 
 ## @param podDisruptionBudget PodDisruptionBudget configuration
 ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
-envFrom: [ ]
+envFrom: []
 
 ##
 ##
@@ -136,7 +136,6 @@ image:
   ##   - name: myRegistryKeySecretName
   ##
   pullSecrets: []
-
 
 ## Liveness probe values
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
@@ -239,3 +238,16 @@ database:
   ##
   ##
   secretKey: password
+
+flyway:
+  enabled: true
+  image:
+    repository: flyway/flyway
+    tag: latest
+  scripts:
+    V1__initial_schema.sql: |
+      -- Example migration script
+      CREATE TABLE IF NOT EXISTS example (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255)
+      );

@@ -1,0 +1,14 @@
+{{- if .Values.flyway.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webank-prs-flyway-scripts
+  labels:
+    app.kubernetes.io/name: webank-prs
+    app.kubernetes.io/instance: {{ .Release.Name }}
+data:
+  {{- range $key, $value := .Values.flyway.scripts }}
+  {{ $key }}: |
+    {{ $value | nindent 4 }}
+  {{- end }}
+{{- end }} 
