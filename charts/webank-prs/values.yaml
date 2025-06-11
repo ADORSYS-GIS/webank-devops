@@ -242,12 +242,5 @@ database:
 flyway:
   enabled: true
   image:
-    repository: flyway/flyway
-    tag: latest
-  scripts:
-    V1__initial_schema.sql: |
-      -- Example migration script
-      CREATE TABLE IF NOT EXISTS example (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255)
-      );
+    repository: ghcr.io/adorsys-gis/webank-prs
+    tag: latest 

@@ -11,7 +11,7 @@ spec:
   backoffLimit: 1
   template:
     spec:
-      restartPolicy: Never
+      restartPolicy: OnFailure
       containers:
         - name: flyway
           image: "{{ .Values.flyway.image.repository }}:{{ .Values.flyway.image.tag }}"
@@ -26,11 +26,11 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.database.secretName }}
                   key: {{ .Values.database.secretKey }}
-          volumeMounts:
-            - name: migration-scripts
-              mountPath: /flyway/sql
-      volumes:
-        - name: migration-scripts
-          configMap:
-            name: webank-prs-flyway-scripts
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
 {{- end }} 
