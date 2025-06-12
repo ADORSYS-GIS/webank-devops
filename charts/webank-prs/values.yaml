@@ -242,5 +242,5 @@ database:
 flyway:
   enabled: true
   image:
-    repository: ghcr.io/adorsys-gis/webank-prs
-    tag: latest 
+    repository: ghcr.io/adorsys-gis/webank-prs-flyway
+    tag: flyway-latest
