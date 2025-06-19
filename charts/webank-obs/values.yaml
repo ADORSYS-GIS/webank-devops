@@ -129,7 +129,7 @@ image:
 ##
 livenessProbe:
   httpGet:
-    path: /swagger-ui.html
+    path: /api/actuator
     port: 8081
   initialDelaySeconds: 10
   periodSeconds: 5
@@ -139,7 +139,7 @@ livenessProbe:
 ##
 readinessProbe:
   httpGet:
-    path: /swagger-ui.html
+    path: /api/actuator
     port: 8081
   initialDelaySeconds: 10
   periodSeconds: 5
