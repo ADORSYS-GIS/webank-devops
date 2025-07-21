@@ -19,13 +19,17 @@ spec:
 
         userapp:
           image:
-            tag: 48fe41a693ee6e26e440790b6b109e7d4178846c
+            tag: 60cca58eaae4e5dd87b2666e9d1876cc619e3683
             pullPolicy: Always
           env:
             - name: VITE_WEBANK_OBS_URL
               value: '/api'
             - name: VITE_WEBANK_PRS_URL
               value: '/api/prs'
+            - name: VITE_WEBANK_WEBAUTH_RP_ID
+              value: https://dev.webank.gis.ssegning.com/
+            - name: VITE_WEBANK_WEBAUTH_RP_NAME
+              value: webank
           envFrom:
           - secretRef:
               name: webank-userapp-secret
@@ -48,7 +52,7 @@ spec:
 
         prs:
           image:
-            tag: cc0a6dfdea7911c50a7719e498e277c00b8813fb
+            tag: 9a63035a86cd140249f6b633c07cb7a678845e32
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
