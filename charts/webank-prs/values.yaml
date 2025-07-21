@@ -116,10 +116,10 @@ image:
   registry: ghcr.io
   ## Specify a Repository for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  repository: adorsys-gis/webank-prs
+  repository: adorsys-gis/webank-pending-registration-service
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: native-fed9a8ded69ce8b3ee16c8b7b403f5a963d7c9bd
+  tag: sha-0321bea397c9a8eec8f3c3a1e0f4d44bd3772cc1
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
