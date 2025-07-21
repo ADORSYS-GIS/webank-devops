@@ -34,6 +34,37 @@ entries:
     version: 1.3.1
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-07-21T13:31:29.508758993Z"
+    dependencies:
+    - alias: obs
+      name: webank-obs
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.3.0-rc.1
+    - alias: userapp
+      name: webank-userapp
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.1.0-rc1
+    - alias: prs
+      name: webank-prs
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.2.0-rc.4
+    - alias: db
+      condition: db.enabled
+      name: postgresql
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 16.2.3
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 5b17240cfb3df5d0b17490e3965592936376d54b32dc34ce6e7840d19024fa7b
+    name: webank
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-1.3.1-rc.5/webank-1.3.1-rc.5.tgz
+    version: 1.3.1-rc.5
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-07-21T09:51:04.532207078Z"
     dependencies:
     - alias: obs
@@ -4937,4 +4968,4 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-userapp-0.1.0/webank-userapp-0.1.0.tgz
     version: 0.1.0
-generated: "2025-07-21T13:29:27.399534257Z"
+generated: "2025-07-21T13:31:29.509320379Z"
