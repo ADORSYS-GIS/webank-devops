@@ -103,7 +103,7 @@ image:
   registry: ghcr.io
   ## Specify a Repository for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  repository: adorsys-gis/webank-online-banking
+  repository: adorsys-gis/webank-onlinebanking
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   tag: sha-c8ebfafb96648f1d121d0bb550444e568338ec6a
