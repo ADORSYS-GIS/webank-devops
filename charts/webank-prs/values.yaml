@@ -119,7 +119,7 @@ image:
   repository: adorsys-gis/webank-pending-registration-service
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: sha-0321bea397c9a8eec8f3c3a1e0f4d44bd3772cc1
+  tag: sha-30380368cc06bae693bff03678a8e0b923f20c1c
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""

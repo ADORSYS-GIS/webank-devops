@@ -52,7 +52,7 @@ spec:
 
         prs:
           image:
-            tag: sha-0321bea397c9a8eec8f3c3a1e0f4d44bd3772cc1
+            tag: sha-30380368cc06bae693bff03678a8e0b923f20c1c
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
