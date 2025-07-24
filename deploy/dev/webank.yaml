@@ -36,7 +36,7 @@ spec:
         
         obs:
           image:
-            tag: sha-62c1cf4241d8cb7aff85a448eb233e18df645d8e
+            tag: sha-338a6728432026b314364151354d51bc4ae56052
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
