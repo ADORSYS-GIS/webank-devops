@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://adorsys-gis.github.io/webank-devops
     chart: webank
-    targetRevision: 1.3.1-rc.12
+    targetRevision: 1.3.1-rc.13
     helm:
       releaseName: webank
       valueFiles:
@@ -26,10 +26,6 @@ spec:
               value: '/api'
             - name: VITE_WEBANK_PRS_URL
               value: '/api/prs'
-            - name: VITE_WEBANK_WEBAUTH_RP_ID
-              value: https://dev.webank.gis.ssegning.com/
-            - name: VITE_WEBANK_WEBAUTH_RP_NAME
-              value: webank
           envFrom:
           - secretRef:
               name: webank-userapp-secret
