@@ -3,6 +3,20 @@ entries:
   fineract-helm-chart:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-08-12T14:15:07.670636107Z"
+    dependencies:
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 9134492d1faa02adaed01d367d9889ebbb56a3d81fce88a96f618b7e5a3a882b
+    name: fineract-helm-chart
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/fineract-helm-chart-0.1.3/fineract-helm-chart-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-08-12T14:04:37.925752091Z"
     dependencies:
     - name: common
@@ -75,6 +89,41 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-1.3.1/webank-1.3.1.tgz
     version: 1.3.1
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2025-08-12T14:15:07.866472671Z"
+    dependencies:
+    - alias: obs
+      name: webank-obs
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.3.0-rc.8
+    - alias: userapp
+      name: webank-userapp
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.1.0-rc.3
+    - alias: prs
+      name: webank-prs
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 1.2.0-rc.4
+    - alias: fineract
+      name: fineract-helm-chart
+      repository: https://ADORSYS-GIS.github.io/webank-devops/
+      version: 0.1.2
+    - alias: db
+      condition: db.enabled
+      name: postgresql
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 16.2.3
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 194b0fc34d5c40863cfee87701b6a2bb0bc02e9c7024f9df58c9f229448715dd
+    name: webank
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-1.3.1-rc.17/webank-1.3.1-rc.17.tgz
+    version: 1.3.1-rc.17
   - apiVersion: v2
     appVersion: 1.16.0
     created: "2025-08-12T12:49:14.030705738Z"
@@ -5590,4 +5639,4 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-userapp-0.1.0/webank-userapp-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-12T14:04:37.926349391Z"
+generated: "2025-08-12T14:15:07.867185963Z"
