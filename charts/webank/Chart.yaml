@@ -21,10 +21,10 @@ dependencies:
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
     version: 1.2.0-rc.4
     alias: prs
-  - name: fineract
-    repository: "https://ADORSYS-GIS.github.io/webank-devops/"
-    version: "0.1.0" 
-    alias: fineract
+  # - name: fineract
+  #   repository: "https://ADORSYS-GIS.github.io/webank-devops/"
+  #   version: "0.1.0" 
+  #   alias: fineract
   - name: postgresql
     repository: "https://repo.broadcom.com/bitnami-files/"
     version: 16.2.3
