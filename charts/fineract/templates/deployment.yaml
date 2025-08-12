@@ -32,6 +32,19 @@ spec:
       serviceAccountName: {{ include "common.names.fullname" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-mydb
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - |
+              echo -e "Checking for the availability of PostgreSQL server deployment"
+              while ! nc -z "{{ .Values.externalDatabase.host }}" "{{ .Values.externalDatabase.port }}"; do
+                sleep 1
+                printf "."
+              done
+              echo -e " >> PostgreSQL server has started"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -81,19 +94,6 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      initContainers:
-        - name: init-mydb
-          image: busybox:1.28
-          command:
-            - sh
-            - -c
-            - |
-              echo -e "Checking for the availability of PostgreSQL server deployment";
-              while ! nc -z "{{ .Values.externalDatabase.host }}" {{ .Values.externalDatabase.port }}; do
-                sleep 1;
-                printf "-";
-              done;
-              echo -e " >> PostgreSQL server has started";
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
