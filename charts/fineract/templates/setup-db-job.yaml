@@ -1,4 +1,4 @@
-{{- if .Values.externalDatabase.host }}
+{{- if .Values.Database.host }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -16,16 +16,16 @@ spec:
           image: postgres:14
           env:
             - name: PGHOST
-              value: {{ .Values.externalDatabase.host | quote }}
+              value: {{ .Values.Database.host | quote }}
             - name: PGPORT
-              value: {{ .Values.externalDatabase.port | quote }}
+              value: {{ .Values.Database.port | quote }}
             - name: PGUSER
-              value: {{ .Values.externalDatabase.user | quote }}
+              value: {{ .Values.Database.user | quote }}
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.externalDatabase.secretName }}
-                  key: {{ .Values.externalDatabase.secretKey }}
+                  name: {{ .Values.Database.secretName }}
+                  key: {{ .Values.Database.secretKey }}
           command:
             - sh
             - "-c"

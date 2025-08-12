@@ -40,7 +40,7 @@ spec:
             - -c
             - |
               echo -e "Checking for the availability of PostgreSQL server deployment"
-              while ! nc -z "{{ .Values.externalDatabase.host }}" "{{ .Values.externalDatabase.port }}"; do
+              while ! nc -z "{{ .Values.Database.host }}" "{{ .Values.Database.port }}"; do
                 sleep 1
                 printf "."
               done
@@ -51,35 +51,35 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          # env:
-          #   - name: FINERACT_NODE_ID
-          #     value: "1"
-          #   - name: FINERACT_HIKARI_DRIVER_SOURCE_CLASS_NAME
-          #     value: org.postgresql.Driver
-          #   - name: FINERACT_HIKARI_JDBC_URL
-          #     value: "jdbc:postgresql://{{ .Values.externalDatabase.host }}:{{ .Values.externalDatabase.port }}/{{ .Values.externalDatabase.name }}"
-          #   - name: FINERACT_HIKARI_USERNAME
-          #     value: "{{ .Values.externalDatabase.user }}"
-          #   - name: FINERACT_HIKARI_PASSWORD
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: {{ .Values.externalDatabase.secretName }}
-          #         key: {{ .Values.externalDatabase.secretKey }}
-          #   - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
-          #     value: "{{ .Values.externalDatabase.host }}"
-          #   - name: FINERACT_DEFAULT_TENANTDB_PORT
-          #     value: "{{ .Values.externalDatabase.port | quote }}"
-          #   - name: FINERACT_DEFAULT_TENANTDB_UID
-          #     value: "{{ .Values.externalDatabase.user }}"
-          #   - name: FINERACT_DEFAULT_TENANTDB_PWD
-          #     valueFrom:
-          #       secretKeyRef:
-          #         name: {{ .Values.externalDatabase.secretName }}
-          #         key: {{ .Values.externalDatabase.secretKey }}
-          #   - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
-          #     value: ""
-          #   - name: JAVA_TOOL_OPTIONS
-          #     value: "-Xmx1G"
+          env:
+            - name: FINERACT_NODE_ID
+              value: "1"
+            - name: FINERACT_HIKARI_DRIVER_SOURCE_CLASS_NAME
+              value: org.postgresql.Driver
+            - name: FINERACT_HIKARI_JDBC_URL
+              value: "jdbc:postgresql://{{ .Values.Database.host }}:{{ .Values.Database.port }}/{{ .Values.Database.name }}"
+            - name: FINERACT_HIKARI_USERNAME
+              value: "{{ .Values.Database.user }}"
+            - name: FINERACT_HIKARI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.Database.secretName }}
+                  key: {{ .Values.Database.secretKey }}
+            - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
+              value: "{{ .Values.Database.host }}"
+            - name: FINERACT_DEFAULT_TENANTDB_PORT
+              value: "{{ .Values.Database.port | quote }}"
+            - name: FINERACT_DEFAULT_TENANTDB_UID
+              value: "{{ .Values.Database.user }}"
+            - name: FINERACT_DEFAULT_TENANTDB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.Database.secretName }}
+                  key: {{ .Values.Database.secretKey }}
+            - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
+              value: ""
+            - name: JAVA_TOOL_OPTIONS
+              value: "-Xmx1G"
           ports:
             - name: https
               containerPort: {{ .Values.service.port }}
