@@ -35,7 +35,7 @@ spec:
             {{- end }}
             backend:
               service:
-                name: {{ include "fineract-helm-chart.fullname" $ }}
+                name: {{ include "common.names.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}

@@ -144,7 +144,7 @@ externalDatabase:
 
 # Disable the embedded postgresql chart
 postgresql:
-  enabled: false # <--- THIS IS THE KEY CHANGE
+  enabled: false
   auth:
     postgresPassword: "postgres"
     username: "postgres"
