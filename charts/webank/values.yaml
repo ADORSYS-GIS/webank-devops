@@ -31,6 +31,10 @@ userapp:
     enabled: false
   env:
 
+fineract:
+  ingress:
+    enabled: false
+
 global:
   postgresql:
     auth:
