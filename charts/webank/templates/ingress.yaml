@@ -39,6 +39,13 @@ spec:
                 name: {{ $.Release.Name }}-prs
                 port:
                   number: {{ include "common.tplvalues.render" (dict "value" $.Values.prs.service.port "context" $) }}
+          - path: /fineract-provider
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Release.Name }}-fineract
+                port:
+                  number: {{ include "common.tplvalues.render" (dict "value" $.Values.fineract.service.port "context" $) }}
 
   {{ if .tls }}
   tls:
