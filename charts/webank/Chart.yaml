@@ -21,7 +21,7 @@ dependencies:
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
     version: 1.2.0-rc.4
     alias: prs
-  - name: fineract-helm-chart
+  - name: fineract
     repository: "https://ADORSYS-GIS.github.io/webank-devops/"
     version: "0.2.0" 
     alias: fineract
