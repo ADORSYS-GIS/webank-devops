@@ -5,9 +5,9 @@ metadata:
   name: {{ include "common.names.fullname" . }}
   labels:
     {{- include "common.labels.standard" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+  {{- with include "common.annotations.standard" ( dict "customAnnotations" .Values.ingress.annotations "context" $ ) }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+    {{- . | nindent 4 }}
   {{- end }}
 spec:
   {{- with .Values.ingress.className }}

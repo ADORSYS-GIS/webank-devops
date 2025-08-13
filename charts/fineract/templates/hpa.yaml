@@ -5,6 +5,10 @@ metadata:
   name: {{ include "common.names.fullname" . }}
   labels:
     {{- include "common.labels.standard" . | nindent 4 }}
+  {{- with include "common.annotations.standard" ( dict "customAnnotations" .Values.commonAnnotations "context" $ ) }}
+  annotations:
+    {{- . | nindent 4 }}
+  {{- end }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

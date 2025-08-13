@@ -15,17 +15,14 @@ spec:
     {{- toYaml .Values.strategy | nindent 4 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- with include "common.annotations.standard" ( dict "customAnnotations" .Values.commonAnnotations "context" $ ) }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "common.labels.standard" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with .Values.image.pullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -49,32 +46,35 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{ $imageTpl := include "common.images.image" (dict "imageRoot" .Values.image "global" $.Values.global) }}
+          image: {{ include "common.tplvalues.render" (dict "value" $imageTpl "context" $) | quote }}
+          {{ with .Values.image.pullPolicy }}
+          imagePullPolicy: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+          {{- end }}
           env:
             - name: FINERACT_NODE_ID
               value: "1"
             - name: FINERACT_HIKARI_DRIVER_SOURCE_CLASS_NAME
               value: org.postgresql.Driver
             - name: FINERACT_HIKARI_JDBC_URL
-              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
+              value: {{ template "constant.db.url" . }}
             - name: FINERACT_HIKARI_USERNAME
-              value: "{{ .Values.database.user }}"
+              value: {{ .Values.database.user }}
             - name: FINERACT_HIKARI_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.database.secretName }}
+                  name: {{ template "db.secret.name" . }}
                   key: {{ .Values.database.secretKey }}
             - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
-              value: "{{ .Values.database.host }}"
+              value: {{ .Values.database.host }}
             - name: FINERACT_DEFAULT_TENANTDB_PORT
-              value: "{{ .Values.database.port | quote }}"
+              value: {{ .Values.database.port | quote }}
             - name: FINERACT_DEFAULT_TENANTDB_UID
-              value: "{{ .Values.database.user }}"
+              value: {{ .Values.database.user }}
             - name: FINERACT_DEFAULT_TENANTDB_PWD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.database.secretName }}
+                  name: {{ template "db.secret.name" . }}
                   key: {{ .Values.database.secretKey }}
             - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
               value: ""

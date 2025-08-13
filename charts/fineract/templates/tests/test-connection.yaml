@@ -6,6 +6,9 @@ metadata:
     {{- include "common.labels.standard" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
+    {{- with include "common.annotations.standard" ( dict "customAnnotations" .Values.commonAnnotations "context" $ ) }}
+    {{- . | nindent 4 }}
+    {{- end }}
 spec:
   containers:
     - name: wget

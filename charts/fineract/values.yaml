@@ -19,6 +19,13 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+# @param commonLabels Labels to add to all deployed resources
+##
+commonLabels: {}
+## @param commonAnnotations Annotations to add to all deployed resources
+##
+commonAnnotations: {}
+
 #This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
   # Specifies whether a service account should be created
@@ -135,28 +142,26 @@ affinity: {}
 
 # This new section will hold connection details for the external RDS
 database:
-  host: ""
+  ##
+  ##
+  name: 'fineract_tenants'
+  ##
+  ##
+  host: 'webank-db'
+  ##
+  ##
   port: 5432
-  name: "fineract_tenants"
-  user: "postgres"
-  secretName: "rds-secret" # Default secret name, can be overridden
-  secretKey: "password"
+  ##
+  ##
+  user: fineract
+  ##
+  ##
+  password: password
+  ##
+  ##
+  secretName: ~
+  ##
+  ##
+  secretKey: password
 
-# Disable the embedded postgresql chart
-postgresql:
-  enabled: false
-  auth:
-    postgresPassword: "postgres"
-    username: "postgres"
-    password: "postgres"
-    database: "fineract_tenants"
-  primary:
-    initdb:
-      scripts:
-        init.sql: |
-          CREATE DATABASE fineract_default;
-          GRANT ALL PRIVILEGES ON DATABASE fineract_default TO postgres;
 
-  persistence:
-    enabled: true
-    size: 8Gi
