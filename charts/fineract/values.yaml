@@ -153,15 +153,15 @@ database:
   port: 5432
   ##
   ##
-  user: fineract
+  user: 'webank-user'
   ##
   ##
-  password: password
+  password: 'webank-password'
   ##
   ##
   secretName: ~
   ##
   ##
-  secretKey: password
+  secretKey: 'password'
 
 

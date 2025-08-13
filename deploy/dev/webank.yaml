@@ -67,13 +67,12 @@ spec:
             repository: apache/fineract
             tag: "latest" 
             pullPolicy: IfNotPresent
-          
-          # Override the database configuration to point to AWS RDS
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
-            name: "fineract_tenants" # Target the primary tenants database
-            user: "webank"
-            password: "password"
+            name: "fineract_tenants"
+            user: "webank-user"
+            password: "webank-password"
+            secretName: "rds-secret"
             secretKey: "password"
 
         ingress:
