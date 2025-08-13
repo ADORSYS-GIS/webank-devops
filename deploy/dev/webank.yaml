@@ -67,13 +67,14 @@ spec:
             repository: apache/fineract
             tag: "latest" 
             pullPolicy: IfNotPresent
+          envFrom:
+          - secretRef:
+              name: webank-fineract-secret
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
-            name: "fineract_tenants"
-            user: "webank-user"
-            password: "webank-password"
-            secretName: "rds-secret"
-            secretKey: "password"
+            name: fineract_tenants
+            user: fineract
+            secretName: rds-secret
 
         ingress:
           host: dev.webank.gis.ssegning.com

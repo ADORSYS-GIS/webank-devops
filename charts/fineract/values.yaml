@@ -147,21 +147,21 @@ database:
   name: 'fineract_tenants'
   ##
   ##
-  host: 'webank-db'
+  host: webank-db
   ##
   ##
   port: 5432
   ##
   ##
-  user: 'webank-user'
+  user: webank-user
   ##
   ##
-  password: 'webank-password'
+  password: webank-password
   ##
   ##
   secretName: ~
   ##
   ##
-  secretKey: 'password'
+  secretKey: password
 
 
