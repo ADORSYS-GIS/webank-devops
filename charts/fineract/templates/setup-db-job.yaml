@@ -24,7 +24,7 @@ spec:
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: '{{ include "db.secret.name" . }}'
+                  name: {{ template "db.secret.name" . }}
                   key: {{ .Values.database.secretKey }}
           command:
             - sh
