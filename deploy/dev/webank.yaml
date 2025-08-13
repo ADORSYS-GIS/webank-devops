@@ -73,7 +73,7 @@ spec:
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: fineract_tenants
-            user: fineract
+            user: webank
             secretName: rds-secret
 
         ingress:
