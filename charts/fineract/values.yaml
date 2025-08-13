@@ -134,7 +134,7 @@ tolerations: []
 affinity: {}
 
 # This new section will hold connection details for the external RDS
-Database:
+database:
   host: ""
   port: 5432
   name: "fineract_tenants"

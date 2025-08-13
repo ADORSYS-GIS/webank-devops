@@ -40,7 +40,7 @@ spec:
             - -c
             - |
               echo -e "Checking for the availability of PostgreSQL server deployment"
-              while ! nc -z "{{ .Values.Database.host }}" "{{ .Values.Database.port }}"; do
+              while ! nc -z "{{ .Values.database.host }}" "{{ .Values.database.port }}"; do
                 sleep 1
                 printf "."
               done
@@ -57,25 +57,25 @@ spec:
             - name: FINERACT_HIKARI_DRIVER_SOURCE_CLASS_NAME
               value: org.postgresql.Driver
             - name: FINERACT_HIKARI_JDBC_URL
-              value: "jdbc:postgresql://{{ .Values.Database.host }}:{{ .Values.Database.port }}/{{ .Values.Database.name }}"
+              value: "jdbc:postgresql://{{ .Values.database.host }}:{{ .Values.database.port }}/{{ .Values.database.name }}"
             - name: FINERACT_HIKARI_USERNAME
-              value: "{{ .Values.Database.user }}"
+              value: "{{ .Values.database.user }}"
             - name: FINERACT_HIKARI_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.Database.secretName }}
-                  key: {{ .Values.Database.secretKey }}
+                  name: {{ .Values.database.secretName }}
+                  key: {{ .Values.database.secretKey }}
             - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
-              value: "{{ .Values.Database.host }}"
+              value: "{{ .Values.database.host }}"
             - name: FINERACT_DEFAULT_TENANTDB_PORT
-              value: "{{ .Values.Database.port | quote }}"
+              value: "{{ .Values.database.port | quote }}"
             - name: FINERACT_DEFAULT_TENANTDB_UID
-              value: "{{ .Values.Database.user }}"
+              value: "{{ .Values.database.user }}"
             - name: FINERACT_DEFAULT_TENANTDB_PWD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.Database.secretName }}
-                  key: {{ .Values.Database.secretKey }}
+                  name: {{ .Values.database.secretName }}
+                  key: {{ .Values.database.secretKey }}
             - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
               value: ""
             - name: JAVA_TOOL_OPTIONS

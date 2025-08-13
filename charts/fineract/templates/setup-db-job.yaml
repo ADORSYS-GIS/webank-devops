@@ -1,4 +1,4 @@
-{{- if .Values.Database.host }}
+{{- if .Values.database.host }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -16,26 +16,26 @@ spec:
           image: postgres:14
           env:
             - name: PGHOST
-              value: {{ .Values.Database.host | quote }}
+              value: {{ .Values.database.host | quote }}
             - name: PGPORT
-              value: {{ .Values.Database.port | quote }}
+              value: {{ .Values.database.port | quote }}
             - name: PGUSER
-              value: {{ .Values.Database.user | quote }}
+              value: {{ .Values.database.user | quote }}
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.Database.secretName }}
-                  key: {{ .Values.Database.secretKey }}
+                  name: {{ .Values.database.secretName }}
+                  key: {{ .Values.database.secretKey }}
           command:
             - sh
             - "-c"
             - |
               echo "Checking if database fineract_default exists..."
               if psql -lqt | cut -d \| -f 1 | grep -qw fineract_default; then
-                echo "Database fineract_default already exists."
+                echo "database fineract_default already exists."
               else
-                echo "Database fineract_default does not exist. Creating..."
+                echo "database fineract_default does not exist. Creating..."
                 createdb fineract_default
-                echo "Database fineract_default created."
+                echo "database fineract_default created."
               fi
 {{- end }}
