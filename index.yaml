@@ -3,6 +3,20 @@ entries:
   fineract:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-08-13T15:05:26.162934207Z"
+    dependencies:
+    - name: common
+      repository: https://repo.broadcom.com/bitnami-files/
+      version: 2.27.0
+    description: A Helm chart for Kubernetes
+    digest: 9c81c1a0c9a81d6a8964bc7421a4c0abc0dd1ba8c4e18ca76199e4698100fc03
+    name: fineract
+    type: application
+    urls:
+    - https://github.com/ADORSYS-GIS/webank-devops/releases/download/fineract-0.2.3/fineract-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-08-13T14:26:37.820451513Z"
     dependencies:
     - name: common
@@ -6095,4 +6109,4 @@ entries:
     urls:
     - https://github.com/ADORSYS-GIS/webank-devops/releases/download/webank-userapp-0.1.0/webank-userapp-0.1.0.tgz
     version: 0.1.0
-generated: "2025-08-13T14:32:38.341281577Z"
+generated: "2025-08-13T15:05:26.163506521Z"
