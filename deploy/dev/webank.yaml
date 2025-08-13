@@ -72,8 +72,8 @@ spec:
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: "fineract_tenants" # Target the primary tenants database
-            user: "webank"
-            secretName: "rds-secret" 
+            user: "fineract"
+            password: "password"
             secretKey: "password"
 
         ingress:
