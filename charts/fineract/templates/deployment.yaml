@@ -80,6 +80,8 @@ spec:
               value: ""
             - name: JAVA_TOOL_OPTIONS
               value: "-Xmx1G"
+            - name: FINERACT_SERVER_SSL_ENABLED
+              value: "false"
           ports:
             - name: https
               containerPort: {{ .Values.service.port }}
