@@ -75,6 +75,9 @@ spec:
             name: fineract_tenants
             user: webank
             secretName: rds-secret
+          ingress:
+            annotations:
+              alb.ingress.kubernetes.io/backend-protocol: HTTPS
 
         ingress:
           host: dev.webank.gis.ssegning.com
