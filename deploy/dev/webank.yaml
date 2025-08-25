@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://adorsys-gis.github.io/webank-devops
     chart: webank
-    targetRevision: 1.2.0-rc.2
+    targetRevision: 1.3.0-rc-1
     helm:
       releaseName: webank
       valueFiles:
@@ -18,7 +18,7 @@ spec:
           enabled: false
         userapp:
           image:
-            tag: 0a91ca2869b070bca6e781ad0264ff4640f77e78
+            tag: 48fe41a693ee6e26e440790b6b109e7d4178846c
             pullPolicy: Always
           env:
             - name: VITE_WEBANK_OBS_URL
@@ -31,15 +31,14 @@ spec:
         
         obs:
           image:
-            tag: bd93440d5977debae17cf9552913d91fe44a907d
+            tag: d0c5027ef0abdbcf28c9a0428a8e8a5d9f316dc9
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
             value: postgres
           envFrom:
           - secretRef:
-              name: webank-obs-secret
-           
+              name: webank-obs-secret           
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
@@ -48,7 +47,7 @@ spec:
 
         prs:
           image:
-            tag: cf473e31804906edaf95e1ca3cced343a63b221c
+            tag: 4c18e7a15960e56904b3d338e5369d118b770861
             pullPolicy: Always
           env: 
           - name: SPRING_PROFILES_ACTIVE
@@ -56,7 +55,6 @@ spec:
           envFrom:
           - secretRef:
               name: webank-prs-secret
-
           database:
             host: webank-dev-env-db.cp4v71vs2xe2.eu-central-1.rds.amazonaws.com
             name: webank_dev_env
