@@ -124,26 +124,6 @@ image:
   ##
   pullSecrets: []
 
-## Liveness probe values
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-##
-livenessProbe:
-  httpGet:
-    path: /api/actuator
-    port: 8081
-  initialDelaySeconds: 10
-  periodSeconds: 5
-
-## Readiness probe values
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-##
-readinessProbe:
-  httpGet:
-    path: /api/actuator
-    port: 8081
-  initialDelaySeconds: 10
-  periodSeconds: 5
-
 ## @param service Kubernetes service configuration
 ##
 service:
