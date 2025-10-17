@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - feat/deploy-over-argocd
+      - feat/prometheus-backend-integration
 
 jobs:
   release:

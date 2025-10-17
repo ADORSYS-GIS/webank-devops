@@ -1,0 +1,61 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "webank-monitoring.fullname" . }}-ingress
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ include "webank-monitoring.name" . }}
+  annotations:
+    alb.ingress.kubernetes.io/tags: Environment=dev,Owner=webank
+    alb.ingress.kubernetes.io/load-balancer-name: webank-monitoring-dev
+    alb.ingress.kubernetes.io/listen-ports: |
+      [{ "HTTP":80 }, { "HTTPS":443 }]
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/target-type: "ip"
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:eu-central-1:571075516563:certificate/1cee4019-ba69-40a8-a888-95f62a376f88"
+    external-dns.alpha.kubernetes.io/hostname: |
+      grafana.{{ .Values.ingress.domain }},\
+      prometheus.{{ .Values.ingress.domain }},\
+      alertmanager.{{ .Values.ingress.domain }}
+
+spec:
+  ingressClassName: alb
+  rules:
+    - host: grafana.{{ .Values.ingress.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "webank-monitoring.fullname" . }}-grafana
+                port:
+                  number: {{ .Values.grafana.service.port }}
+    - host: prometheus.{{ .Values.ingress.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "webank-monitoring.fullname" . }}-prometheus
+                port:
+                  number: {{ .Values.prometheus.service.port }}
+    - host: alertmanager.{{ .Values.ingress.domain }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: alertmanager
+                port:
+                  number: {{ .Values.alertmanager.service.port }}
+  tls:
+    - hosts:
+        - grafana.{{ .Values.ingress.domain }}
+        - prometheus.{{ .Values.ingress.domain }}
+        - alertmanager.{{ .Values.ingress.domain }}
+{{- end }}

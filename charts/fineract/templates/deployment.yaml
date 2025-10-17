@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  template:
+    metadata:
+      {{- with include "common.annotations.standard" ( dict "customAnnotations" .Values.commonAnnotations "context" $ ) }}
+      annotations:
+        {{- . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "common.labels.standard" ( dict "customLabels" .Values.commonLabels "context" $ ) | nindent 8 }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "common.names.fullname" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: init-mydb
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - |
+              echo -e "Checking for the availability of PostgreSQL server deployment"
+              while ! nc -z "{{ .Values.database.host }}" "{{ .Values.database.port }}"; do
+                sleep 1
+                printf "."
+              done
+              echo -e " >> PostgreSQL server has started"
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          {{ $imageTpl := include "common.images.image" (dict "imageRoot" .Values.image "global" $.Values.global) }}
+          image: {{ include "common.tplvalues.render" (dict "value" $imageTpl "context" $) | quote }}
+          {{ with .Values.image.pullPolicy }}
+          imagePullPolicy: {{ include "common.tplvalues.render" (dict "value" . "context" $) }}
+          {{- end }}
+          env:
+            - name: FINERACT_NODE_ID
+              value: "1"
+            - name: FINERACT_HIKARI_DRIVER_SOURCE_CLASS_NAME
+              value: org.postgresql.Driver
+            - name: FINERACT_HIKARI_JDBC_URL
+              value: {{ template "constant.db.url" . }}
+            - name: FINERACT_HIKARI_USERNAME
+              value: {{ .Values.database.user }}
+            - name: FINERACT_HIKARI_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "db.secret.name" . }}
+                  key: {{ .Values.database.secretKey }}
+            - name: FINERACT_DEFAULT_TENANTDB_HOSTNAME
+              value: {{ .Values.database.host }}
+            - name: FINERACT_DEFAULT_TENANTDB_PORT
+              value: {{ .Values.database.port | quote }}
+            - name: FINERACT_DEFAULT_TENANTDB_UID
+              value: {{ .Values.database.user }}
+            - name: FINERACT_DEFAULT_TENANTDB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "db.secret.name" . }}
+                  key: {{ .Values.database.secretKey }}
+            - name: FINERACT_DEFAULT_TENANTDB_CONN_PARAMS
+              value: ""
+            - name: JAVA_TOOL_OPTIONS
+              value: "-Xmx1G"
+            - name: FINERACT_SERVER_SSL_ENABLED
+              value: "false"
+          ports:
+            - name: https
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

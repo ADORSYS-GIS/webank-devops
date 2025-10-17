@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "webank-monitoring.fullname" . }}-grafana-dashboards
+  labels:
+    grafana_dashboard: "1"
+data:
+  example-dashboard.json: |
+    {
+      "__inputs": [],
+      "__requires": [],
+      "title": "Example Dashboard",
+      "panels": [
+        {
+          "type": "text",
+          "title": "Hello Grafana",
+          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+          "options": {
+            "content": "Welcome to your Grafana setup!",
+            "mode": "markdown"
+          }
+        }
+      ],
+      "schemaVersion": 27,
+      "version": 1,
+      "editable": true
+    }

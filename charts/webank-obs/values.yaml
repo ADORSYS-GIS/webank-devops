@@ -103,10 +103,10 @@ image:
   registry: ghcr.io
   ## Specify a Repository for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  repository: adorsys-gis/webank-online-banking
+  repository: adorsys-gis/webank-onlinebanking
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: bd93440d5977debae17cf9552913d91fe44a907d
+  tag: sha-59e1a3df24f4970e41cc47273de4d613eeca6e7d
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
@@ -123,27 +123,6 @@ image:
   ##   - name: myRegistryKeySecretName
   ##
   pullSecrets: []
-
-
-## Liveness probe values
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-##
-livenessProbe:
-  httpGet:
-    path: /swagger-ui.html
-    port: 8081
-  initialDelaySeconds: 10
-  periodSeconds: 5
-
-## Readiness probe values
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-##
-readinessProbe:
-  httpGet:
-    path: /swagger-ui.html
-    port: 8081
-  initialDelaySeconds: 10
-  periodSeconds: 5
 
 ## @param service Kubernetes service configuration
 ##

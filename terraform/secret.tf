@@ -41,6 +41,18 @@ resource "kubernetes_secret" "webank_obs_secret" {
 }
 }
 
+resource "kubernetes_secret" "webank_monitoring_secret" {  
+  metadata {
+    name      = "webank-monitoring-secret"
+    namespace = "monitoring"
+  }
+  data = {
+    admin-user = var.admin_user
+    admin-password = var.admin_password
+
+}
+}
+
 resource "kubernetes_secret" "webank_userapp_secret" {  
   metadata {
     name      = "webank-userapp-secret"

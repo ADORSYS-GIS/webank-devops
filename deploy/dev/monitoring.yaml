@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: webank-monitoring
+  namespace: argocd
+spec:
+  project: application
+  source:
+    repoURL: https://adorsys-gis.github.io/webank-devops
+    chart: webank-monitoring
+    targetRevision: 0.1.1-rc.17
+    helm:
+      valueFiles:
+        - values.yaml
+      valuesObject:
+        ingress:
+          enabled: true
+          domain: dev.webank.gis.ssegning.com
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+    revisionHistoryLimit: 4

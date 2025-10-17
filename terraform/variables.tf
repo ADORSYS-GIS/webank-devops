@@ -172,3 +172,13 @@ variable "userapp_teller_password" {
   type        = string
   sensitive   = true
 }
+
+variable "admin_user" {
+  description = "Admin username for monitoring"
+  type        = string
+}
+
+variable "admin_password" {
+  description = "Admin password for monitoring"
+  type        = string
+}

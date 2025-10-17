@@ -116,10 +116,10 @@ image:
   registry: ghcr.io
   ## Specify a Repository for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  repository: adorsys-gis/webank-prs
+  repository: adorsys-gis/webank-pending-registration-service
   ## Specify a Tag for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
-  tag: cf473e31804906edaf95e1ca3cced343a63b221c
+  tag: sha-30380368cc06bae693bff03678a8e0b923f20c1c
   ## Specify a digest for the image
   ## ref: https://kubernetes.io/docs/concepts/containers/images
   digest: ""
@@ -142,7 +142,7 @@ image:
 ##
 livenessProbe:
   httpGet:
-    path: /swagger-ui.html
+    path: /api/prs/actuator
     port: 8080
   initialDelaySeconds: 10
   periodSeconds: 5
@@ -152,7 +152,7 @@ livenessProbe:
 ##
 readinessProbe:
   httpGet:
-    path: /swagger-ui.html
+    path: /api/prs/actuator
     port: 8080
   initialDelaySeconds: 10
   periodSeconds: 5
