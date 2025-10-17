@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feat/deploy-over-argocd
+      - hotfix/deploy-with-normal-jvm-image
 
 jobs:
   release:
