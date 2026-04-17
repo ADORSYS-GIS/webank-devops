@@ -78,8 +78,7 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          terraform plan -destroy -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
-
+          terraform plan -destroy -lock=false -var-file=${{ matrix.name }}.tfvars -out=plan.tfplan
       - name: Terraform Destroy
         if: github.event_name == 'workflow_dispatch'
         run: |
